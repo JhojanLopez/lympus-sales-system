@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<!--
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this template
+-->
+<html xmlns="http://www.w3.org/1999/xhtml"  
+      xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <title>Inicio</title>
+        <meta charset="UTF-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <!-- Link boostrap -->
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+            <!-- font awesome usado para iconos svg -->
+        <link rel="stylesheet" th:href="@{/webjars/font-awesome/css/all.css}"/>
+
+
+
+    </head>
+    <body>
+        <header>
+            <div class="container-fluid" style="background-color: rgb(248, 242, 242);">
+                <div class="row">
+                    <div class="col-1">
+                        <form method="POST" th:action="@{/logout}">
+                            <a href="#" onclick="this.parentNode.submit();">Salir</a>
+                        </form>  
+                    </div>
+
+                    <div class="col-11">
+                        <nav aria-label="breadcrumb">
+                            <ol class="breadcrumb justify-content-end">
+                                <li class="breadcrumb-item"><a th:href="@{/configuracion}">Config</a></li>
+                                <img src="/iconos/Gear.png" width="40" alt="auto" class="img-fluid"/>
+                            </ol>
+                        </nav>
+
+
+                    </div>
+                </div>
+
+
+
+                <div class="row">
+                    <div class="col">
+                        <div class="text-center">
+                            <h1>Sistema de ventas salsamentaria L y M</h1>
+                        </div>
+
+                        <hr/>
+                    </div>
+                </div>
+        </header>
+
+        <div class="row">
+
+            <div class="col">
+
+                <div class="card" style="width: 18rem;">
+
+                    <div class="card-body">
+                        <img class="card-img-top" src="/img/cash.webp" alt="Card image cap">
+                            <h5 class="card-title">Ventas</h5>
+                            <p class="card-text">Realice ventas y facture</p>
+                            <a <a th:href="@{/ventas}" class="card-link">Acceder</a>
+                    </div>
+                </div>
+
+            </div>
+            <div class="col">
+                <div class="card" style="width: 18rem;">
+                    <div class="card-body">
+                        <img class="card-img-top" src="/img/inven.jpg" alt="Card image cap">
+                            <h5 class="card-title">Inventario</h5>
+                            <p class="card-text">Revise sus productos y lleve control sobre su stock.</p>
+                            <a th:href="@{/inventario}" class="card-link">Acceder</a>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="col">
+                <div class="card" style="width: 18rem;">
+                    <div class="card-body">
+                        <img class="card-img-top" src="/img/reporte.png" alt="Card image cap">
+                            <h5 class="card-title">Reportes</h5>
+                            <p class="card-text">Revise sus ganancias por tiempo</p>
+                            <a th:href="@{/reportes}" class="card-link">Acceder</a>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="col">
+
+                <div class="card" style="width: 18rem;">
+                    <div class="card-body">
+                        <img class="card-img-top" src="/img/buscar.jpg" alt="Card image cap">
+                            <h5 class="card-title">Consultas</h5>
+                            <p class="card-text">Consulte y realice busquedas de productos y facturas</p>
+                            <a href="@{/consultas}" class="card-link">Acceder</a>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- js de bootstrap -->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+    </body>
+</html>

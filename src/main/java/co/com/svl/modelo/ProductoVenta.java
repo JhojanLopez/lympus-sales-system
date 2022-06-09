@@ -1,0 +1,124 @@
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
+
+package co.com.svl.modelo;
+
+import java.io.Serializable;
+import javax.persistence.Basic;
+import javax.persistence.Column;
+import javax.persistence.EmbeddedId;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
+import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
+import javax.xml.bind.annotation.XmlRootElement;
+
+/**
+ *
+ * @author JhojanDS
+ * @email jhojanlopez327@gmail.com
+ */
+@Entity
+@Table(name = "producto_venta")
+@XmlRootElement
+@NamedQueries({
+    @NamedQuery(name = "ProductoVenta.findAll", query = "SELECT p FROM ProductoVenta p"),
+    @NamedQuery(name = "ProductoVenta.findByCodigoVenta", query = "SELECT p FROM ProductoVenta p WHERE p.productoVentaPK.codigoVenta = :codigoVenta"),
+    @NamedQuery(name = "ProductoVenta.findByCodigoProducto", query = "SELECT p FROM ProductoVenta p WHERE p.productoVentaPK.codigoProducto = :codigoProducto"),
+    @NamedQuery(name = "ProductoVenta.findByCantidadVendida", query = "SELECT p FROM ProductoVenta p WHERE p.cantidadVendida = :cantidadVendida")})
+public class ProductoVenta implements Serializable {
+
+    private static final long serialVersionUID = 1L;
+    @EmbeddedId
+    protected ProductoVentaPK productoVentaPK;
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "cantidad_vendida")
+    private double cantidadVendida;
+    @JoinColumn(name = "codigo_producto", referencedColumnName = "codigo", insertable = false, updatable = false)
+    @ManyToOne(optional = false, fetch=FetchType.LAZY)
+    private Producto producto;
+    @JoinColumn(name = "codigo_venta", referencedColumnName = "codigo", insertable = false, updatable = false)
+    @ManyToOne(optional = false, fetch=FetchType.LAZY)
+    private Venta venta;
+
+    public ProductoVenta() {
+    }
+
+    public ProductoVenta(ProductoVentaPK productoVentaPK) {
+        this.productoVentaPK = productoVentaPK;
+    }
+
+    public ProductoVenta(ProductoVentaPK productoVentaPK, long cantidadVendida) {
+        this.productoVentaPK = productoVentaPK;
+        this.cantidadVendida = cantidadVendida;
+    }
+
+    public ProductoVenta(long codigoVenta, long codigoProducto) {
+        this.productoVentaPK = new ProductoVentaPK(codigoVenta, codigoProducto);
+    }
+
+    public ProductoVentaPK getProductoVentaPK() {
+        return productoVentaPK;
+    }
+
+    public void setProductoVentaPK(ProductoVentaPK productoVentaPK) {
+        this.productoVentaPK = productoVentaPK;
+    }
+
+    public double getCantidadVendida() {
+        return cantidadVendida;
+    }
+
+    public void setCantidadVendida(double cantidadVendida) {
+        this.cantidadVendida = cantidadVendida;
+    }
+
+    public Producto getProducto() {
+        return producto;
+    }
+
+    public void setProducto(Producto producto) {
+        this.producto = producto;
+    }
+
+    public Venta getVenta() {
+        return venta;
+    }
+
+    public void setVenta(Venta venta) {
+        this.venta = venta;
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 0;
+        hash += (productoVentaPK != null ? productoVentaPK.hashCode() : 0);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object object) {
+        // TODO: Warning - this method won't work in the case the id fields are not set
+        if (!(object instanceof ProductoVenta)) {
+            return false;
+        }
+        ProductoVenta other = (ProductoVenta) object;
+        if ((this.productoVentaPK == null && other.productoVentaPK != null) || (this.productoVentaPK != null && !this.productoVentaPK.equals(other.productoVentaPK))) {
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    public String toString() {
+        return "co.com.svl.modelo.ProductoVenta[ productoVentaPK=" + productoVentaPK + " ]";
+    }
+
+}
