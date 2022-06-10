@@ -31,22 +31,7 @@ public class ControladorInicio {
         model.addAttribute("usuarios", user);
         return "index";
     }
-       
-    @GetMapping("/mision")
-    public String mision() {
-        return "mision";
-    }
-
-    @GetMapping("/vision")
-    public String vision() {
-        return "vision";
-    }
-
-    @GetMapping("/contacto")
-    public String contacto() {
-        return "contacto";
-    }
-
+ 
     @GetMapping("/configuracion")
     public String configuracion(@AuthenticationPrincipal User user, Model model) {
 
@@ -93,10 +78,6 @@ public class ControladorInicio {
 //        return "inventario";
 //    }
 //    
-//    @GetMapping("/consultas")
-//    public String consultas(@AuthenticationPrincipal User user, Model model) {
-//        return "consultas";
-//    }
 //    
 //    @GetMapping("/reportes")
 //    public String reportes(@AuthenticationPrincipal User user, Model model) {

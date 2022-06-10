@@ -272,22 +272,7 @@ var app = {
             ],
             language: idioma_es
             ,
-            buttons: [{
-                    text: '<i class="fa-solid fa-pen-to-square"></i> Agregar a venta', /*poner icono fontAwesome*/
-                    className: 'btn btn-info',
-                    action: function (e, dt, node, config) {
-                        var data = dt.rows('.table-active').data()[0]; /*obtengo los datos de la fila seleccionada(la que esta con la clase table-active)*/
-                        console.log(data);
-                        if (isObjEmpty(data)) {
-
-                            $('#modalError').modal("show");
-                        } else {
-                            app.setDataAgregar(data);
-                        }
-                    }
-
-
-                },
+            buttons: [
                 {
                     text: '<i class="fa-solid fa-pen-to-square"></i> Editar', /*poner icono fontAwesome*/
                     className: 'btn-editar',
@@ -329,9 +314,6 @@ var app = {
                 $(this).addClass('table-active');
             }
         });
-//        app.table.buttons().container()
-//                .appendTo('#listaProductos_wrapper .btn btn-success');
-
 
     },
     setDataModalEditar(data) {

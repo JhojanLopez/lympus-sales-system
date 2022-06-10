@@ -3,6 +3,11 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Other/javascript.js to edit this template
  */
 $('document').ready(function (){
+    /*usado para que al presionar el btn con la clase edicion
+     * reciba el json que genera dicho link y ponga la informacion,
+     * en este caso el codigo en el id codigoEditar del modal editModal 
+     * y lo muestre
+     * */
     $('.edicion').on('click',function (event){
         event.preventDefault();
         var href=$(this).attr('href');
