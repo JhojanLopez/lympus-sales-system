@@ -21,12 +21,15 @@ import java.util.ArrayList;
 import java.util.List;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.query.Param;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 /**
  *
@@ -49,12 +52,10 @@ public class ControladorVentas {
     private ProductoVentaService productoVentaService;
 
     private List<ProductoListado> listaVentaProductos = new ArrayList<ProductoListado>();
+    private List<Producto> listaBusqueda = new ArrayList<Producto>();
 
     @GetMapping("/ventas")
     public String ventas(@AuthenticationPrincipal User user, Model model) {
-
-        var productos = productoService.listarProductos();
-        model.addAttribute("productos", productos);
 
         var vendedor = obtenerDatosUsuario(user.getAuthorities().toString(), user.getUsername());
         model.addAttribute("vendedor", vendedor);
@@ -64,9 +65,25 @@ public class ControladorVentas {
 
         if (!listaVentaProductos.isEmpty()) {
             model.addAttribute("listaProductosVenta", listaVentaProductos);
+            var total = obtenerTotalVenta();
+            model.addAttribute("total", total);
         }
 
+        if (!listaBusqueda.isEmpty()) {
+            model.addAttribute("listaBusqueda", listaBusqueda);
+        }
         return "ventas";
+    }
+
+    @GetMapping("/busqueda")//filtrara los productos por nombre o descripcion 
+    public String busqueda(@Param("busqueda") String busqueda, Model model) {
+
+        log.info("la palabra a buscar es: " + busqueda);
+
+        listaBusqueda = productoService.encontrarProductoPorNombreOrDescripcion(busqueda.toLowerCase());
+
+        log.info("lista de productos encontrados: " + listaBusqueda.toString());
+        return "redirect:/ventas";
     }
 
     @GetMapping("/agregarProductoVenta/{codigo}")//usado para agregar un producto sin utilizar codigo de barras
@@ -134,6 +151,12 @@ public class ControladorVentas {
         return "redirect:/ventas";
     }
 
+    @GetMapping("/limpiarBusqueda")
+    public String limpiarBusqueda() {
+        listaBusqueda.clear();
+        return "redirect:/ventas";
+    }
+
     @PostMapping("/generarVenta")
     public String generarVenta(@AuthenticationPrincipal User user) {
 
@@ -150,10 +173,10 @@ public class ControladorVentas {
                 guardarVenta(null, empleado);
             }
 
-        }else{
-        
+        } else {
+
             log.info("lista de venta vacia");
-        
+
         }
 
         return "redirect:/ventas";
@@ -171,7 +194,7 @@ public class ControladorVentas {
     }
 
     public void agregarProductoListaVenta(ProductoListado producto) {
-
+        //Metodo usado para agregar cantidad a la lista de la venta si esta dicho producto
         log.info("producto a ingresar en la venta:");
         log.info(producto.toString());
 
@@ -240,14 +263,14 @@ public class ControladorVentas {
             listaVentaProductos.clear();
 
         } else {
-            
+
             //creando venta si el vendedor es el empleado
             venta.setFecha(fechaHora.getFecha());
             venta.setHora(fechaHora.getHora());
             venta.setGananciaVenta(obtenerGananciaVenta());
             venta.setTotalVenta(obtenerTotalVenta());
             venta.setCodigoCliente(null);
-            
+
             venta.setCodigoAdministrador(empleado.getCodigoAdministrador());
             venta.setCodigoEmpleado(empleado);
             //ingresa a la bd
@@ -257,7 +280,6 @@ public class ControladorVentas {
             //se ingresa los productos en la relacion (*,*)
             ingresarDatosProductoVenta(venta);
             listaVentaProductos.clear();
-
 
         }
     }

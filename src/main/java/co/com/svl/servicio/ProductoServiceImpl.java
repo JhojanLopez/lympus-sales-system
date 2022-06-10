@@ -51,8 +51,8 @@ public class ProductoServiceImpl implements ProductoService {
 
     @Override
     @Transactional(readOnly = true)
-    public Producto encontrarProductoPorNombre(String nombre) {
-        return productoDao.findProductoByNombre(nombre);
+    public List<Producto> encontrarProductoPorNombreOrDescripcion(String busqueda) {
+        return productoDao.findProductoByNombreOrByDescripcion(busqueda);
     }
 
 }

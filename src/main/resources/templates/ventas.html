@@ -19,61 +19,112 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
             <div class="row">
                 <a th:href="@{/}">regresar</a>
                 <div class="col-md-5">
-                    <h3>Lista de productos</h3>
-                    <table border="1">
+                    <h3>Agrega productos de forma manual</h3>
+                    <form th:action="@{/busqueda}">
+
+                        <input type="text" name="busqueda" th:value="${busqueda}"  
+                               placeholder="Busqueda" required="required">
+                            <input type="submit" value="buscar"/>
+                            <a th:href="@{/limpiarBusqueda}">Limpiar</a>
+                    </form>
+
+                    <table  th:if="${listaBusqueda !=null}" border="1">
                         <tr>
                             <th>NOMBRE</th>
+                            <th>DESCRIPCION</th>
                             <th>PRECIO</th>
-                            <th>SELECCIONAR</th>
+                            <th></th>
                         </tr>
-                        <tr th:each="producto : ${productos}">
-                            <td th:text="${producto.nombre}">Mostrar nombre</td>
-                            <td th:text="${producto.precio}">Mostrar precio</td>
-                            <td><a th:href="@{/agregarProductoVenta/} + ${producto.codigo}">agregar</a></td>
+                        <tr th:each="busqueda : ${listaBusqueda}">
+                            <td th:text="${busqueda.nombre}">Mostrar nombre</td>
+                            <td th:text="${busqueda.descripcion}">Mostrar descripcion</td>
+                            <td th:text="${busqueda.precio}">Mostrar precio</td>
+                            <td><a th:href="@{/agregarProductoVenta/} + ${busqueda.codigo}">agregar</a></td>
                         </tr>
                     </table>
                 </div>
-                <div class="col-md-auto">
+                <div class="col-md-7">
                     <h3>Venta</h3>
                     <form method="POST" th:action="@{/agregarProductoCodigoBarras}" th:object="${producto}">
                         <input type="number" name="codigobarras" th:field="*{codigo}" 
                                placeholder="Codigo de barras">
-                    </form>
+                    </form><!-- agregar producto cod barras -->
                     <form method="POST" th:action="@{/generarVenta}" th:object="${vendedor}">
                         <input type="hidden" name="codigo" th:field="*{codigo}"/>
                         <input type="text" name="vendedor" th:field="*{nombre}" disabled="disabled">
                             <a th:href="@{/limpiarVenta}">eliminar venta</a>
                             <hr/>
-                            <table border="1">
-                                <tr>
-                                    <th>NOMBRE</th>
-                                    <th>PRECIO</th>
-                                    <th>CANTIDAD</th>
-                                    <th>SUB TOTAL</th>
-                                    <th></th>
+                            <table th:if="${listaProductosVenta != null}" border="1">
 
-                                </tr>
-                                <tr th:if="${listaProductosVenta != null}" th:each="productoVenta : ${listaProductosVenta}">
+                                <thead>
+                                    <tr>
+                                        <th>NOMBRE</th>
+                                        <th>PRECIO</th>
+                                        <th>CANTIDAD</th>
+                                        <th>SUB TOTAL</th>
+                                        <th></th>
 
-                                    <td th:text="${productoVenta.nombre}">Mostrar nombre</td>
-                                    <td th:text="${productoVenta.precio}">Mostrar precio</td>
-                                    <td th:text="${productoVenta.cantidadVenta}">Mostrar cantidad</td>
-                                    <td th:text="${productoVenta.subTotal}">Mostrar cantidad</td>
-                                    <td><a th:href="@{/eliminarProductoVenta/} + ${productoVenta.codigo}">eliminar</a></td>
-                                </tr> 
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr th:each="productoVenta : ${listaProductosVenta}">
 
+                                        <td th:text="${productoVenta.nombre}">Mostrar nombre</td>
+                                        <td th:text="${productoVenta.precio}">Mostrar precio</td>
+                                        <td th:text="${productoVenta.cantidadVenta}">Mostrar cantidadVenta <span class="class">a</span> </td>
+                                        <td th:text="${productoVenta.subTotal}">Mostrar subtotal</td>
+                                        <td><button type="button" id="editarCantidad" class="btn btn-primary" data-bs-toggle="modal" 
+                                                    >
+                                                Editar cantidad
+                                            </button>
+                                            <a href="/productos?codigo=1"></a>
 
+                                        </td>
+                                        <td><a th:href="@{/eliminarProductoVenta/} + ${productoVenta.codigo}">eliminar</a></td>
+                                    </tr> 
+                                </tbody>
+                                <tfoot>
+                                    <tr>
+                                        <td></td> 
+                                        <td></td>
+                                        <td></td>
+                                        <td> <input th:value="${total}" disabled="disable"></td>
+                                    </tr>
+                                </tfoot>
 
                             </table>
 
                             <input type="submit" name="guardar" th:value="Guardar"/>
                             <a href="#" type="button">Imprimir</a>
+
                     </form>
+
+                </div>
+            </div>
+
+            <div class="modal fade"  id="editModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <input type="text">
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <button type="button" class="btn btn-primary">Save changes</button>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
+        <!-- js de jquery -->
+        <script src="https://code.jquery.com/jquery-3.5.1.js"></script><!-- jquery -->
         <!-- js de bootstrap -->
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+        <!-- js personalizado -->
+        <script th:src="@{/js/venta.js}"></script>
 
-    </body>
-</html>
+    </body></html>

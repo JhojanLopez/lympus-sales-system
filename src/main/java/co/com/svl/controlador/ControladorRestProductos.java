@@ -27,8 +27,9 @@ import org.springframework.web.bind.annotation.RestController;
 @Slf4j
 @RestController
 @RequestMapping()
-public class ControladorRestInventario {
-
+public class ControladorRestProductos {
+//este controlador rest se encargara de devolverme ya sea todos los productos o un producto 
+    //el cual lo devovera al frontend mediante un json
     @Autowired
     private ProductoService productoService;
 
@@ -37,10 +38,14 @@ public class ControladorRestInventario {
         return productoService.listarProductos();
     }
 
+    @GetMapping(path = "/producto{codigo}")
+    public Producto obtenerProducto(Long codigo) {//se convierte automaticaente en JSON    
+        return productoService.encontrarProductoPorCodigo(codigo);
+    }
+
 //    @PostMapping(value = "/editarProductoInventario")
 //    public ResponseEntity<Producto>(@RequestBody Producto producto) {//se convierte automaticaente en JSON    
 //        productoService.guardar(producto);
 //        return new ResponseEntity<>(producto,HttpStatus.OK);
 //    }
-
 }
