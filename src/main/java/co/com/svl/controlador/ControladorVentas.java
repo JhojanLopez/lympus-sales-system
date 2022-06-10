@@ -28,8 +28,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 /**
  *
@@ -93,7 +91,7 @@ public class ControladorVentas {
         producto = productoService.encontrarProductoPorCodigo(producto.getCodigo());
 
         var productoListado = new ProductoListado(1.0, producto.getCodigo(), producto.getNombre(),
-                producto.getPrecio(), producto.getCosto());
+                producto.getPrecio(), producto.getCosto(), producto.getUnidadMedida());
 
         agregarProductoListaVenta(productoListado);
 
@@ -112,15 +110,6 @@ public class ControladorVentas {
         return "redirect:/ventas";
     }
 
-    @GetMapping("/eliminarProductoVenta/{codigo}")
-    public String eliminarProductoVentas(Producto producto) {
-        log.info("codigo producto elegido: " + producto.getCodigo());
-
-        eliminarProductoListaVenta(producto.getCodigo());
-
-        return "redirect:/ventas";
-    }
-
     @PostMapping("/agregarProductoCodigoBarras")
     public String agregarProductoCodigoBarras(Producto producto) {
 
@@ -133,7 +122,7 @@ public class ControladorVentas {
             if (producto != null) {
 
                 var productoListado = new ProductoListado(1.0, producto.getCodigo(), producto.getNombre(),
-                        producto.getPrecio(), producto.getCosto());
+                        producto.getPrecio(), producto.getCosto(), producto.getUnidadMedida());
                 log.info(productoListado.toString());
 
                 agregarProductoListaVenta(productoListado);
@@ -145,15 +134,26 @@ public class ControladorVentas {
 
     }
 
-    @GetMapping("/limpiarVenta")
-    public String limpiarProductoVentas() {
-        listaVentaProductos.clear();
+    @PostMapping("/editarCantidadProducto")
+    public String editarCantidadProducto(Producto producto) {
+
+        log.info("-----------------CONTROLADOR editarCantidadProducto-----------------");
+
+        if (producto.getCantidad() > 0.0) {
+
+            agregarCantidadEspecifica(producto);
+        }
+
         return "redirect:/ventas";
+
     }
 
-    @GetMapping("/limpiarBusqueda")
-    public String limpiarBusqueda() {
-        listaBusqueda.clear();
+    @GetMapping("/eliminarProductoVenta/{codigo}")
+    public String eliminarProductoVentas(Producto producto) {
+        log.info("------------------CONTROLADOR ELIMINAR PRODUCTO DE LA VENTA----------------");
+
+        eliminarProductoListaVenta(producto.getCodigo());
+
         return "redirect:/ventas";
     }
 
@@ -179,6 +179,18 @@ public class ControladorVentas {
 
         }
 
+        return "redirect:/ventas";
+    }
+
+    @GetMapping("/limpiarVenta")
+    public String limpiarProductoVentas() {
+        listaVentaProductos.clear();
+        return "redirect:/ventas";
+    }
+
+    @GetMapping("/limpiarBusqueda")
+    public String limpiarBusqueda() {
+        listaBusqueda.clear();
         return "redirect:/ventas";
     }
 
@@ -216,7 +228,7 @@ public class ControladorVentas {
         for (ProductoListado productoI : listaVentaProductos) {
 
             log.info("Producto iterado con codigo=" + productoI.getCodigo() + " es igual al producto con codigo= " + producto.getCodigo());
-            if (productoI.getCodigo() == producto.getCodigo()) {
+            if (productoI.getCodigo().equals(producto.getCodigo())) {
                 log.info("si es igual");
                 productoI.setCantidadVenta(productoI.getCantidadVenta() + 1.0);
 
@@ -231,7 +243,7 @@ public class ControladorVentas {
 
         for (Producto productoI : listaVentaProductos) {
 
-            if (productoI.getCodigo() == codigo) {
+            if (productoI.getCodigo().equals(codigo)) {
                 listaVentaProductos.remove(productoI);
                 break;
             }
@@ -313,6 +325,33 @@ public class ControladorVentas {
             totalVenta = totalVenta + productoI.getSubTotal();
         }
         return totalVenta;
+    }
+
+    private void agregarCantidadEspecifica(Producto producto) {
+
+        for (ProductoListado productoI : listaVentaProductos) {
+
+            System.out.println(listaVentaProductos); 
+           if (productoI.getCodigo().equals(producto.getCodigo())) {//encontramos el producto
+
+                log.info("Unidad de medida: " + productoI.getUnidadMedida());
+                if (productoI.getUnidadMedida() == 1) {//si es 1 el producto es por unidad por lo cual 
+                    //se debe guardar el valor dado con un una cantidad sin decimales
+
+                    int cantidad = (int) producto.getCantidad();
+                    if (cantidad != 0) {
+                        productoI.setCantidadVenta((double) cantidad);
+                    }
+                    log.info("cantidad a guardar: " + ((double) cantidad));
+                } else {
+
+                    productoI.setCantidadVenta(producto.getCantidad());
+
+                }
+                break;
+            }
+        }
+
     }
 
 }

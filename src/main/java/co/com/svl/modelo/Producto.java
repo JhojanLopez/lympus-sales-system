@@ -74,11 +74,12 @@ public class Producto implements Serializable {
     public Producto() {
     }
 
-    public Producto(Long codigo, String nombre, long precio,long costo) {
+    public Producto(Long codigo, String nombre, long precio,long costo, short unidadMedida) {
         this.codigo = codigo;
         this.nombre = nombre;
         this.precio = precio;
         this.costo = costo;
+        this.unidadMedida = unidadMedida;
     }
 
    

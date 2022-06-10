@@ -25,9 +25,9 @@ public class ProductoListado extends Producto {
     }
 
     public ProductoListado(double cantidadVenta, Long codigo, String nombre,
-            long precio, long costo) {
+            long precio, long costo, short unidadMedida) {
 
-        super(codigo, nombre, precio , costo);
+        super(codigo, nombre, precio , costo, unidadMedida);
         this.cantidadVenta = cantidadVenta;
 
     }
@@ -61,8 +61,8 @@ public class ProductoListado extends Producto {
     @Override
     public String toString() {
         return "ProductoListado{" + " Codigo= " + this.getCodigo() + ", nombre= " + this.getNombre()
-                + ", costo= " + this.getCosto()+ ", precio= " + this.getPrecio() + ", cantidadVenta=" + cantidadVenta +
-                ", ganancia="+ this.getGananciaProducto() +", subTotal="+ this.getSubTotal() + '}';
+                + ", costo= " + this.getCosto()+ ", precio= " + this.getPrecio() +" ,U/M= "+this.getUnidadMedida() + 
+                ", cantidadVenta=" + cantidadVenta +", ganancia="+ this.getGananciaProducto() +", subTotal="+ this.getSubTotal() + '}';
     }
 
 }
