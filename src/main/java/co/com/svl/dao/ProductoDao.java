@@ -8,6 +8,7 @@ import co.com.svl.modelo.Producto;
 import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 /**
  *
  * @author JhojanDS
@@ -15,7 +16,7 @@ import org.springframework.data.jpa.repository.Query;
 public interface ProductoDao extends JpaRepository<Producto, Long>{
     
     @Query("SELECT p FROM Producto p WHERE lower(p.nombre) LIKE %?1%"
-            + " OR lower(p.descripcion) LIKE %?1%") //lower() permite que la busqueda no sea esctricto en mayusculas
+            + " OR lower(p.descripcion) LIKE %?1%" ) //lower() permite que la busqueda no sea esctricto en mayusculas
     public List<Producto> findProductoByNombreOrByDescripcion(String busqueda);
     
    

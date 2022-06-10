@@ -6,7 +6,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
 <html xmlns="http://www.w3.org/1999/xhtml"  
       xmlns:th="http://www.thymeleaf.org">
     <head>
-        <title>TODO supply a title</title>
+        <title></title>
         <meta charset="UTF-8"/>
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous"/>
@@ -23,33 +23,42 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
             </div>
             <section>
                 <div class="row">
-                    <div class="col-4">
-                        <form action="action">
-                            <input type="text" name="name" placeholder="consulte por codigo"/>
+                    <div class="col-md-4">
+                        <form method="GET" th:action="@{/consultasPorCodigo}" >
+                            <input type="number" name="codigo" placeholder="consulte por codigo" required="required" />
                             <input type="submit" value="buscar"/>
 
                         </form>
                     </div>
-                    <div class="col-4">
-                        <form action="action">
-                            <input type="text" name="name" placeholder="consulte por fecha"/>
+                    <div class="col-md-4">
+                        <form method="GET" th:action="@{/consultasPorFecha}">
+                            <input type="date" name="fecha"  required="required"/>
                             <input type="submit" value="buscar"/>
 
                         </form>
                     </div>
-                    <div class="col-4">
-                        <form action="action">
-                            <input type="text" name="name" placeholder="consulte por vendedor"/>
+                    <div class="col-md-4">
+                        <form method="GET" th:action="@{/consultasPorVendedor}">
+                            <select name="opcion" required="required">
+                                <option selected value="">Consulta por vendedor</option>
+                                <option value="1">Administrador</option>
+                                <option value="2">Vendedor</option>
+
+                            </select>
+                            <!-- <input type="text" name="name" placeholder="consulte por vendedor"/> -->
                             <input type="submit" value="buscar"/>
+
                         </form>
                     </div>
+
+
                 </div>
             </section>
 
-            <section>
+            <section th:if="${listaConsulta}!=null">
                 <div class="row">
                     <div class="col-12">
-                        <table class="table">
+                        <table  class="table">
 
                             <thead>
                                 <tr>
@@ -63,12 +72,13 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td></td> 
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
+                                <tr  th:each="venta : ${listaConsulta}">
+                                    <td th:text="${venta.codigo}">Mostrar codigo</td> 
+                                    <td th:text="${venta.fecha}">Mostrar fecha</td>
+                                    <td th:if="${venta.codigoEmpleado}!=null" th:text="${venta.codigoEmpleado.nombre}">Mostrar vendedor</td>
+                                    <td th:if="${venta.codigoEmpleado}==null" th:text="${venta.codigoAdministrador.nombre}">Mostrar vendedor</td>
+                                    <td th:text="${venta.totalVenta}">Mostrar total</td>
+                                    <td th:text="${venta.gananciaVenta}">Mostrar ganancia</td>
                                     <td></td>
 
                                 </tr> 
@@ -85,6 +95,9 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
                                 </tr>
                             </tfoot>
                         </table>
+                        <div class="text-center">
+                            <a href="#" class="btn btn-secondary">Limpiar</a>
+                        </div>
                     </div>
                 </div>
             </section>
