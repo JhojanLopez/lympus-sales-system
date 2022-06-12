@@ -18,7 +18,7 @@ public class ProductoListado extends Producto {
 
     private long gananciaProducto;
     private double cantidadVenta;
-    private long subTotal;
+    private double subTotal;
 
     public ProductoListado() {
         super();
@@ -40,12 +40,12 @@ public class ProductoListado extends Producto {
         this.cantidadVenta = cantidadVenta;
     }
 
-    public long getSubTotal() {
-        this.subTotal = (long) (this.getPrecio() * this.getCantidadVenta());
+    public double getSubTotal() {
+        this.subTotal = (this.getPrecio() * this.getCantidadVenta());
         return subTotal;
     }
 
-    public void setSubTotal(long subTotal) {
+    public void setSubTotal(double subTotal) {
         this.subTotal = subTotal;
     }
 

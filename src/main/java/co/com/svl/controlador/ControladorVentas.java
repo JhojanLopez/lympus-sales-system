@@ -253,16 +253,16 @@ public class ControladorVentas {
 
     private void guardarVenta(Administrador administrador, Empleado empleado) {
 
-        var fechaHora = new FormatoFechaHora();
+        var fecha = new FormatoFechaHora();
         var venta = new Venta();
 
         if (administrador != null) {
 
             //creando venta si el vendedor es el administrador
-            venta.setFecha(fechaHora.getFecha());
-            venta.setHora(fechaHora.getHora());
+            venta.setFecha(fecha.getFecha());
+            venta.setHora(fecha.getHora());
             venta.setGananciaVenta(obtenerGananciaVenta());
-            venta.setTotalVenta(obtenerTotalVenta());
+            venta.setTotalVenta((long)obtenerTotalVenta());
             venta.setCodigoCliente(null);//ya que la salsamentaria no maneja clientes
             venta.setCodigoAdministrador(administrador);
             venta.setCodigoEmpleado(null);
@@ -277,10 +277,10 @@ public class ControladorVentas {
         } else {
 
             //creando venta si el vendedor es el empleado
-            venta.setFecha(fechaHora.getFecha());
-            venta.setHora(fechaHora.getHora());
+            venta.setFecha(fecha.getFecha());
+            venta.setHora(fecha.getHora());
             venta.setGananciaVenta(obtenerGananciaVenta());
-            venta.setTotalVenta(obtenerTotalVenta());
+            venta.setTotalVenta((long)obtenerTotalVenta());
             venta.setCodigoCliente(null);
 
             venta.setCodigoAdministrador(empleado.getCodigoAdministrador());
@@ -319,8 +319,8 @@ public class ControladorVentas {
         return ganancia;
     }
 
-    private long obtenerTotalVenta() {
-        long totalVenta = 0;
+    private double obtenerTotalVenta() {
+        double totalVenta = 0;
         for (ProductoListado productoI : listaVentaProductos) {
             totalVenta = totalVenta + productoI.getSubTotal();
         }

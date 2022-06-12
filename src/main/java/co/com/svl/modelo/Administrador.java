@@ -82,6 +82,10 @@ public class Administrador implements Serializable {
     public Administrador() {
     }
 
+    public Administrador(Short codigo) {
+        this.codigo = codigo;
+    }
+
     
     public Short getCodigo() {
         return codigo;

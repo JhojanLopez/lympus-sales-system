@@ -5,8 +5,12 @@
 package co.com.svl.servicio;
 
 import co.com.svl.dao.VentaDao;
+import co.com.svl.modelo.Administrador;
+import co.com.svl.modelo.Empleado;
 import co.com.svl.modelo.Venta;
+import java.util.Date;
 import java.util.List;
+import javax.management.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -44,8 +48,24 @@ public class VentaServiceImpl implements VentaService {
     @Transactional(readOnly = true)
     public Venta encontrarVentaPorCodigo(Long codigo) {
         return ventaDao.findById(codigo).orElse(null);
-    
+
     }
 
+    @Override
+    @Transactional(readOnly = true)
+    public List<Venta> encontrarVentaPorFecha(Date fecha) {
+        return (List<Venta>) ventaDao.findByFecha(fecha);
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public List<Venta> encontrarVentaPorAdministrador(Administrador administrador) {
+        return (List<Venta>) ventaDao.findByAdministrador(administrador);
+    }
+    @Override
+    public List<Venta> encontrarVentaPorEmpleado(Empleado empleado) {
+        return (List<Venta>) ventaDao.findByEmpleado(empleado);
+
+    }
 
 }

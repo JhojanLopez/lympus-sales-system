@@ -32,23 +32,23 @@ public class Cliente implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "codigo")
-    private Integer codigo;
+    private Short codigo;
     @Size(max = 2147483647)
     @Column(name = "nombre")
     private String nombre;
     @Column(name = "telefono")
-    private BigInteger telefono;
+    private long telefono;
     @OneToMany(mappedBy = "codigoCliente")
     private List<Venta> ventaList;
 
     public Cliente() {
     }
 
-    public Integer getCodigo() {
+    public Short getCodigo() {
         return codigo;
     }
 
-    public void setCodigo(Integer codigo) {
+    public void setCodigo(Short codigo) {
         this.codigo = codigo;
     }
 
@@ -60,14 +60,22 @@ public class Cliente implements Serializable {
         this.nombre = nombre;
     }
 
-    public BigInteger getTelefono() {
+    public long getTelefono() {
         return telefono;
     }
 
-    public void setTelefono(BigInteger telefono) {
+    public void setTelefono(long telefono) {
         this.telefono = telefono;
     }
 
+    public List<Venta> getVentaList() {
+        return ventaList;
+    }
 
+    public void setVentaList(List<Venta> ventaList) {
+        this.ventaList = ventaList;
+    }
+
+    
     
 }

@@ -23,15 +23,15 @@ public class FormatoFechaHora {
     private Date fechaHora;
 
     public FormatoFechaHora() {
-        this.fechaHora = new Date();
+        this.fechaHora = new Date();//obtenemos la fecha y hora actual
         this.formatoHora = new SimpleDateFormat("HH:mm:ss");
-        this.formatoFecha1 = new SimpleDateFormat("yyyy/MM/dd");
+        this.formatoFecha1 = new SimpleDateFormat("yyyy-MM-dd");
         this.formatoFecha2 = new SimpleDateFormat("dd/MM/yyyy");
 
     }
 
     public Date getHora() {
-
+     //de la fecha actual me devuelve solamente la hora
         var hora = formatoHora.format(fechaHora);
         System.out.println(hora);
         try {
@@ -44,6 +44,38 @@ public class FormatoFechaHora {
 
     public Date getFecha() {
         return fechaHora;
+    }
+
+    public SimpleDateFormat getFormatoHora() {
+        return formatoHora;
+    }
+
+    public void setFormatoHora(SimpleDateFormat formatoHora) {
+        this.formatoHora = formatoHora;
+    }
+
+    public SimpleDateFormat getFormatoFecha1() {
+        return formatoFecha1;
+    }
+
+    public void setFormatoFecha1(SimpleDateFormat formatoFecha1) {
+        this.formatoFecha1 = formatoFecha1;
+    }
+
+    public SimpleDateFormat getFormatoFecha2() {
+        return formatoFecha2;
+    }
+
+    public void setFormatoFecha2(SimpleDateFormat formatoFecha2) {
+        this.formatoFecha2 = formatoFecha2;
+    }
+
+    public Date getFechaHora() {
+        return fechaHora;
+    }
+
+    public void setFechaHora(Date fechaHora) {
+        this.fechaHora = fechaHora;
     }
     
     

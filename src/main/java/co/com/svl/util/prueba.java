@@ -15,14 +15,8 @@ public class prueba {
 
     public static void main(String[] args) throws ParseException {
 
-        double x = 0.1;
-        int y = (int)x;
-        
-        System.out.println((double)y);
-        
-        if(9>0){
-            System.out.println("si");
-        }
+        double x = (10000 * 2.532442);
+        System.out.println(x);
     }
 
 }

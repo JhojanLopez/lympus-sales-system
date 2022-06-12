@@ -16,6 +16,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
     </head>
     <body>
         <div class="container">
+            <a th:href="@{/}">regresar</a>
             <div class="row">
                 <div class="col-12 text-center">
                     <h1>CONSULTAS</h1>
@@ -25,7 +26,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
                 <div class="row">
                     <div class="col-md-4">
                         <form method="GET" th:action="@{/consultasPorCodigo}" >
-                            <input type="number" name="codigo" placeholder="consulte por codigo" required="required" />
+                            <input type="number" name="dato" placeholder="consulte por codigo" required="required" />
                             <input type="submit" value="buscar"/>
 
                         </form>
@@ -66,7 +67,6 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
                                     <th>FECHA</th>
                                     <th>VENDEDOR</th>
                                     <th>TOTAL</th>
-                                    <th>GANANCIA</th>
                                     <th></th>
 
                                 </tr>
@@ -75,11 +75,10 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
                                 <tr  th:each="venta : ${listaConsulta}">
                                     <td th:text="${venta.codigo}">Mostrar codigo</td> 
                                     <td th:text="${venta.fecha}">Mostrar fecha</td>
+                                    <td th:if="${venta.codigoAdministrador}!=null and ${venta.codigoEmpleado} == null" th:text="${venta.codigoAdministrador.nombre}">Mostrar vendedor</td>
                                     <td th:if="${venta.codigoEmpleado}!=null" th:text="${venta.codigoEmpleado.nombre}">Mostrar vendedor</td>
-                                    <td th:if="${venta.codigoEmpleado}==null" th:text="${venta.codigoAdministrador.nombre}">Mostrar vendedor</td>
                                     <td th:text="${venta.totalVenta}">Mostrar total</td>
-                                    <td th:text="${venta.gananciaVenta}">Mostrar ganancia</td>
-                                    <td></td>
+                                    <td> <a class="btn btn-primary" href="#">Mas detalles</a></td>
 
                                 </tr> 
                             </tbody>
@@ -96,7 +95,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
                             </tfoot>
                         </table>
                         <div class="text-center">
-                            <a href="#" class="btn btn-secondary">Limpiar</a>
+                            <a th:href="@{/limpiarConsultas}" class="btn btn-secondary">Limpiar</a>
                         </div>
                     </div>
                 </div>

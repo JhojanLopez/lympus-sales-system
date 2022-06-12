@@ -32,7 +32,7 @@ public class Empleado implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "codigo")
-    private Integer codigo;
+    private Short codigo;
     @Size(max = 2147483647)
     @Column(name = "nombre")
     private String nombre;
@@ -55,14 +55,20 @@ public class Empleado implements Serializable {
     public Empleado() {
     }
 
-    public Integer getCodigo() {
-        return codigo;
-    }
-
-    public void setCodigo(Integer codigo) {
+    public Empleado(Short codigo) {
         this.codigo = codigo;
     }
 
+    
+    public Short getCodigo() {
+        return codigo;
+    }
+
+    public void setCodigo(Short codigo) {
+        this.codigo = codigo;
+    }
+    
+    
     public String getNombre() {
         return nombre;
     }

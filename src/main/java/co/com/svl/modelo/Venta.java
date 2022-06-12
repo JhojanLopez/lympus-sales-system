@@ -6,7 +6,6 @@
 package co.com.svl.modelo;
 
 import java.io.Serializable;
-import java.time.LocalTime;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.Basic;
@@ -42,7 +41,8 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Venta.findByFecha", query = "SELECT v FROM Venta v WHERE v.fecha = :fecha"),
     @NamedQuery(name = "Venta.findByHora", query = "SELECT v FROM Venta v WHERE v.hora = :hora"),
     @NamedQuery(name = "Venta.findByGananciaVenta", query = "SELECT v FROM Venta v WHERE v.gananciaVenta = :gananciaVenta"),
-    @NamedQuery(name = "Venta.findByTotalVenta", query = "SELECT v FROM Venta v WHERE v.totalVenta = :totalVenta")})
+    @NamedQuery(name = "Venta.findByTotalVenta", query = "SELECT v FROM Venta v WHERE v.totalVenta = :totalVenta")
+})
 public class Venta implements Serializable {
 
     private static final long serialVersionUID = 1L;
