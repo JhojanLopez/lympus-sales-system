@@ -17,7 +17,6 @@ import lombok.Data;
  * @author JhojanDS
  * @email jhojanlopez327@gmail.com
  */
-
 @Entity
 @Table(name = "administrador")
 @NamedQueries({
@@ -37,8 +36,9 @@ public class Administrador implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
+    @NotNull
     @Column(name = "codigo")
-    private Short codigo;
+    private short codigo;
     @Basic(optional = false)
     @NotNull
     @Column(name = "activo")
@@ -76,7 +76,7 @@ public class Administrador implements Serializable {
     private List<Venta> ventaList;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "codigoAdministrador", fetch = FetchType.LAZY)
     private List<Empleado> empleadoList;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "codigoAdministrador",  fetch = FetchType.LAZY)
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "codigoAdministrador", fetch = FetchType.LAZY)
     private List<Producto> productoList;
 
     public Administrador() {
@@ -86,7 +86,6 @@ public class Administrador implements Serializable {
         this.codigo = codigo;
     }
 
-    
     public Short getCodigo() {
         return codigo;
     }
@@ -183,12 +182,9 @@ public class Administrador implements Serializable {
         this.productoList = productoList;
     }
 
-    
-    
     @Override
     public String toString() {
         return "Administrador{" + "codigo=" + codigo + ", activo=" + activo + ", nombre=" + nombre + ", correo=" + correo + ", contrasena=" + contrasena + ", nombreNegocio=" + nombreNegocio + ", nitNegocio=" + nitNegocio + ", direccion=" + direccion + ", telefono=" + telefono + '}';
     }
 
-    
 }

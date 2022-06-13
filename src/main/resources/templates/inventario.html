@@ -26,7 +26,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
     <h1>INVENTARIO</h1>
     <h3>Productos</h3>
     <div class="container">
-               
+
         <div class="row">
             <div class="col-12">
                 <table id="listaProductos" class="table">
@@ -89,39 +89,13 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
                         </div>
                         <div class="mb-3">
                             <label for="descripcion" class="form-label">Descripcion:</label>
+                            <input type="hidden" id="unidadMedida" th:field="*{unidadMedida}">
                             <input type="text" class="form-control" id="descripcion" th:field="*{descripcion}">
                         </div>
                         <div class="modal-footer">
                             <button type="submit" class="btn btn-primary">Guardar</button>
                         </div>
                     </form>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- modal editar -->
-    <div class="modal fade" id="modalEditarCantidad" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="titulo-modal">Editar cantidad</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <!-- formulario -->
-                    <form>
-                        <div class="mb-3">
-                            <input type="hidden" id="codigo">
-                        </div>
-                        <div class="mb-3">
-                            <label for="cantidad" class="form-label">Existencia:</label>
-                            <input type="number" class="form-control" id="cantidad">
-                        </div>
-                        <!-- <button type="submit" class="btn btn-primary">Submit</button> -->
-                    </form>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" id="" class="btn btn-primary">Guardar</button>
                 </div>
             </div>
         </div>

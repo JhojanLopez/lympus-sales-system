@@ -322,23 +322,9 @@ var app = {
         $('#costo').val(data.costo);
         $('#precio').val(data.precio);
         $('#cantidad').val(data.cantidad);
+        $('#unidadMedida').val(data.unidadMedida);
         $('#descripcion').val(data.descripcion);
-    },
-    setDataAgregar(data) {
-        $('#codigoAgregarVenta').val(data.codigo);
     }
-    //    ,
-//    guardar: function (data) {
-//        $.ajax({
-//            url: '/editarProducto',
-//            data: JSON.stringify(data),
-//            method: 'POST',
-//            dataType: 'json',
-//            contentType: 'aplication/json; charset=utf-8'
-//        });
-//    }
-
-
 };
 $(document).ready(function () {
     app.init();

@@ -2,7 +2,6 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-
 package co.com.svl.modelo;
 
 import java.io.Serializable;
@@ -37,15 +36,22 @@ public class ProductoVenta implements Serializable {
     private static final long serialVersionUID = 1L;
     @EmbeddedId
     protected ProductoVentaPK productoVentaPK;
-    @Basic(optional = false)
+    @Column(name = "precio_venta")
+    private long precioVenta;
+    @Column(name = "costo_venta")
+    private long costoVenta;
     @NotNull
     @Column(name = "cantidad_vendida")
     private double cantidadVendida;
+    @Column(name = "subtotal")
+    private long subtotal;
+    @Column(name = "ganancia")
+    private long ganancia;
     @JoinColumn(name = "codigo_producto", referencedColumnName = "codigo", insertable = false, updatable = false)
-    @ManyToOne(optional = false, fetch=FetchType.LAZY)
+    @ManyToOne(optional = false, fetch = FetchType.LAZY)
     private Producto producto;
     @JoinColumn(name = "codigo_venta", referencedColumnName = "codigo", insertable = false, updatable = false)
-    @ManyToOne(optional = false, fetch=FetchType.LAZY)
+    @ManyToOne(optional = false, fetch = FetchType.LAZY)
     private Venta venta;
 
     public ProductoVenta() {
@@ -72,12 +78,44 @@ public class ProductoVenta implements Serializable {
         this.productoVentaPK = productoVentaPK;
     }
 
+    public long getPrecioVenta() {
+        return precioVenta;
+    }
+
+    public void setPrecioVenta(long precioVenta) {
+        this.precioVenta = precioVenta;
+    }
+
+    public long getCostoVenta() {
+        return costoVenta;
+    }
+
+    public void setCostoVenta(long costoVenta) {
+        this.costoVenta = costoVenta;
+    }
+
     public double getCantidadVendida() {
         return cantidadVendida;
     }
 
     public void setCantidadVendida(double cantidadVendida) {
         this.cantidadVendida = cantidadVendida;
+    }
+
+    public long getSubtotal() {
+        return subtotal;
+    }
+
+    public void setSubtotal(long subtotal) {
+        this.subtotal = subtotal;
+    }
+
+    public long getGanancia() {
+        return ganancia;
+    }
+
+    public void setGanancia(long ganancia) {
+        this.ganancia = ganancia;
     }
 
     public Producto getProducto() {

@@ -3,13 +3,26 @@
 Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
 Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this template
 -->
-<html>
+<html xmlns="http://www.w3.org/1999/xhtml"  
+      xmlns:th="http://www.thymeleaf.org">
     <head>
         <title>TODO supply a title</title>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta charset="UTF-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     </head>
     <body>
+        <a th:href="@{/}">regresar</a>
         <div>REPORTES</div>
+        <div>
+            <form action="">
+                <input type="date" name="name" required="required"/>
+                <input type="date" name="name" required="required"/>
+                <input type="submit" name="name" value="generar"/>
+            </form>
+        </div>
+
+        <div>
+        </div>
+
     </body>
 </html>

@@ -32,7 +32,7 @@ public class Cliente implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "codigo")
-    private Short codigo;
+    private short codigo;
     @Size(max = 2147483647)
     @Column(name = "nombre")
     private String nombre;
@@ -76,6 +76,8 @@ public class Cliente implements Serializable {
         this.ventaList = ventaList;
     }
 
-    
-    
+    @Override
+    public String toString() {
+        return "Cliente{" + "codigo=" + codigo + ", nombre=" + nombre + ", telefono=" + telefono + '}';
+    }
 }

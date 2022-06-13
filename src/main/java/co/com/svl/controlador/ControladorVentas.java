@@ -341,6 +341,8 @@ public class ControladorVentas {
                     int cantidad = (int) producto.getCantidad();
                     if (cantidad != 0) {
                         productoI.setCantidadVenta((double) cantidad);
+                    }else{
+                        productoI.setCantidadVenta(1.0);
                     }
                     log.info("cantidad a guardar: " + ((double) cantidad));
                 } else {

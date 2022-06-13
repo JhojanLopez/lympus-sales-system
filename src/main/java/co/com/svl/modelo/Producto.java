@@ -50,7 +50,6 @@ public class Producto implements Serializable {
     @Column(name = "precio")
     private long precio;
     @Basic(optional = false)
-    @JsonIgnore 
     @NotNull
     @Column(name = "unidad_medida")
     private short unidadMedida;
