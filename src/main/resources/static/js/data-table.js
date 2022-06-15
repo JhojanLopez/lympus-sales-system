@@ -274,6 +274,7 @@ var app = {
             ,
             buttons: [
                 {
+                    titleAttr: 'Selecciona un producto para editar',
                     text: '<i class="fa-solid fa-pen-to-square"></i> Editar', /*poner icono fontAwesome*/
                     className: 'btn-editar',
                     action: function (e, dt, node, config) {
@@ -291,6 +292,8 @@ var app = {
 
                 },
                 {
+                    extend: 'excelHtml5',
+                    titleAttr: 'Exportar a excel',
                     text: '<i class="fa-solid fa-file-excel"></i> Excel', /*poner icono fontAwesome*/
                     className: 'btn btn-success'
 
@@ -298,6 +301,8 @@ var app = {
 
                 },
                 {
+                    extend: 'pdfHtml5',
+                    titleAttr: 'Exportar a PDF ',
                     text: '<i class="fa-solid fa-file-pdf"></i> PDF', /*poner icono fontAwesome*/
                     className: 'btn btn-danger'
 

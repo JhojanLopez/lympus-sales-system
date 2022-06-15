@@ -22,14 +22,17 @@ public interface VentaDao extends JpaRepository<Venta, Long> {
     //al tener un named querie en la clase venta llamado de la misma forma 
     //se realizara dicho select
     public List<Venta> findByFecha(Date fecha);
-    
+   
     @Query("SELECT v FROM Venta v WHERE v.codigoAdministrador = :codigoAdministrador"
             + " AND v.codigoEmpleado is NULL")
     public List<Venta> findByAdministrador(@Param("codigoAdministrador") Administrador administrador);
     
     
-    
     @Query("SELECT v FROM Venta v WHERE v.codigoEmpleado = :codigoEmpleado")
     public List<Venta> findByEmpleado(@Param("codigoEmpleado") Empleado empleado);
+    
+    @Query("SELECT v FROM Venta v WHERE v.fecha BETWEEN ?1 AND ?2")
+    public List<Venta> findByRangoFecha(@Param("fechaDesde") Date fechaDesde,
+            @Param("fechaHasta") Date fechaHasta);
     
 }

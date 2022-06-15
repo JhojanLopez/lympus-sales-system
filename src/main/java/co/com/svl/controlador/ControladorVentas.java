@@ -245,6 +245,7 @@ public class ControladorVentas {
 
             if (productoI.getCodigo().equals(codigo)) {
                 listaVentaProductos.remove(productoI);
+                log.info("listado de venta: "+listaVentaProductos.toString());
                 break;
             }
         }
@@ -298,12 +299,19 @@ public class ControladorVentas {
 
     private void ingresarDatosProductoVenta(Venta venta) {
         var pv = new ProductoVenta();
-        var pvk = new ProductoVentaPK(venta.getCodigo());
+        var productoListado = new ProductoListado();
+        var pvpk = new ProductoVentaPK(venta.getCodigo());
 
         for (int i = 0; i < listaVentaProductos.size(); i++) {
-            pvk.setCodigoProducto(listaVentaProductos.get(i).getCodigo());
-            pv.setProductoVentaPK(pvk);
-            pv.setCantidadVendida(listaVentaProductos.get(i).getCantidadVenta());
+            productoListado = listaVentaProductos.get(i);
+            
+            pvpk.setCodigoProducto(productoListado.getCodigo());
+            pv.setProductoVentaPK(pvpk);//guardamos el pk
+            pv.setPrecioVenta(productoListado.getPrecio());
+            pv.setCostoVenta(productoListado.getCosto());
+            pv.setSubtotal((long) productoListado.getSubTotal());
+            pv.setGanancia(productoListado.getGananciaProducto());
+            pv.setCantidadVendida(productoListado.getCantidadVenta());
             productoVentaService.guardar(pv);
         }
 

@@ -83,7 +83,9 @@ public class ProductoVentaPK implements Serializable {
 
     @Override
     public String toString() {
-        return "co.com.svl.modelo.ProductoVentaPK[ codigoVenta=" + codigoVenta + ", codigoProducto=" + codigoProducto + " ]";
+        return "ProductoVentaPK{" + "codigoVenta=" + codigoVenta + ", codigoProducto=" + codigoProducto + '}';
     }
+
+   
 
 }

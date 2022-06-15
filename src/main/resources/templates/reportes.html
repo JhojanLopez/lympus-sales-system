@@ -6,23 +6,47 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
 <html xmlns="http://www.w3.org/1999/xhtml"  
       xmlns:th="http://www.thymeleaf.org">
     <head>
-        <title>TODO supply a title</title>
+        <title>Reportes</title>
         <meta charset="UTF-8"/>
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     </head>
     <body>
         <a th:href="@{/}">regresar</a>
         <div>REPORTES</div>
+        <br/>
+        <br/>
         <div>
-            <form action="">
-                <input type="date" name="name" required="required"/>
-                <input type="date" name="name" required="required"/>
+            <form th:action="@{/generarReporte}">
+                <label for="fechaDesde"> Desde:</label>
+                <input type="date" name="fechaDesde" required="required"/>
+                <label for="fechaDesde"> Hasta:</label>
+                <input type="date" name="fechaHasta" required="required"/>
                 <input type="submit" name="name" value="generar"/>
             </form>
         </div>
+        <br/>
+        <br/>
+        <div th:if="${reporte !=null}">
+            <table border="1" th:object="${reporte}">
 
-        <div>
+                <tr>
+                    <th>Precio de productos en venta </th>
+                    <th>Costo de productos en venta</th>
+                    <th>Ganancia</th>
+                    <th></th>
+                    <th></th>
+                </tr>
+                <tr>
+
+                    <td th:text="${reporte.precioVenta}" >Mostrar precio venta</td>
+                    <td th:text="${reporte.costoVenta}">Mostrar costo venta</td>
+                    <td th:text="${reporte.ganancia}">Mostrar ganancia</td>
+                    <td><a href="#">exportar a pdf</a></td>
+                    <td><a href="#">exportar a excel</a></td>
+
+                </tr>
+            </table>
+            <a th:href="@{/limpiarReporte}">limpiar</a>
         </div>
-
     </body>
 </html>

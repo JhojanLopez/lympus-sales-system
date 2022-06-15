@@ -68,4 +68,9 @@ public class VentaServiceImpl implements VentaService {
 
     }
 
+    @Override
+    public List<Venta> encontrarVentaPorRangoFecha(Date fechaDesde, Date fechaHasta) {
+        return (List<Venta>) ventaDao.findByRangoFecha(fechaDesde, fechaHasta);
+    }
+
 }

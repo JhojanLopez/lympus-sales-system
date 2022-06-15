@@ -27,10 +27,9 @@ public interface VentaService {
     public List<Venta> encontrarVentaPorFecha(Date fecha);
 
     public List<Venta> encontrarVentaPorAdministrador(Administrador administrador);
-    
+
     public List<Venta> encontrarVentaPorEmpleado(Empleado empleado);
-    
-    
-    
+
+    public List<Venta> encontrarVentaPorRangoFecha(Date fechaDesde ,Date fechaHasta);
 
 }
