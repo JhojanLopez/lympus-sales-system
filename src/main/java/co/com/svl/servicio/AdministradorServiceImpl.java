@@ -51,5 +51,4 @@ public class AdministradorServiceImpl implements AdministradorService {
     public Administrador encontrarAdministradorPorCorreo(String correo) {
         return administradorDao.findAdministradorByCorreo(correo);
     }
-
 }

@@ -5,9 +5,11 @@ import co.com.svl.servicio.*;
 import javax.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.query.Param;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.User;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
@@ -35,6 +37,7 @@ public class ControladorInicio {
 
         var usuario = obtenerDatosUsuario(user.getAuthorities().toString(), user.getUsername());
         model.addAttribute("usuario", usuario);
+
         return "configuracion";
     }
 
@@ -43,15 +46,46 @@ public class ControladorInicio {
             Administrador administrador, Empleado empleado) {
 
         actualizarDatos(user.getAuthorities().toString(), administrador, empleado);
-        return "redirect:/configuracion";
+        return "redirect:/configuracion?exito1=true";
     }
 
-    @PostMapping("/modificarCorreo")
-    public String modificarCorreo(@AuthenticationPrincipal User user,
-            Administrador administrador, Empleado empleado) {
+    @PostMapping("/modificarContrasena")
+    public String modificarContrasena(@AuthenticationPrincipal User user,
+            Administrador administrador, Empleado empleado,
+            @Param("contrasenaActual") String contrasenaActual,
+            @Param("contrasenaNueva") String contrasenaNueva,
+            @Param("contrasenaConfirmacion") String contrasenaConfirmacion) {
 
-        actualizarDatos(user.getAuthorities().toString(), administrador, empleado);
-        return "redirect:/configuracion";
+        if (user.getAuthorities().toString().equals("[ROLE_ADMIN]")) {
+
+            var validacion = compararContrasenaAdmin(administrador, contrasenaActual,
+                    contrasenaNueva, contrasenaConfirmacion);
+
+            if (validacion == 1) {
+
+                return "redirect:/configuracion?error1=true";
+
+            } else if (validacion == 2) {
+
+                return "redirect:/configuracion?error2=true";
+            }
+
+        } else {
+            var validacion = compararContrasenaEmpleado(empleado, contrasenaActual,
+                    contrasenaNueva, contrasenaConfirmacion);
+
+            if (validacion == 1) {
+
+                return "redirect:/configuracion?error1=true";
+
+            } else if (validacion == 2) {
+
+                return "redirect:/configuracion?error2=true";
+            }
+
+        }
+
+        return "redirect:/configuracion?exito2=true";
     }
 
     public void actualizarDatos(String rol, Administrador administrador, Empleado empleado) {
@@ -75,6 +109,52 @@ public class ControladorInicio {
             return empleadoService.encontrarEmpleadoPorCorreo(correo);
         }
 
+    }
+
+    private short compararContrasenaAdmin(Administrador administrador, String contrasenaActual, String contrasenaNueva, String contrasenaConfirmacion) {
+        var b = new BCryptPasswordEncoder();
+
+        if (b.matches(contrasenaActual, administrador.getContrasena())) {
+
+            if (contrasenaNueva.equals(contrasenaConfirmacion)) {
+
+                administrador.setContrasena(b.encode(contrasenaNueva));
+                administradorService.guardar(administrador);
+
+            } else {
+
+                return 2;
+            }
+
+        } else {
+
+            return 1;
+        }
+
+        return 0;
+    }
+
+    private short compararContrasenaEmpleado(Empleado empleado, String contrasenaActual, String contrasenaNueva, String contrasenaConfirmacion) {
+        var b = new BCryptPasswordEncoder();
+
+        if (b.matches(contrasenaActual, empleado.getContrasena())) {
+
+            if (contrasenaNueva.equals(contrasenaConfirmacion)) {
+
+                empleado.setContrasena(b.encode(contrasenaNueva));
+                empleadoService.guardar(empleado);
+
+            } else {
+
+                return 2;
+            }
+
+        } else {
+
+            return 1;
+        }
+
+        return 0;
     }
 
 }
