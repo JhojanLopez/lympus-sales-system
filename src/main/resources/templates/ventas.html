@@ -10,24 +10,30 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
         <meta charset="UTF-8"/>
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
         <!-- Link boostrap -->
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous"/>
 
-            <link rel="stylesheet" th:href="@{/webjars/font-awesome/css/all.css}"/>
+        <link rel="stylesheet" th:href="@{/webjars/font-awesome/css/all.css}"/>
     </head>
     <body>
         <div class="container">
             <div class="row">
-                <a th:href="@{/}">regresar</a>
+                <a th:href="@{/salirVentas}">regresar</a>
                 <div class="col-md-5">
                     <h3>Agrega productos de forma manual</h3>
                     <form th:action="@{/busqueda}">
 
                         <input type="text" name="busqueda" th:value="${busqueda}"  
-                               placeholder="Busqueda" required="required">
-                            <input type="submit" value="buscar"/>
-                            <a th:href="@{/limpiarBusqueda}">Limpiar</a>
+                               placeholder="Busqueda" required="required"/>
+                        <input type="submit" value="buscar"/>
+                        <a th:href="@{/limpiarBusqueda}">Limpiar</a>
                     </form>
 
+                    <div th:if="${param.advertencia}" class="alert alert-warning d-flex" role="alert">
+                        <div class="text-center">
+                            <i class="fa-solid fa-triangle-exclamation"></i>
+                            No se encontro ningun resultado.
+                        </div>
+                    </div>
                     <table  th:if="${listaBusqueda != null}" border="1">
                         <tr>
                             <th>NOMBRE</th>
@@ -48,58 +54,91 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
                     <h3>Venta</h3>
                     <form method="POST" th:action="@{/agregarProductoCodigoBarras}" th:object="${producto}">
                         <input type="number" name="codigobarras" th:field="*{codigo}" 
-                               placeholder="Codigo de barras">
+                               placeholder="Codigo de barras" required="true"/>
                     </form><!-- agregar producto cod barras -->
+
                     <form method="POST" th:action="@{/generarVenta}" th:object="${vendedor}">
                         <input type="hidden" name="codigo" th:field="*{codigo}"/>
-                        <input type="text" name="vendedor" th:field="*{nombre}" disabled="disabled">
-                            <a th:href="@{/limpiarVenta}">eliminar venta</a>
-                            <hr/>
-                            <table class="" th:if="${listaProductosVenta != null}" border="1">
+                        <input type="text" name="vendedor" th:field="*{nombre}" disabled="disabled"/>
+                        <a th:href="@{/limpiarVenta}">eliminar venta</a>
+                        <hr/>
+                        <div th:if="${param.exito}" class="alert alert-success d-flex" role="alert">
+                            <div class="text-center">
+                                <i class="fa-solid fa-circle-check"></i>
+                                La venta ha sido guardada exitosamente, Codigo de venta: <span th:text="${param.codigo}">valor</span>
+                            </div>
+                        </div>
+                        <div th:if="${param.advertencia1}" class="alert alert-warning d-flex" role="alert">
+                            <div class="text-center">
+                                <i class="fa-solid fa-triangle-exclamation"></i>
+                                No se encontro ningun producto para agregar.
+                            </div>
+                        </div>
+                        <div th:if="${param.advertencia2}" class="alert alert-warning d-flex" role="alert">
+                            <div class="text-center">
+                                <i class="fa-solid fa-triangle-exclamation"></i>
+                                Debes de poner un valor mayor a 0 para editar la cantidad.
+                            </div>
+                        </div>
+                        <div th:if="${param.advertencia3}" class="alert alert-warning d-flex" role="alert">
+                            <div class="text-center">
+                                <i class="fa-solid fa-triangle-exclamation"></i>
+                                Debes de poner un valor entero para editar la cantidad.
+                            </div>
+                        </div>
+                        <div th:if="${param.error}" class="alert alert-danger d-flex" role="alert">
+                            <div class="text-center">
+                                <i class="fa-solid fa-triangle-exclamation"></i>
+                                Debes de agregar productos para realizar la venta.
+                            </div>
+                        </div>
 
-                                <thead>
-                                    <tr>
-                                        <th>NOMBRE</th>
-                                        <th>PRECIO</th>
-                                        <th>CANTIDAD</th>
-                                        <th>SUB TOTAL</th>
-                                        <th></th>
 
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr th:each="productoVenta : ${listaProductosVenta}">
+                        <table class="" th:if="${listaProductosVenta != null}" border="1">
 
-                                        <td th:text="${productoVenta.nombre}">Mostrar nombre</td>
-                                        <td th:text="${productoVenta.precio}">Mostrar precio</td>
-                                        <td th:text="${productoVenta.cantidadVenta}">Mostrar cantidadVenta <span class="class">a</span> </td>
-                                        <td th:text="${productoVenta.subTotal}">Mostrar subtotal</td>
-                                        <td>
-                                            <a th:href="@{/producto/(codigo=${productoVenta.codigo})}" 
-                                               class="btn btn-warning edicion">Editar</a>
-                                        </td>
-                                        <td><a th:href="@{/eliminarProductoVenta/} + ${productoVenta.codigo}">eliminar</a></td>
-                                    </tr> 
-                                </tbody>
-                                <tfoot>
-                                    <tr>
-                                        <td></td> 
-                                        <td></td>
-                                        <td></td>
-                                        <td> <input th:value="${total}" disabled="disable"></td>
-                                    </tr>
-                                </tfoot>
+                            <thead>
+                                <tr>
+                                    <th>NOMBRE</th>
+                                    <th>PRECIO</th>
+                                    <th>CANTIDAD</th>
+                                    <th>SUB TOTAL</th>
+                                    <th></th>
 
-                            </table>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr th:each="productoVenta : ${listaProductosVenta}">
 
-                            <input type="submit" name="guardar" th:value="Guardar"/>
-                            <a href="#" type="button">Imprimir</a>
+                                    <td th:text="${productoVenta.nombre}">Mostrar nombre</td>
+                                    <td th:text="${productoVenta.precio}">Mostrar precio</td>
+                                    <td th:text="${productoVenta.cantidadVenta}">Mostrar cantidadVenta <span class="class">a</span> </td>
+                                    <td th:text="${productoVenta.subTotal}">Mostrar subtotal</td>
+                                    <td>
+                                        <a th:href="@{/producto/(codigo=${productoVenta.codigo})}" 
+                                           class="btn btn-warning edicion">Editar</a>
+                                    </td>
+                                    <td><a th:href="@{/eliminarProductoVenta/} + ${productoVenta.codigo}">eliminar</a></td>
+                                </tr> 
+                            </tbody>
+                            <tfoot>
+                                <tr>
+                                    <td></td> 
+                                    <td></td>
+                                    <td></td>
+                                    <td> <input th:value="${total}" disabled="disable"/></td>
+                                </tr>
+                            </tfoot>
+
+                        </table>
+
+                        <input type="submit" name="guardar" th:value="Guardar"/>
+                        <a href="#" type="button">Imprimir</a>
 
                     </form>
 
                 </div>
             </div>
-
+            <!--modal editar cantidad-->
             <div class="modal fade"  id="editModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div class="modal-dialog">
                     <div class="modal-content">
@@ -110,25 +149,26 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
                         <form method="POST" th:action="@{/editarCantidadProducto}" th:object="${producto}">
                             <div class="modal-body">
 
-                                <input id="codigoEditar" name="codigo" type="hidden">
-                                    <input type="number" step="any" name="cantidad" placeholder="Ingrese la cantidad" 
-                                           required="required">
-                                        </div>
-                                        <div class="modal-footer">
-                                            <button type="submit" class="btn btn-primary">Guardar</button>
+                                <input id="codigoEditar" name="codigo" type="hidden"/>
+                                <input type="number" step="any" name="cantidad" placeholder="Ingrese la cantidad" 
+                                       required="true"/>
+                                <input id="unidadMedida" type="hidden" name="unidadMedida"/>   
+                            </div>
+                            <div class="modal-footer">
+                                <button type="submit" class="btn btn-primary">Guardar</button>
 
-                                        </div>
-                                        </form>
-                                        </div>
-                                        </div>
-                                        </div>
-                                        </div>
-                                        <!-- js de jquery -->
-                                        <script src="https://code.jquery.com/jquery-3.5.1.js"></script><!-- jquery -->
-                                        <!-- js de bootstrap -->
-                                        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
-                                        <!-- js personalizado -->
-                                        <script th:src="@{/js/ventas.js}"></script>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- js de jquery -->
+        <script src="https://code.jquery.com/jquery-3.5.1.js"></script><!-- jquery -->
+        <!-- js de bootstrap -->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+        <!-- js personalizado -->
+        <script th:src="@{/js/ventas.js}"></script>
 
-                                        </body>
-                                        </html>
+    </body>
+</html>

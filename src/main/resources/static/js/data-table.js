@@ -281,9 +281,12 @@ var app = {
                         var data = dt.rows('.table-active').data()[0]; /*obtengo los datos de la fila seleccionada(la que esta con la clase table-active)*/
                         console.log(data);
                         if (isObjEmpty(data)) {
-
-                            $('#modalError').modal("show");
+                            
+                            $('#advertencia').removeClass('d-none');
+                            
                         } else {
+                            
+                            $('#advertencia').addClass('d-none');
                             app.setDataModalEditar(data);
                             $('#modalEditar').modal("show");
                         }

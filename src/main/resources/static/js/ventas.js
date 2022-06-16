@@ -15,6 +15,7 @@ $('document').ready(function (){
         $.get(href, function (producto,status){
             console.log("codigo producto: "+producto.codigo);
             $('#codigoEditar').val(producto.codigo);
+            $('#unidadMedida').val(producto.unidadMedida);
         });
     $('#editModal').modal("show");    
     });

@@ -31,7 +31,6 @@ public class ControladorConsultas {
 
     private List<Venta> listaConsulta = new ArrayList<Venta>();
 
-    
     @GetMapping("/consultas")
     public String consultas(Model model) {
 
@@ -39,6 +38,12 @@ public class ControladorConsultas {
             model.addAttribute("listaConsulta", listaConsulta);
         }
         return "consultas";
+    }
+
+    @GetMapping("/salirConsultas")
+    public String salirConsultas() {
+        listaConsulta.clear();
+        return "index";
     }
 
     @GetMapping("/consultasPorCodigo")
@@ -52,10 +57,13 @@ public class ControladorConsultas {
 
             listaConsulta.clear();
             listaConsulta.add(venta);
+            return "redirect:/consultas";
         } else {
-            //mostrar error o advertencia indicando que no se encontro
+            listaConsulta.clear();
+            return "redirect:/consultas?advertencia=true";
+
         }
-        return "redirect:/consultas";
+
     }
 
     @GetMapping("/consultasPorFecha")
@@ -66,15 +74,22 @@ public class ControladorConsultas {
         var fechaFormateada = formatoFecha.getFormatoFecha1().parse(fecha);//usamos de la clase el simpleFormat 1 y parseamos la fecha a date
 
         var listaEncontrada = ventaService.encontrarVentaPorFecha(fechaFormateada);
+        log.info("comparacion =" + (listaEncontrada != null)
+                + " lista: " + listaEncontrada.toString());
 
-        if(listaEncontrada!=null){
-        
+        if (!listaEncontrada.isEmpty()) {
+
             listaConsulta.clear();
             listaConsulta.addAll(listaEncontrada);
-        }
-        log.info("venta encontrada: " + listaEncontrada.toString());
 
-        return "redirect:/consultas";
+            return "redirect:/consultas";
+
+        } else {
+            listaConsulta.clear();
+            return "redirect:/consultas?advertencia=true";
+
+        }
+
     }
 
     @GetMapping("/consultasPorVendedor")
@@ -82,19 +97,20 @@ public class ControladorConsultas {
         log.info("opcion a consultar: " + opcion);
 
         if (opcion == 1) {//1 filtra por administrador
-            var administrador = new Administrador((short)1);
+            var administrador = new Administrador((short) 1);
             var listaEncontrada = ventaService.encontrarVentaPorAdministrador(administrador);
-            
+
             log.info("venta encontradas: " + listaEncontrada.toString());
 
-            if (listaEncontrada != null) {
+            if (!listaEncontrada.isEmpty()) {
 
                 listaConsulta.clear();
                 listaConsulta.addAll(listaEncontrada);
+                return "redirect:/consultas";
 
             } else {
-
-                //mostrar advertencia indicando que no se encontro ninguna venta
+                listaConsulta.clear();
+                return "redirect:/consultas?advertencia=true";
             }
 
         } else if (opcion == 2) {//2 filtra por empleado
@@ -103,25 +119,27 @@ public class ControladorConsultas {
             var listaEncontrada = ventaService.encontrarVentaPorEmpleado(empleado);
             log.info("cantidad de ventas: " + listaEncontrada.size() + " venta encontrada: " + listaEncontrada.toString());
 
-            if (listaEncontrada != null) {
+            if (!listaEncontrada.isEmpty()) {
+
                 listaConsulta.clear();
                 listaConsulta.addAll(listaEncontrada);
+                return "redirect:/consultas";
 
             } else {
-
-                //mostrar advertencia indicando que no se encontro ninguna venta
+                listaConsulta.clear();
+                return "redirect:/consultas?advertencia=true";
             }
 
         }
 
         return "redirect:/consultas";
     }
-    
+
     @GetMapping("/limpiarConsultas")
     public String limpiarConsultas() {
-       
+
         listaConsulta.clear();
         return "redirect:/consultas";
     }
-    
+
 }

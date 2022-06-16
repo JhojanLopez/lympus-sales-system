@@ -73,6 +73,14 @@ public class ControladorVentas {
         return "ventas";
     }
 
+    @GetMapping("/salirVentas")
+    public String salirVentas() {
+
+        listaVentaProductos.clear();
+        listaBusqueda.clear();
+        return "index";
+    }
+
     @GetMapping("/busqueda")//filtrara los productos por nombre o descripcion 
     public String busqueda(@Param("busqueda") String busqueda, Model model) {
 
@@ -80,11 +88,14 @@ public class ControladorVentas {
 
         listaBusqueda = productoService.encontrarProductoPorNombreOrDescripcion(busqueda.toLowerCase());
 
+        if (listaBusqueda.isEmpty()) {
+            return "redirect:/ventas?advertencia=true";
+        }
         log.info("lista de productos encontrados: " + listaBusqueda.toString());
         return "redirect:/ventas";
     }
 
-    @GetMapping("/agregarProductoVenta/{codigo}")//usado para agregar un producto sin utilizar codigo de barras
+    @GetMapping("/agregarProductoVenta/{codigo}")//usado para agregar un producto traido de la busqueda
     public String agregarProductoVentas(Producto producto, @AuthenticationPrincipal User user, Model model) {
         log.info("codigo producto elegido: " + producto.getCodigo());
 
@@ -95,25 +106,12 @@ public class ControladorVentas {
 
         agregarProductoListaVenta(productoListado);
 
-        if (listaVentaProductos.isEmpty()) {
-            log.info("LA LISTA ESTA VACIA");
-        } else {
-            log.info("\nLISTA DE PRODUCTOS EN LA VENTA" + listaVentaProductos.size());
-            for (Producto listaVentaProducto : listaVentaProductos) {
-
-                log.info("\nprodcuto con codigo: " + listaVentaProducto.getCodigo()
-                        + "\nproducto nombre: " + listaVentaProducto.getNombre()
-                        + "\nproducto cantidad: " + listaVentaProducto.getCantidad());
-            }
-
-        }
         return "redirect:/ventas";
+
     }
 
     @PostMapping("/agregarProductoCodigoBarras")
     public String agregarProductoCodigoBarras(Producto producto) {
-
-        log.info("-----------------CONTROLADOR AGREGAR P COD BARRAS-----------------");
 
         if (producto.getCodigo() != null) {
 
@@ -126,25 +124,39 @@ public class ControladorVentas {
                 log.info(productoListado.toString());
 
                 agregarProductoListaVenta(productoListado);
+
+            } else {
+
+                return "redirect:/ventas?advertencia1=true";
+
             }
 
         }
-
         return "redirect:/ventas";
-
     }
 
     @PostMapping("/editarCantidadProducto")
     public String editarCantidadProducto(Producto producto) {
 
-        log.info("-----------------CONTROLADOR editarCantidadProducto-----------------");
-
         if (producto.getCantidad() > 0.0) {
 
-            agregarCantidadEspecifica(producto);
-        }
+            if ((producto.getCantidad() == (long) producto.getCantidad()
+                    && producto.getUnidadMedida() == 1)
+                    || (producto.getUnidadMedida() == 2)) {
 
-        return "redirect:/ventas";
+                agregarCantidadEspecifica(producto);
+                return "redirect:/ventas";
+
+            } else {
+                return "redirect:/ventas?advertencia3=true";
+
+            }
+
+        } else {
+
+            return "redirect:/ventas?advertencia2=true";
+
+        }
 
     }
 
@@ -163,23 +175,24 @@ public class ControladorVentas {
         if (!listaVentaProductos.isEmpty()) {
 
             if (user.getAuthorities().toString().equals("[ROLE_ADMIN]")) {
-                log.info("es administrador");
+
                 var administrador = administradorService.encontrarAdministradorPorCorreo(user.getUsername());
-                guardarVenta(administrador, null);
+                var codigo = guardarVenta(administrador, null);
+                return "redirect:/ventas?exito=true&codigo=" + codigo;
 
             } else {
-                log.info("es empleado");
+
                 var empleado = empleadoService.encontrarEmpleadoPorCorreo(user.getUsername());
                 guardarVenta(null, empleado);
+                return "redirect:/ventas?exito=true";
             }
 
         } else {
 
-            log.info("lista de venta vacia");
+            return "redirect:/ventas?error=true";
 
         }
 
-        return "redirect:/ventas";
     }
 
     @GetMapping("/limpiarVenta")
@@ -194,31 +207,13 @@ public class ControladorVentas {
         return "redirect:/ventas";
     }
 
-    public Object obtenerDatosUsuario(String rol, String correo) {//obtengo todos los datos del usuario logeado
-
-        if (rol.equals("[ROLE_ADMIN]")) {
-            return administradorService.encontrarAdministradorPorCorreo(correo);
-
-        } else {
-            return empleadoService.encontrarEmpleadoPorCorreo(correo);
-        }
-
-    }
-
     public void agregarProductoListaVenta(ProductoListado producto) {
         //Metodo usado para agregar cantidad a la lista de la venta si esta dicho producto
-        log.info("producto a ingresar en la venta:");
-        log.info(producto.toString());
-
-        if (contieneProducto(producto)) {
-            log.info("\nATENCION: EL PRODUCTO YA ESTA EN LA LISTA DE VENTA");
-            log.info("lista de venta:");
-            log.info(listaVentaProductos.toString());
-        } else {
-
+        //al ingresarlo por cofigo de barras
+        if (!contieneProducto(producto)) {
+            //si no lo contiene lo agrega, si lo contiene se agrega 1.0 en cantidad
+            //automaticamente
             listaVentaProductos.add(producto);
-            log.info("lista de venta:");
-            log.info(listaVentaProductos.toString());
 
         }
     }
@@ -245,14 +240,14 @@ public class ControladorVentas {
 
             if (productoI.getCodigo().equals(codigo)) {
                 listaVentaProductos.remove(productoI);
-                log.info("listado de venta: "+listaVentaProductos.toString());
+                log.info("listado de venta: " + listaVentaProductos.toString());
                 break;
             }
         }
 
     }
 
-    private void guardarVenta(Administrador administrador, Empleado empleado) {
+    private long guardarVenta(Administrador administrador, Empleado empleado) {
 
         var fecha = new FormatoFechaHora();
         var venta = new Venta();
@@ -263,7 +258,7 @@ public class ControladorVentas {
             venta.setFecha(fecha.getFecha());
             venta.setHora(fecha.getHora());
             venta.setGananciaVenta(obtenerGananciaVenta());
-            venta.setTotalVenta((long)obtenerTotalVenta());
+            venta.setTotalVenta((long) obtenerTotalVenta());
             venta.setCodigoCliente(null);//ya que la salsamentaria no maneja clientes
             venta.setCodigoAdministrador(administrador);
             venta.setCodigoEmpleado(null);
@@ -274,6 +269,7 @@ public class ControladorVentas {
             //se ingresa los productos en la relacion (*,*)
             ingresarDatosProductoVenta(venta);
             listaVentaProductos.clear();
+            return venta.getCodigo();
 
         } else {
 
@@ -281,7 +277,7 @@ public class ControladorVentas {
             venta.setFecha(fecha.getFecha());
             venta.setHora(fecha.getHora());
             venta.setGananciaVenta(obtenerGananciaVenta());
-            venta.setTotalVenta((long)obtenerTotalVenta());
+            venta.setTotalVenta((long) obtenerTotalVenta());
             venta.setCodigoCliente(null);
 
             venta.setCodigoAdministrador(empleado.getCodigoAdministrador());
@@ -292,7 +288,9 @@ public class ControladorVentas {
 
             //se ingresa los productos en la relacion (*,*)
             ingresarDatosProductoVenta(venta);
+
             listaVentaProductos.clear();
+            return venta.getCodigo();
 
         }
     }
@@ -304,7 +302,7 @@ public class ControladorVentas {
 
         for (int i = 0; i < listaVentaProductos.size(); i++) {
             productoListado = listaVentaProductos.get(i);
-            
+
             pvpk.setCodigoProducto(productoListado.getCodigo());
             pv.setProductoVentaPK(pvpk);//guardamos el pk
             pv.setPrecioVenta(productoListado.getPrecio());
@@ -339,8 +337,7 @@ public class ControladorVentas {
 
         for (ProductoListado productoI : listaVentaProductos) {
 
-            System.out.println(listaVentaProductos); 
-           if (productoI.getCodigo().equals(producto.getCodigo())) {//encontramos el producto
+            if (productoI.getCodigo().equals(producto.getCodigo())) {//encontramos el producto
 
                 log.info("Unidad de medida: " + productoI.getUnidadMedida());
                 if (productoI.getUnidadMedida() == 1) {//si es 1 el producto es por unidad por lo cual 
@@ -349,7 +346,7 @@ public class ControladorVentas {
                     int cantidad = (int) producto.getCantidad();
                     if (cantidad != 0) {
                         productoI.setCantidadVenta((double) cantidad);
-                    }else{
+                    } else {
                         productoI.setCantidadVenta(1.0);
                     }
                     log.info("cantidad a guardar: " + ((double) cantidad));
@@ -364,4 +361,14 @@ public class ControladorVentas {
 
     }
 
+    public Object obtenerDatosUsuario(String rol, String correo) {//obtengo todos los datos del usuario logeado
+
+        if (rol.equals("[ROLE_ADMIN]")) {
+            return administradorService.encontrarAdministradorPorCorreo(correo);
+
+        } else {
+            return empleadoService.encontrarEmpleadoPorCorreo(correo);
+        }
+
+    }
 }

@@ -16,7 +16,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
     </head>
     <body>
         <div class="container">
-            <a th:href="@{/}">regresar</a>
+            <a th:href="@{/salirConsultas}">regresar</a>
             <div class="row">
                 <div class="col-12 text-center">
                     <h1>CONSULTAS</h1>
@@ -41,7 +41,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
                     <div class="col-md-4">
                         <form method="GET" th:action="@{/consultasPorVendedor}">
                             <select name="opcion" required="required">
-                                <option selected value="">Consulta por vendedor</option>
+                                <option selected value="">Selecciona un tipo de usuario</option>
                                 <option value="1">Administrador</option>
                                 <option value="2">Vendedor</option>
 
@@ -51,10 +51,15 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
 
                         </form>
                     </div>
-
-
                 </div>
             </section>
+
+            <div th:if="${param.advertencia}" class="alert alert-warning d-flex" role="alert">
+                <div class="text-center">
+                    <i class="fa-solid fa-triangle-exclamation"></i>
+                    No se encontro ningun resultado.
+                </div>
+            </div>
 
             <section th:if="${listaConsulta}!=null">
                 <div class="row">
