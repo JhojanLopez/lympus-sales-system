@@ -47,17 +47,22 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
             </div>
 
             <!--Login-->
-
             <div class="row justify-content-center">
                 <div class="col-4">
+                    <div th:if="${param.error}" class="alert alert-danger d-flex" role="alert">
+                        <div class="text-center">
+                            <i class="fa-solid fa-xmark"></i>
+                            Error en las credenciales
+                        </div>
+                    </div>
                     <form method="POST" th:action="@{/login}"><!-- indicamos que el metodo va ser post y sera el login -->
                         <div class="mb-4">
                             <label for="username" class="form-label">Correo:</label>
-                            <input type="text" class="form-control" name="username" id="username"/>
+                            <input type="email" class="form-control" name="username" id="username" required="required"/>
                         </div>
                         <div class="mb-4">
                             <label for="password" class="form-label">Clave</label>
-                            <input type="password" class="form-control" name="password" id="password"/>
+                            <input type="password" class="form-control" name="password" id="password" required="required"/>
                         </div>
                         <div class="d-grid">
                             <input type="submit" class="btn btn-primary" value="Ingresar"/>

@@ -1,4 +1,3 @@
-
 package co.com.svl.controlador;
 
 import co.com.svl.modelo.*;
@@ -27,11 +26,10 @@ public class ControladorInicio {
     @GetMapping("/")
     public String inicio(Model model, @AuthenticationPrincipal User user) { //@AuthenticationPrincipal User user){// @AuthenticationPrincipal User user CON ESTO PODEMOS CAPTURAR EL USUSARIO QUE HIZO LOGIN
 
-        log.info("estoy en el controlador del index");
         model.addAttribute("usuarios", user);
         return "index";
     }
- 
+
     @GetMapping("/configuracion")
     public String configuracion(@AuthenticationPrincipal User user, Model model) {
 
@@ -40,11 +38,17 @@ public class ControladorInicio {
         return "configuracion";
     }
 
-    @PostMapping("/modificar")
-    public String modificar(@AuthenticationPrincipal User user, Administrador administrador, Empleado empleado) {//@Valid Persona persona, Errors errores){
-//        if(errores.hasErrors()){
-//            return "modificar";
-////        }
+    @PostMapping("/modificarDatosPersonales")
+    public String modificarDatosPersonales(@AuthenticationPrincipal User user,
+            Administrador administrador, Empleado empleado) {
+
+        actualizarDatos(user.getAuthorities().toString(), administrador, empleado);
+        return "redirect:/configuracion";
+    }
+
+    @PostMapping("/modificarCorreo")
+    public String modificarCorreo(@AuthenticationPrincipal User user,
+            Administrador administrador, Empleado empleado) {
 
         actualizarDatos(user.getAuthorities().toString(), administrador, empleado);
         return "redirect:/configuracion";
@@ -53,6 +57,7 @@ public class ControladorInicio {
     public void actualizarDatos(String rol, Administrador administrador, Empleado empleado) {
 
         if (rol.equals("[ROLE_ADMIN]")) {
+
             administradorService.guardar(administrador);
 
         } else {
@@ -72,29 +77,4 @@ public class ControladorInicio {
 
     }
 
-//    
-//    @GetMapping("/inventario")
-//    public String inventario(@AuthenticationPrincipal User user, Model model) {
-//        return "inventario";
-//    }
-//    
-//    
-//    @GetMapping("/reportes")
-//    public String reportes(@AuthenticationPrincipal User user, Model model) {
-//        return "reportes";
-//    }
-//    
-//    
-//    @GetMapping("/editar/{idPersona}")
-//    public String editar(Persona persona, Model model){
-//        persona = personaService.encontrarPersona(persona);
-//        model.addAttribute("persona", persona);
-//        return "modificar";
-//    }
-//    
-//    @GetMapping("/eliminar")
-//    public String eliminar(Persona persona){
-//        personaService.eliminar(persona);
-//        return "redirect:/";
-//    }
 }

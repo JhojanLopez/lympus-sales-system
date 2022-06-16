@@ -13,23 +13,29 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 @Slf4j
 @Configuration
-@EnableWebSecurity //habilitamos la seguridad a partir de esta anotacion
-public class SecurityConfig extends WebSecurityConfigurerAdapter { //extiende de WebSecurityConfigurerAdapter para poder personalizar los usuarios que pueden acceder a la aplicacion
+@EnableWebSecurity //habilitamos la seguridad 
+public class SecurityConfig extends WebSecurityConfigurerAdapter {
+//extiende de WebSecurityConfigurerAdapter para poder personalizar los usuarios 
+//que pueden acceder a la aplicacion
 
+    //inyectamos la interface UserDetailsService, que la implementamos en usuarioservice
     @Autowired
-    private UserDetailsService userDetailsService; //inyectamos la interface UserDetailsService, que la implementamos en usuarioservice
+    private UserDetailsService userDetailsService; 
 
-    public BCryptPasswordEncoder passwordEncoder() { //definimos un bean para que spring pueda usar esta encriptacion. por lo tanto estara en el contenedor de spring al implementarlo como un bean
+    public BCryptPasswordEncoder passwordEncoder() { //definimos este metodo
+        //para que spring pueda usar esta encriptacion. por lo tanto estara en 
+        //el contenedor de spring al implementarlo como un bean
         return new BCryptPasswordEncoder();
     }
 
     @Autowired //inyectamos este metodo lo que realizara de manera automatica del obj build de la clase AuthenticationManagerBuilder(ya esta definido en la fabrica de spring)
     public void configurerGlobal(AuthenticationManagerBuilder build) throws Exception {
+        //buscara una implementacion de userDetailsService
         build.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder());  //establecemos el usuario al poner build.usuario.tipodeencriptacion        
     }
 
     @Override//este concepto se le conoce como autorizacion: aqui se le restringe dependidendo de la configuracion accesos a funcionalidades del sistema o paginas de la misma
-    protected void configure(HttpSecurity http) throws Exception { //este meetodo permite restringir algunas funcionalidades del sistema
+    protected void configure(HttpSecurity http) throws Exception { //este metodo permite restringir algunas funcionalidades del sistema
         http.authorizeRequests()
                 .antMatchers("/consultas", "/reportes")
                 .hasRole("ADMIN")
@@ -37,7 +43,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter { //extiende de
                 .hasAnyRole("USER", "ADMIN")
                 .and()
                 .formLogin() //con esto indicamos que login vamos a usar e indicamos la vista con su path la cual sera el login que haremos
-                .loginPage("/login")
+                .loginPage("/login").failureUrl("/login?error=true")//si al hacer login surge un error con failurl redirige a una pag de error en este caso pasaremos un parametro para mostrar una alerta
                 .and()
                 .exceptionHandling().accessDeniedPage("/errores/403");
     }

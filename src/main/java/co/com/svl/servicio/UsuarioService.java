@@ -18,6 +18,8 @@ import org.springframework.transaction.annotation.Transactional;
 @Service("userDetailsService")
 public class UsuarioService implements UserDetailsService {
 
+    /*implementacion de userDetailsService el cual cargara un usuario  si el usuario se encuentra
+    activo o */
     @Autowired
     private AdministradorDao administradorDao;
 
@@ -29,10 +31,11 @@ public class UsuarioService implements UserDetailsService {
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 
         var roles = new ArrayList<GrantedAuthority>();
-        Administrador usuarioAdmin = administradorDao.findAdministradorByCorreo(username);//busca en la tabla de administrador si el correo es igual al proporcionado
+        //busca en la tabla de administrador si el correo es igual al proporcionado
+        Administrador usuarioAdmin = administradorDao.findAdministradorByCorreo(username);
 
-
-        if (usuarioAdmin != null) {//si no es nulo, se pasan los datos
+        if (usuarioAdmin != null && usuarioAdmin.getActivo() == 0) {
+            //si no es nulo y el attr activo es 0, se pasan los datos
 
             roles.add(new SimpleGrantedAuthority("ROLE_ADMIN")); //si no es nulo significa que es un admin por lo cual se le asigna el rol de admin
             return new User(usuarioAdmin.getCorreo(), usuarioAdmin.getContrasena(), roles);//retorna el usuario admin
@@ -41,16 +44,18 @@ public class UsuarioService implements UserDetailsService {
 
             Empleado usuarioEmpleado = empleadoDao.findEmpleadoByCorreo(username);
 
-            if (usuarioEmpleado != null) {//si no es nulo encuentra el usuario empleado y retorna  el usuario con sus datos
+            if (usuarioEmpleado != null && usuarioEmpleado.getCodigoAdministrador().getActivo() == 0) {
+                //si no es nulo y el atr activo es 0 en el admin encuentra el usuario empleado y retorna 
+                //el usuario con sus datos
 
-                roles.add(new SimpleGrantedAuthority("ROLE_USER")); 
+                roles.add(new SimpleGrantedAuthority("ROLE_USER"));
                 return new User(usuarioEmpleado.getCorreo(), usuarioEmpleado.getContrasena(), roles);//retorna el usuario empleado
 
-            }//si es nulo arrojara una excepcion
+            }//si no lo encuentra arrojara la excepcion 
 
         }
 
-        throw new UsernameNotFoundException(username);
+        throw new UsernameNotFoundException("Usuario no encontrado");
 
     }
 
