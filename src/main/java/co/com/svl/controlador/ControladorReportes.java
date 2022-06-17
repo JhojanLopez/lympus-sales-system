@@ -59,9 +59,13 @@ public class ControladorReportes {
 
         if (!listaVentas.isEmpty()) {
             establecerReporte(listaVentas);
+            return "redirect:/reportes";
 
+        }else{
+            return "redirect:/reportes?advertencia=true";
+        
         }
-        return "redirect:/reportes";
+        
     }
 
     private void establecerReporte(List<Venta> listaVentas) {
