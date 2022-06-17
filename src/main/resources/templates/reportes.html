@@ -52,7 +52,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
                     <td th:text="${reporte.precioVenta}" >Mostrar precio venta</td>
                     <td th:text="${reporte.costoVenta}">Mostrar costo venta</td>
                     <td th:text="${reporte.ganancia}">Mostrar ganancia</td>
-                    <td><a href="#">exportar a pdf</a></td>
+                    <td th:if="${reporte !=null}"><a th:href="@{/reportePdf/}+${reporte.ganancia}">exportar a pdf</a></td>
                     <td><a href="#">exportar a excel</a></td>
 
                 </tr>

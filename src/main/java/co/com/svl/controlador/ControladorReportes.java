@@ -61,11 +61,29 @@ public class ControladorReportes {
             establecerReporte(listaVentas);
             return "redirect:/reportes";
 
-        }else{
+        } else {
             return "redirect:/reportes?advertencia=true";
+
+        }
+
+    }
+
+    @GetMapping("/exportarReporte")
+    public String generarReporte() {
+        if(reporte.getVentas()!=null){
         
+        return "redirect:/reportePdf/"+reporte;
+        
+        }else{
+        return "redirect:/reportes";
         }
         
+    }
+
+    @GetMapping("/limpiarReporte")
+    public String limpiar() {
+        reporte.setVentas(null);
+        return "redirect:/reportes";
     }
 
     private void establecerReporte(List<Venta> listaVentas) {
@@ -102,11 +120,5 @@ public class ControladorReportes {
         reporte.setPrecioVenta(venta);
 
         return costo;
-    }
-
-    @GetMapping("/limpiarReporte")
-    public String limpiar() {
-        reporte.setVentas(null);
-        return "redirect:/reportes";
     }
 }
