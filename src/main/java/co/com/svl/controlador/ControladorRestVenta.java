@@ -4,7 +4,7 @@
  */
 package co.com.svl.controlador;
 
-import co.com.svl.modelo.Reporte;
+import co.com.svl.modelo.ClaseReporte;
 import co.com.svl.modelo.Venta;
 import co.com.svl.servicio.VentaService;
 import co.com.svl.util.ReportePdf;

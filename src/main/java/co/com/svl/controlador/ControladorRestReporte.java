@@ -4,7 +4,7 @@
  */
 package co.com.svl.controlador;
 
-import co.com.svl.modelo.Reporte;
+import co.com.svl.modelo.ClaseReporte;
 import co.com.svl.modelo.Venta;
 import co.com.svl.servicio.VentaService;
 import co.com.svl.util.ReportePdf;
@@ -35,7 +35,7 @@ public class ControladorRestReporte {
     private VentaService ventaService;
 
     @GetMapping(path = "/reportePdf/{ganancia}")
-    public void exportarListadoVentasPDF(Reporte reporte, HttpServletResponse response) throws DocumentException, IOException {
+    public void exportarListadoVentasPDF(ClaseReporte reporte, HttpServletResponse response) throws DocumentException, IOException {
 
         log.info("--------------------entre en contrrolador /reportePdf rest");
         

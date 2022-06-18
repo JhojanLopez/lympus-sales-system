@@ -7,7 +7,7 @@ package co.com.svl.controlador;
 import co.com.svl.modelo.Administrador;
 import co.com.svl.modelo.Empleado;
 import co.com.svl.modelo.ProductoVenta;
-import co.com.svl.modelo.Reporte;
+import co.com.svl.modelo.ClaseReporte;
 import co.com.svl.modelo.Venta;
 import co.com.svl.servicio.VentaService;
 import co.com.svl.util.FormatoFechaHora;
@@ -33,7 +33,7 @@ public class ControladorReportes {
     @Autowired
     private VentaService ventaService;
 
-    private Reporte reporte = new Reporte();
+    private ClaseReporte reporte = new ClaseReporte();
 
     @GetMapping("/reportes")
     public String reportes(Model model) {
