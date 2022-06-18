@@ -29,10 +29,16 @@ public class ReporteVentaPK implements Serializable {
     public ReporteVentaPK() {
     }
 
+    public ReporteVentaPK(long codigoReporte) {
+        this.codigoReporte = codigoReporte;
+    }
+
+    
     public ReporteVentaPK(long codigoReporte, long codigoVenta) {
         this.codigoReporte = codigoReporte;
         this.codigoVenta = codigoVenta;
     }
+    
 
     public long getCodigoReporte() {
         return codigoReporte;

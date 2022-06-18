@@ -16,7 +16,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
 
     </head>
     <body>
-        <a th:href="@{/}">regresar</a>
+        <a th:href="@{/salirReporte}">regresar</a>
         <div>REPORTES</div>
         <br/>
         <br/>
@@ -45,15 +45,13 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
                     <th>Costo de productos en venta</th>
                     <th>Ganancia</th>
                     <th></th>
-                    <th></th>
                 </tr>
                 <tr>
 
-                    <td th:text="${reporte.precioVenta}" >Mostrar precio venta</td>
-                    <td th:text="${reporte.costoVenta}">Mostrar costo venta</td>
-                    <td th:text="${reporte.ganancia}">Mostrar ganancia</td>
-                    <td th:if="${reporte !=null}"><a th:href="@{/reportePdf/}+${reporte.ganancia}">exportar a pdf</a></td>
-                    <td><a href="#">exportar a excel</a></td>
+                    <td th:text="${reporte.precioTotalVentas}" >Mostrar precio venta</td>
+                    <td th:text="${reporte.costoTotalVentas}">Mostrar costo venta</td>
+                    <td th:text="${reporte.gananciaTotalVentas}">Mostrar total venta</td>
+                    <td th:if="${reporte.codigo !=null}"><a th:href="@{/reportePdf/}+${reporte.codigo}">exportar a pdf</a></td>
 
                 </tr>
             </table>

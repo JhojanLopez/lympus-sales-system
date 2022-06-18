@@ -27,23 +27,12 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "ReporteVenta.findAll", query = "SELECT r FROM ReporteVenta r"),
     @NamedQuery(name = "ReporteVenta.findByCodigoReporte", query = "SELECT r FROM ReporteVenta r WHERE r.reporteVentaPK.codigoReporte = :codigoReporte"),
     @NamedQuery(name = "ReporteVenta.findByCodigoVenta", query = "SELECT r FROM ReporteVenta r WHERE r.reporteVentaPK.codigoVenta = :codigoVenta"),
-    @NamedQuery(name = "ReporteVenta.findByPrecioVenta", query = "SELECT r FROM ReporteVenta r WHERE r.precioVenta = :precioVenta"),
-    @NamedQuery(name = "ReporteVenta.findByCostoVenta", query = "SELECT r FROM ReporteVenta r WHERE r.costoVenta = :costoVenta"),
-    @NamedQuery(name = "ReporteVenta.findByTotal", query = "SELECT r FROM ReporteVenta r WHERE r.total = :total"),
-    @NamedQuery(name = "ReporteVenta.findByGanancia", query = "SELECT r FROM ReporteVenta r WHERE r.ganancia = :ganancia")})
+    })
 public class ReporteVenta implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @EmbeddedId
     protected ReporteVentaPK reporteVentaPK;
-    @Column(name = "precio_venta")
-    private BigInteger precioVenta;
-    @Column(name = "costo_venta")
-    private BigInteger costoVenta;
-    @Column(name = "total")
-    private BigInteger total;
-    @Column(name = "ganancia")
-    private BigInteger ganancia;
     @JoinColumn(name = "codigo_reporte", referencedColumnName = "codigo", insertable = false, updatable = false)
     @ManyToOne(optional = false)
     private Reporte reporte;
@@ -68,38 +57,6 @@ public class ReporteVenta implements Serializable {
 
     public void setReporteVentaPK(ReporteVentaPK reporteVentaPK) {
         this.reporteVentaPK = reporteVentaPK;
-    }
-
-    public BigInteger getPrecioVenta() {
-        return precioVenta;
-    }
-
-    public void setPrecioVenta(BigInteger precioVenta) {
-        this.precioVenta = precioVenta;
-    }
-
-    public BigInteger getCostoVenta() {
-        return costoVenta;
-    }
-
-    public void setCostoVenta(BigInteger costoVenta) {
-        this.costoVenta = costoVenta;
-    }
-
-    public BigInteger getTotal() {
-        return total;
-    }
-
-    public void setTotal(BigInteger total) {
-        this.total = total;
-    }
-
-    public BigInteger getGanancia() {
-        return ganancia;
-    }
-
-    public void setGanancia(BigInteger ganancia) {
-        this.ganancia = ganancia;
     }
 
     public Reporte getReporte() {
@@ -140,8 +97,9 @@ public class ReporteVenta implements Serializable {
 
     @Override
     public String toString() {
-        return "ReporteVenta{" + "reporteVentaPK=" + reporteVentaPK + ", precioVenta=" + precioVenta + ", costoVenta=" + costoVenta + ", total=" + total + ", ganancia=" + ganancia + '}';
+        return "ReporteVenta{" + "reporteVentaPK=" + reporteVentaPK + '}';
     }
 
+  
    
 }

@@ -3,13 +3,14 @@
 Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
 Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this template
 -->
-<html xmlns:th="http://www.thymeleaf.org"
+<html xmlns="http://www.w3.org/1999/xhtml" 
+      xmlns:th="http://www.thymeleaf.org"
       xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
     <head>
         <title>Configuracion</title>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+        <meta charset="UTF-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous"/>
         <!-- font awesome usado para iconos svg -->
         <link rel="stylesheet" th:href="@{/webjars/font-awesome/css/all.css}"/>
 
@@ -69,15 +70,15 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
                     <div class="modal-body">
                         <form class="was-validated" method="POST" th:action="@{/modificarDatosPersonales}" th:object="${usuario}">
                             <div class="mb-3">
-                                <input type="hidden" id="codigo" th:field="*{codigo}">
+                                <input type="hidden" id="codigo" th:field="*{codigo}"/>
                                 <input sec:authorize="hasRole('ROLE_USER')" type="hidden" 
-                                       id="codigoAdministrador" th:field="*{codigoAdministrador.codigo}">
-                                <input type="hidden" th:field="*{correo}">
-                                <input type="hidden" th:field="*{contrasena}">
+                                       id="codigoAdministrador" th:field="*{codigoAdministrador.codigo}"/>
+                                <input type="hidden" th:field="*{correo}"/>
+                                <input type="hidden" th:field="*{contrasena}"/>
 
 
                                 <label for="nombre" class="form-label">Nombre:</label>
-                                <input type="text" class="form-control" id="nombre" th:field="*{nombre}" required="true">
+                                <input type="text" class="form-control" id="nombre" th:field="*{nombre}" required="true"/>
                             </div>
                             <div class="mb-3" sec:authorize="hasRole('ROLE_ADMIN')">
                                 <label for="negocio">Negocio:</label>
@@ -115,32 +116,32 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
                     </div>
                     <div class="modal-body">
                         <form class="was-validated" method="POST" th:action="@{/modificarContrasena}" th:object="${usuario}">
-                            <input type="hidden" id="codigo" th:field="*{codigo}">
-                            <input type="hidden" id="correo" th:field="*{correo}">
-                            <input type="hidden" id="contrasena" th:field="*{contrasena}">
-                            <input type="hidden" id="nombre" th:field="*{nombre}">
+                            <input type="hidden" id="codigo" th:field="*{codigo}"/>
+                            <input type="hidden" id="correo" th:field="*{correo}"/>
+                            <input type="hidden" id="contrasena" th:field="*{contrasena}"/>
+                            <input type="hidden" id="nombre" th:field="*{nombre}"/>
 
                             <input sec:authorize="hasRole('ROLE_USER')" type="hidden" 
-                                   id="codigoAdministrador" th:field="*{codigoAdministrador.codigo}">
+                                   id="codigoAdministrador" th:field="*{codigoAdministrador.codigo}"/>
                             <input sec:authorize="hasRole('ROLE_ADMIN')" type="hidden" 
-                                   th:field="*{nombreNegocio}">
+                                   th:field="*{nombreNegocio}"/>
                             <input sec:authorize="hasRole('ROLE_ADMIN')" type="hidden" 
-                                   th:field="*{nitNegocio}">
+                                   th:field="*{nitNegocio}"/>
                             <input sec:authorize="hasRole('ROLE_ADMIN')" type="hidden" 
-                                   th:field="*{direccion}">
+                                   th:field="*{direccion}"/>
                             <input sec:authorize="hasRole('ROLE_ADMIN')" type="hidden" 
-                                   th:field="*{telefono}">
+                                   th:field="*{telefono}"/>
                             <div class="mb-3">
                                 <label for="contrasenaActual" class="form-label">Contrasena actual:</label>
-                                <input type="password" class="form-control" name="contrasenaActual"  required="true">
+                                <input type="password" class="form-control" name="contrasenaActual"  required="true"/>
                             </div>
                             <div class="mb-3">
                                 <label for="contrasenaNueva" class="form-label">Contrasena nueva:</label>
-                                <input type="password" class="form-control" name="contrasenaNueva" required="true">
+                                <input type="password" class="form-control" name="contrasenaNueva" required="true"/>
                             </div>
                             <div class="mb-3">
                                 <label for="contrasenaConfirmacion" class="form-label">Confirmacion de contrasena:</label>
-                                <input type="password" class="form-control" name="contrasenaConfirmacion" required="true">
+                                <input type="password" class="form-control" name="contrasenaConfirmacion" required="true"/>
                             </div>
                             <div class="modal-footer">
                                 <button type="submit" class="btn btn-primary">Guardar</button>

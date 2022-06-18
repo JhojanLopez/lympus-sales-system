@@ -34,7 +34,7 @@ import javax.xml.bind.annotation.XmlTransient;
 @NamedQueries({
     @NamedQuery(name = "Reporte.findAll", query = "SELECT r FROM Reporte r"),
     @NamedQuery(name = "Reporte.findByCodigo", query = "SELECT r FROM Reporte r WHERE r.codigo = :codigo"),
-    @NamedQuery(name = "Reporte.findByFecha", query = "SELECT r FROM Reporte r WHERE r.fecha = :fecha")})
+  })
 public class Reporte implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -45,9 +45,26 @@ public class Reporte implements Serializable {
     private Long codigo;
     @Basic(optional = false)
     @NotNull
-    @Column(name = "fecha")
+    @Column(name = "fecha_generacion")
     @Temporal(TemporalType.DATE)
-    private Date fecha;
+    private Date fechaGeneracion;
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "desde")
+    @Temporal(TemporalType.DATE)
+    private Date desde;
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "hasta")
+    @Temporal(TemporalType.DATE)
+    private Date hasta;
+    @Column(name = "precio_total_ventas")
+    private long precioTotalVentas;
+    @Column(name = "costo_total_ventas")
+    private long costoTotalVentas;
+    @Column(name = "ganancia_total_ventas")
+    private long gananciaTotalVentas;
+    
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "reporte")
     private List<ReporteVenta> reporteVentaList;
 
@@ -58,11 +75,23 @@ public class Reporte implements Serializable {
         this.codigo = codigo;
     }
 
-    public Reporte(Long codigo, Date fecha) {
-        this.codigo = codigo;
-        this.fecha = fecha;
+    public Reporte(Date fechaGeneracion, Date desde, Date hasta) {
+        this.fechaGeneracion = fechaGeneracion;
+        this.desde = desde;
+        this.hasta = hasta;
     }
 
+    public Reporte(Date fechaGeneracion, Date desde, Date hasta, long precioTotalVentas, long costoTotalVentas, long gananciaTotalVentas) {
+        this.fechaGeneracion = fechaGeneracion;
+        this.desde = desde;
+        this.hasta = hasta;
+        this.precioTotalVentas = precioTotalVentas;
+        this.costoTotalVentas = costoTotalVentas;
+        this.gananciaTotalVentas = gananciaTotalVentas;
+    }
+
+   
+ 
     public Long getCodigo() {
         return codigo;
     }
@@ -71,14 +100,60 @@ public class Reporte implements Serializable {
         this.codigo = codigo;
     }
 
-    public Date getFecha() {
-        return fecha;
+    public Date getFechaGeneracion() {
+        return fechaGeneracion;
     }
 
-    public void setFecha(Date fecha) {
-        this.fecha = fecha;
+    public void setFechaGeneracion(Date fechaGeneracion) {
+        this.fechaGeneracion = fechaGeneracion;
     }
 
+    
+    
+    public Date getDesde() {
+        return desde;
+    }
+
+    public void setDesde(Date desde) {
+        this.desde = desde;
+    }
+
+    public Date getHasta() {
+        return hasta;
+    }
+
+    public void setHasta(Date hasta) {
+        this.hasta = hasta;
+    }
+
+    public long getPrecioTotalVentas() {
+        return precioTotalVentas;
+    }
+
+    public void setPrecioTotalVentas(long precioTotalVentas) {
+        this.precioTotalVentas = precioTotalVentas;
+    }
+
+    public long getCostoTotalVentas() {
+        return costoTotalVentas;
+    }
+
+    public void setCostoTotalVentas(long costoTotalVentas) {
+        this.costoTotalVentas = costoTotalVentas;
+    }
+
+   
+    public long getGananciaTotalVentas() {
+        return gananciaTotalVentas;
+    }
+
+    public void setGananciaTotalVentas(long gananciaTotalVentas) {
+        this.gananciaTotalVentas = gananciaTotalVentas;
+    }
+
+    
+
+    
     @XmlTransient
     public List<ReporteVenta> getReporteVentaList() {
         return reporteVentaList;
@@ -110,9 +185,9 @@ public class Reporte implements Serializable {
 
     @Override
     public String toString() {
-        return "Reporte{" + "codigo=" + codigo + ", fecha=" + fecha + '}';
+        return "Reporte{" + "codigo=" + codigo + ", fechaGeneracion=" + fechaGeneracion + ", desde=" + desde + ", hasta=" + hasta + ", precioTotalVentas=" + precioTotalVentas + ", costoTotalVentas=" + costoTotalVentas +", gananciaTotalVentas=" + gananciaTotalVentas + '}';
     }
 
     
-    
+
 }

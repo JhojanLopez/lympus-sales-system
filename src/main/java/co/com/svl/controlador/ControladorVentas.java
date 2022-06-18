@@ -183,8 +183,8 @@ public class ControladorVentas {
             } else {
 
                 var empleado = empleadoService.encontrarEmpleadoPorCorreo(user.getUsername());
-                guardarVenta(null, empleado);
-                return "redirect:/ventas?exito=true";
+                 var codigo = guardarVenta(null, empleado);
+                return "redirect:/ventas?exito=true&codigo="+ codigo;
             }
 
         } else {

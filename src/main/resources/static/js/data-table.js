@@ -274,7 +274,10 @@ var app = {
             ,
             buttons: [
                 {
-                    titleAttr: 'Selecciona un producto para editar',
+                    attr:{
+                      title:  'Selecciona un producto para editar',
+                      sec:"authorize=hasRole('ROLE_ADMIN')"
+                    },
                     text: '<i class="fa-solid fa-pen-to-square"></i> Editar', /*poner icono fontAwesome*/
                     className: 'btn-editar',
                     action: function (e, dt, node, config) {

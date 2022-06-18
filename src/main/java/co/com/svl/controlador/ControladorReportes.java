@@ -8,11 +8,18 @@ import co.com.svl.modelo.Administrador;
 import co.com.svl.modelo.Empleado;
 import co.com.svl.modelo.ProductoVenta;
 import co.com.svl.modelo.ClaseReporte;
+import co.com.svl.modelo.Reporte;
+import co.com.svl.modelo.ReporteVenta;
+import co.com.svl.modelo.ReporteVentaPK;
 import co.com.svl.modelo.Venta;
+import co.com.svl.servicio.ReporteService;
+import co.com.svl.servicio.ReporteVentaService;
 import co.com.svl.servicio.VentaService;
 import co.com.svl.util.FormatoFechaHora;
+import java.math.BigInteger;
 import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,12 +40,18 @@ public class ControladorReportes {
     @Autowired
     private VentaService ventaService;
 
-    private ClaseReporte reporte = new ClaseReporte();
+    @Autowired
+    private ReporteService reporteService;
+
+    @Autowired
+    private ReporteVentaService reporteVentaService;
+
+    private Reporte reporte = new Reporte();
 
     @GetMapping("/reportes")
     public String reportes(Model model) {
 
-        if (reporte.getVentas() != null) {
+        if (reporte.getCodigo() != null) {
             model.addAttribute("reporte", reporte);
 
         }
@@ -58,7 +71,8 @@ public class ControladorReportes {
         var listaVentas = ventaService.encontrarVentaPorRangoFecha(fechaDesdeFormateada, fechaHastaFormateada);
 
         if (!listaVentas.isEmpty()) {
-            establecerReporte(listaVentas);
+            var fecha = formatoFecha.getFecha();
+            establecerReporte(listaVentas, fecha, fechaDesdeFormateada, fechaHastaFormateada);
             return "redirect:/reportes";
 
         } else {
@@ -68,41 +82,59 @@ public class ControladorReportes {
 
     }
 
-    @GetMapping("/exportarReporte")
-    public String generarReporte() {
-        if(reporte.getVentas()!=null){
-        
-        return "redirect:/reportePdf/"+reporte;
-        
-        }else{
-        return "redirect:/reportes";
-        }
-        
-    }
-
     @GetMapping("/limpiarReporte")
     public String limpiar() {
-        reporte.setVentas(null);
+
+        limpiarDatos();
+
         return "redirect:/reportes";
     }
 
-    private void establecerReporte(List<Venta> listaVentas) {
+      @GetMapping("/salirReporte")
+    public String salirReport() {
 
-        reporte.setVentas(listaVentas);
-        establecerCostoPrecio(listaVentas);
-        reporte.setGanancia(reporte.getPrecioVenta() - reporte.getCostoVenta());
+        limpiarDatos();
 
-        log.info("------------------------------------------------------------------------------");
-        log.info("Precio del reporte generado= " + reporte.getPrecioVenta());
-        log.info("Costo del reporte generado= " + reporte.getCostoVenta());
-        log.info("Ganancia del reporte generado= " + reporte.getGanancia());
+        return "redirect:/";
     }
 
-    private long establecerCostoPrecio(List<Venta> listaVentas) {
+    private void establecerReporte(List<Venta> listaVentas, Date fechaGeneracion, Date fechaDesde, Date fechaHasta) {
+
+        var costo = establecerCosto(listaVentas);
+        var precio = establecerPrecio(listaVentas);
+        var ganancia = precio - costo;
+
+        var r = new Reporte(fechaGeneracion, fechaDesde, fechaHasta, precio, costo, ganancia);//ingresar costo,...
+        reporteService.guardar(r);
+        reporte = r;
+        log.info(" reporte guardado: " + r.toString());
+
+        ingresarDatosReporteVenta(r, listaVentas);
+
+    }
+
+    private void ingresarDatosReporteVenta(Reporte r, List<Venta> listaVentas) {
+
+//        var rvk= new ReporteVentaPk();
+        var rv = new ReporteVenta();
+        var venta = new Venta();
+        var rvpk = new ReporteVentaPK(r.getCodigo());
+
+        for (int i = 0; i < listaVentas.size(); i++) {
+
+            venta = listaVentas.get(i);
+            rvpk.setCodigoVenta(venta.getCodigo());
+            rv.setReporteVentaPK(rvpk);//guardamos el codigo(cod reporte, cod venta (*,*))
+            reporteVentaService.guardar(rv);
+
+        }
+
+    }
+
+    private long establecerCosto(List<Venta> listaVentas) {
 
         log.info("ventas listadas: " + listaVentas.toString());
         long costo = 0;
-        long venta = 0;
 
         log.info("----   Establecer costo ----");
         for (int i = 0; i < listaVentas.size(); i++) {
@@ -111,14 +143,48 @@ public class ControladorReportes {
             for (int j = 0; j < listaProductos.size(); j++) {
 
                 costo = costo + (long) (listaProductos.get(j).getCantidadVendida() * listaProductos.get(j).getCostoVenta());
-                venta = venta + (long) (listaProductos.get(j).getCantidadVendida() * listaProductos.get(j).getPrecioVenta());
 
             }
         }
 
-        reporte.setCostoVenta(costo);
-        reporte.setPrecioVenta(venta);
-
         return costo;
     }
+
+    private long establecerPrecio(List<Venta> listaVentas) {
+
+        log.info("ventas listadas: " + listaVentas.toString());
+        long precio = 0;
+
+        log.info("----   Establecer costo ----");
+        for (int i = 0; i < listaVentas.size(); i++) {
+            var listaProductos = listaVentas.get(i).getProductoVentaList();
+
+            for (int j = 0; j < listaProductos.size(); j++) {
+
+                precio = precio + (long) (listaProductos.get(j).getCantidadVendida() * listaProductos.get(j).getPrecioVenta());
+
+            }
+        }
+
+        return precio;
+    }
+
+    private long establecerTotal(List<Venta> listaVentas) {
+
+        log.info("ventas listadas: " + listaVentas.toString());
+        long total = 0;
+
+        log.info("----   Establecer costo ----");
+        for (int i = 0; i < listaVentas.size(); i++) {
+            total = total + (long) listaVentas.get(i).getTotalVenta();
+
+        }
+
+        return total;
+    }
+
+    private void limpiarDatos() {
+        reporte.setCodigo(null);
+    }
+
 }
