@@ -100,7 +100,6 @@ public class VentaPdf {
         celda.setPhrase(new Phrase("total", fuente));
         tabla.addCell(celda);
 
-   
         log.info("agregando headers: tam tabla= " + tabla.getRow(0));
 
     }
@@ -110,12 +109,34 @@ public class VentaPdf {
         var pv = venta.getProductoVentaList();
         //cod 19 cod 1
 //        pv.get(0).
-                
-        tabla.addCell(""+venta.getCodigo());
-        tabla.addCell(""+venta.getFecha());
-        tabla.addCell(""+venta.getHora());
-        tabla.addCell(""+venta.getGananciaVenta());
-        tabla.addCell(""+venta.getTotalVenta());
+
+        log.info("\n------------------------obtenemos datos negocio--------------------------");
+        log.info("\n nombre negocio: "+ venta.getCodigoAdministrador().getNombreNegocio()+
+                "\n nit: "+ venta.getCodigoAdministrador().getNitNegocio()+
+                "\n direccion: "+ venta.getCodigoAdministrador().getDireccion()+
+                "\n telefono: "+ venta.getCodigoAdministrador().getTelefono());
+        
+        log.info("\n------------------------obtenemos vendedor--------------------------");
+        if (venta.getCodigoEmpleado() == null) {
+            log.info("vendedor: " + venta.getCodigoAdministrador().getNombre());
+        } else {
+            log.info("vendedor: " + venta.getCodigoEmpleado().getNombre());
+        }
+
+        log.info("\n------------------------obtenemos datos de productos--------------------------");
+        log.info("\n Codigo" + pv.get(0).getProducto().getCodigo()
+                + "\n nombre=" + pv.get(0).getProducto().getNombre()
+                + "\n precio venta=" + pv.get(0).getPrecioVenta()//por unidad
+                + "\n costo venta=" + pv.get(0).getCostoVenta()//por unidad
+                + "\n cantidad=" + pv.get(0).getCantidadVendida()//cantidad
+                + "\n subtotal=" + pv.get(0).getSubtotal()
+                + "\n ganancia=" + pv.get(0).getGanancia());
+
+        tabla.addCell("" + venta.getCodigo());
+        tabla.addCell("" + venta.getFecha());
+        tabla.addCell("" + venta.getHora());
+        tabla.addCell("" + venta.getGananciaVenta());
+        tabla.addCell("" + venta.getTotalVenta());
 //        int prueba = 8;
 //        
 //        for (int i = 0; i < prueba; i++) {
