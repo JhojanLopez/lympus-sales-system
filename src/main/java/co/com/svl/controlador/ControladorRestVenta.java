@@ -8,6 +8,7 @@ import co.com.svl.modelo.Reporte;
 import co.com.svl.modelo.Venta;
 import co.com.svl.servicio.VentaService;
 import co.com.svl.util.ReportePdf;
+import co.com.svl.util.VentaPdf;
 import com.lowagie.text.DocumentException;
 import java.io.IOException;
 import java.text.DateFormat;
@@ -29,22 +30,14 @@ import org.springframework.web.bind.annotation.RestController;
 @Slf4j
 @RestController
 @RequestMapping()
-public class ControladorRestReporte {
+public class ControladorRestVenta {
 
     @Autowired
     private VentaService ventaService;
 
-    @GetMapping(path = "/reportePdf/{ganancia}")
-    public void exportarListadoVentasPDF(Reporte reporte, HttpServletResponse response) throws DocumentException, IOException {
+    @GetMapping(path = "/ventaPdf/{codigo}")
+    public void exportarListadoVentasPDF(Venta v, HttpServletResponse response) throws DocumentException, IOException {
 
-        log.info("--------------------entre en contrrolador /reportePdf rest");
-        
-        if(reporte!=null){
-            
-        log.info("llego el reporte");
-        
-        }
-        
         response.setContentType("application/pdf");
 
         DateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd_HH:mm:ss");
@@ -55,9 +48,9 @@ public class ControladorRestReporte {
 
         response.setHeader(cabecera, valor);
 
-        List<Venta> venta = ventaService.listarVentas();
+        var venta = ventaService.encontrarVentaPorCodigo(v.getCodigo());
 
-        ReportePdf exporter = new ReportePdf(venta);
+        var exporter = new VentaPdf(venta);
         exporter.exportar(response);
 
     }
