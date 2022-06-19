@@ -269,26 +269,28 @@ var app = {
                 {data: "precio"},
                 {data: "cantidad"},
                 {data: "descripcion"}
+
             ],
             language: idioma_es
             ,
             buttons: [
                 {
-                    attr:{
-                      title:  'Selecciona un producto para editar',
-                      sec:"authorize=hasRole('ROLE_ADMIN')"
+                    attr: {
+                        id: 'editar',
+                        title: 'Selecciona un producto para editar'
                     },
                     text: '<i class="fa-solid fa-pen-to-square"></i> Editar', /*poner icono fontAwesome*/
                     className: 'btn-editar',
                     action: function (e, dt, node, config) {
                         var data = dt.rows('.table-active').data()[0]; /*obtengo los datos de la fila seleccionada(la que esta con la clase table-active)*/
                         console.log(data);
+
                         if (isObjEmpty(data)) {
-                            
+
                             $('#advertencia').removeClass('d-none');
-                            
+
                         } else {
-                            
+
                             $('#advertencia').addClass('d-none');
                             app.setDataModalEditar(data);
                             $('#modalEditar').modal("show");
@@ -316,7 +318,8 @@ var app = {
 
                 }
             ]
-        });
+        }
+        );
         $('#listaProductos tbody').on('click', 'tr', function () {
             if ($(this).hasClass('table-active')) {/*si ya esta seleccionada una entonces quitar la seleccion*/
                 $(this).removeClass('table-active');
@@ -325,7 +328,6 @@ var app = {
                 $(this).addClass('table-active');
             }
         });
-
     },
     setDataModalEditar(data) {
         $('#codigo').val(data.codigo);
@@ -339,6 +341,9 @@ var app = {
 };
 $(document).ready(function () {
     app.init();
+    if ($("#seguridad").hasClass('d-none')) {//si esta en el html con la clase d-none esta ingresando el empleado por lo cual se oculta el btn editar
+        $("#editar").addClass('d-none');
+    }
 });
 
 

@@ -33,6 +33,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
 
             <!-- alertas -->
             <section>
+                <div sec:authorize="hasRole('ROLE_USER')" id="seguridad" class="d-none">usado para ocultar el boton editar al empleado</div>
                 <div th:if="${param.exito}" class="alert alert-success d-flex" role="alert">
                     <div class="text-center">
                         <i class="fa-solid fa-circle-check"></i>

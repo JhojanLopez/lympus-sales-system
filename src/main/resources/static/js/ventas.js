@@ -19,6 +19,13 @@ $('document').ready(function (){
         });
     $('#editModal').modal("show");    
     });
+      
+    if($('#triggerImpresion').hasClass('d-none')){//usado para identificar si existe el id 
+        //triggerImpresion de manera que se visualiza si se comparte un codigo de venta generado
+        //si es asi se muestra el modal con id modalImpresion
+        $('#modalImpresion').modal("show");  
+          
+      }
 });
 
 

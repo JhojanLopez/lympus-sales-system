@@ -183,8 +183,8 @@ public class ControladorVentas {
             } else {
 
                 var empleado = empleadoService.encontrarEmpleadoPorCorreo(user.getUsername());
-                 var codigo = guardarVenta(null, empleado);
-                return "redirect:/ventas?exito=true&codigo="+ codigo;
+                var codigo = guardarVenta(null, empleado);
+                return "redirect:/ventas?exito=true&codigo=" + codigo;
             }
 
         } else {
@@ -193,6 +193,26 @@ public class ControladorVentas {
 
         }
 
+    }
+
+    @GetMapping("/imprimirVenta")
+    public String imprimirVenta(@AuthenticationPrincipal User user) {
+       
+        if(!listaVentaProductos.isEmpty()){
+            if (user.getAuthorities().toString().equals("[ROLE_ADMIN]")) {
+
+                var administrador = administradorService.encontrarAdministradorPorCorreo(user.getUsername());
+                var codigo = guardarVenta(administrador, null);
+                return "redirect:/ventaPdf/" + codigo;
+
+            } else {
+
+                var empleado = empleadoService.encontrarEmpleadoPorCorreo(user.getUsername());
+                var codigo = guardarVenta(null, empleado);
+                return "redirect:/ventas?exito=true&codigo=" + codigo;
+            }
+        }
+        return "redirect:/ventas";
     }
 
     @GetMapping("/limpiarVenta")

@@ -41,7 +41,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
                     <div class="col-md-4">
                         <form method="GET" th:action="@{/consultasPorVendedor}">
                             <select name="opcion" required="required">
-                                <option selected value="">Selecciona un tipo de usuario</option>
+                                <option selected="true" value="">Selecciona un tipo de usuario</option>
                                 <option value="1">Administrador</option>
                                 <option value="2">Vendedor</option>
 
@@ -83,7 +83,8 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
                                     <td th:if="${venta.codigoAdministrador}!=null and ${venta.codigoEmpleado} == null" th:text="${venta.codigoAdministrador.nombre}">Mostrar vendedor</td>
                                     <td th:if="${venta.codigoEmpleado}!=null" th:text="${venta.codigoEmpleado.nombre}">Mostrar vendedor</td>
                                     <td th:text="${venta.totalVenta}">Mostrar total</td>
-                                    <td> <a class="btn btn-primary" href="#">Mas detalles</a></td>
+                                    <td><a th:href="@{/ventaPdf/(codigo=${venta.codigo})}" th:target="_blank" class="btn btn-primary">Mas detalles</a>
+                                    </td>
 
                                 </tr> 
                             </tbody>

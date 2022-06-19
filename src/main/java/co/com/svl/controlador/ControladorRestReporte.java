@@ -5,7 +5,9 @@
 package co.com.svl.controlador;
 
 import co.com.svl.modelo.ClaseReporte;
+import co.com.svl.modelo.Reporte;
 import co.com.svl.modelo.Venta;
+import co.com.svl.servicio.ReporteService;
 import co.com.svl.servicio.VentaService;
 import co.com.svl.util.ReportePdf;
 import com.lowagie.text.DocumentException;
@@ -32,19 +34,22 @@ import org.springframework.web.bind.annotation.RestController;
 public class ControladorRestReporte {
 
     @Autowired
+    private ReporteService reporteService;
+
+    @Autowired
     private VentaService ventaService;
 
-    @GetMapping(path = "/reportePdf/{ganancia}")
-    public void exportarListadoVentasPDF(ClaseReporte reporte, HttpServletResponse response) throws DocumentException, IOException {
+    @GetMapping(path = "/reportePdf/{codigo}")
+    public void exportarListadoVentasPDF(Reporte reporte, HttpServletResponse response) throws DocumentException, IOException {
 
         log.info("--------------------entre en contrrolador /reportePdf rest");
-        
-        if(reporte!=null){
-            
-        log.info("llego el reporte");
-        
+
+        if (reporte != null) {
+
+            log.info("llego el reporte" + reporte.getCodigo());
+
         }
-        
+
         response.setContentType("application/pdf");
 
         DateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd_HH:mm:ss");
@@ -54,10 +59,17 @@ public class ControladorRestReporte {
         String valor = "attachment; filename=Venta_" + fechaActual + ".pdf";
 
         response.setHeader(cabecera, valor);
+        var reporteGenerado = reporteService.encontrarPorCodigo(reporte.getCodigo());
+        var venta = ventaService.encontrarVentaPorCodigo(30l);
 
-        List<Venta> venta = ventaService.listarVentas();
+        if (reporteGenerado != null) {
+            log.info("reporte generado:" + reporteGenerado.toString());
 
-        ReportePdf exporter = new ReportePdf(venta);
+        }else{
+                        log.info("reporte generado esta VACIO:");
+
+        }
+        ReportePdf exporter = new ReportePdf(venta, reporteGenerado);
         exporter.exportar(response);
 
     }

@@ -129,10 +129,11 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
                                 </tr>
                             </tfoot>
 
-                        </table>
 
-                        <input type="submit" name="guardar" th:value="Guardar"/>
-                        <a href="#" type="button">Imprimir</a>
+                        </table>
+                        <div th:if="${listaProductosVenta!=null}">
+                            <input type="submit" name="guardar" th:value="Guardar"/>
+                        </div>
 
                     </form>
 
@@ -159,6 +160,27 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
 
                             </div>
                         </form>
+                    </div>
+                </div>
+            </div>
+            
+            <div id="triggerImpresion" th:if="${param.codigo!=null}" class="d-none">usado para ejecutar el modal con js</div>
+            <!-- modal de impresion -->
+            <div th:if="${param.codigo!=null}" class="modal fade" id="modalImpresion" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <p>¿Desea imprimir la venta generada? cod venta: <span th:text="${param.codigo}">codigo</span></p>
+                        </div>
+                        <div class="modal-footer">
+                            <a th:href="@{/ventaPdf/(codigo=${param.codigo})}" th:target="_blank" class="btn btn-primary">Si</a>
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
+                            
+                        </div>
                     </div>
                 </div>
             </div>
