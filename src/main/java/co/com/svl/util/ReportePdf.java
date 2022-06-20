@@ -29,12 +29,10 @@ import lombok.extern.slf4j.Slf4j;
 public class ReportePdf {
 
     private Document documento = new Document(PageSize.A4);
-    private Venta vent;
     private Reporte reporte;
 
-    public ReportePdf(Venta venta, Reporte reporte) {
+    public ReportePdf(Reporte reporte) {
         super();
-        this.vent = venta;
         this.reporte = reporte;
     }
 
@@ -109,20 +107,20 @@ public class ReportePdf {
 
     }
 
-    private void datosTabla(Venta vent, PdfPTable tabla, Paragraph informacionCentro, Paragraph informacionFinal) {
+    private void datosTabla(Venta venta, PdfPTable tabla, Paragraph informacionCentro, Paragraph informacionFinal) {
 
-        var pv = vent.getProductoVentaList();
+        var pv = venta.getProductoVentaList();
 
-        informacionCentro.add("\n Número de factura: " + vent.getCodigo());
-        informacionCentro.add("\n Fecha:  " + vent.getFecha() + " / " + vent.getHora());
+        informacionCentro.add("\n Número de factura: " + venta.getCodigo());
+        informacionCentro.add("\n Fecha:  " + venta.getFecha() + " / " + venta.getHora());
 
-        if (vent.getCodigoEmpleado() == null) {
-            log.info("vendedor: " + vent.getCodigoAdministrador().getNombre());
-            informacionCentro.add("\n Vendedor: " + vent.getCodigoAdministrador().getNombre());
+        if (venta.getCodigoEmpleado() == null) {
+            log.info("vendedor: " + venta.getCodigoAdministrador().getNombre());
+            informacionCentro.add("\n Vendedor: " + venta.getCodigoAdministrador().getNombre());
 
         } else {
-            log.info("vendedor: " + vent.getCodigoEmpleado().getNombre());
-            informacionCentro.add("\n Vendedor: " + vent.getCodigoEmpleado().getNombre());
+            log.info("vendedor: " + venta.getCodigoEmpleado().getNombre());
+            informacionCentro.add("\n Vendedor: " + venta.getCodigoEmpleado().getNombre());
 
         }
 
@@ -133,8 +131,8 @@ public class ReportePdf {
             tabla.addCell("" + pv.get(i).getCantidadVendida());
             tabla.addCell("$" + pv.get(i).getSubtotal());
         }
-        informacionFinal.add("\n Total venta: $" + vent.getTotalVenta() + ""
-                + "\n Ganancia de venta: $" + vent.getGananciaVenta() + "\n\n\n\n");
+        informacionFinal.add("\n Total venta: $" + venta.getTotalVenta() + ""
+                + "\n Ganancia de venta: $" + venta.getGananciaVenta() + "\n\n\n\n");
 
         documento.add(informacionCentro);
         documento.add(tabla);

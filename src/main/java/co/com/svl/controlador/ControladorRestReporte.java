@@ -59,21 +59,17 @@ public class ControladorRestReporte {
         String fechaActual = dateFormatter.format(new Date());
 
         String cabecera = "content-Disposition";
-        String valor = "attachment; filename=Venta_" + fechaActual + ".pdf";
+        String valor = "attachment; filename=Reporte_" + fechaActual + ".pdf";
 
         response.setHeader(cabecera, valor);
         var reporteGenerado = reporteService.encontrarPorCodigo(reporte.getCodigo());
-        var venta = ventaService.encontrarVentaPorCodigo(30l);
 
         if (reporteGenerado != null) {
-            log.info("reporte generado:" + reporteGenerado.toString());
-
-        }else{
-                        log.info("reporte generado esta VACIO:");
+            
+         log.info(reporte.toString());
+         ReportePdf exporter = new ReportePdf(reporteGenerado);
+         exporter.exportar(response);
 
         }
-        ReportePdf exporter = new ReportePdf(venta, reporteGenerado);
-        exporter.exportar(response);
-
     }
 }
