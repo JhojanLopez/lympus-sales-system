@@ -22,6 +22,9 @@ public class FormatoFechaHora {
     private SimpleDateFormat formatoFecha2;
     private Date fechaHora;
 
+    /**
+     * @author JhojanDS
+     */
     public FormatoFechaHora() {
         this.fechaHora = new Date();//obtenemos la fecha y hora actual
         this.formatoHora = new SimpleDateFormat("HH:mm:ss");
@@ -30,6 +33,10 @@ public class FormatoFechaHora {
 
     }
 
+    /**
+     * @author JhojanDS
+     * @return
+     */
     public Date getHora() {
      //de la fecha actual me devuelve solamente la hora
         var hora = formatoHora.format(fechaHora);
@@ -42,38 +49,74 @@ public class FormatoFechaHora {
         }
     }
 
+    /**
+     * @author JhojanDS
+     * @return
+     */
     public Date getFecha() {
         return fechaHora;
     }
 
+    /**
+     * @author JhojanDS
+     * @return
+     */
     public SimpleDateFormat getFormatoHora() {
         return formatoHora;
     }
 
+    /**
+     * @author JhojanDS
+     * @param formatoHora
+     */
     public void setFormatoHora(SimpleDateFormat formatoHora) {
         this.formatoHora = formatoHora;
     }
 
+    /**
+     * @author JhojanDS
+     * @return
+     */
     public SimpleDateFormat getFormatoFecha1() {
         return formatoFecha1;
     }
 
+    /**
+     * @author JhojanDS
+     * @param formatoFecha1
+     */
     public void setFormatoFecha1(SimpleDateFormat formatoFecha1) {
         this.formatoFecha1 = formatoFecha1;
     }
 
+    /**
+     * @author JhojanDS
+     * @return
+     */
     public SimpleDateFormat getFormatoFecha2() {
         return formatoFecha2;
     }
 
+    /**
+     * @author JhojanDS
+     * @param formatoFecha2
+     */
     public void setFormatoFecha2(SimpleDateFormat formatoFecha2) {
         this.formatoFecha2 = formatoFecha2;
     }
 
+    /**
+     * @author JhojanDS
+     * @return
+     */
     public Date getFechaHora() {
         return fechaHora;
     }
 
+    /**
+     * @author JhojanDS
+     * @param fechaHora
+     */
     public void setFechaHora(Date fechaHora) {
         this.fechaHora = fechaHora;
     }

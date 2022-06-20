@@ -5,7 +5,6 @@
 package co.com.svl.servicio;
 
 import co.com.svl.modelo.ProductoVenta;
-import java.util.List;
 
 /**
  *
@@ -13,9 +12,16 @@ import java.util.List;
  */
 public interface ProductoVentaService{
     
- 
+    /**
+     *
+     * @param productoVenta
+     */
     public void guardar(ProductoVenta productoVenta);
     
+    /**
+     *
+     * @param productoVenta
+     */
     public void eliminar(ProductoVenta productoVenta);
     
     

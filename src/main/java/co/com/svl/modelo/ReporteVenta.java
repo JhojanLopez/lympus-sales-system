@@ -5,8 +5,6 @@
 package co.com.svl.modelo;
 
 import java.io.Serializable;
-import java.math.BigInteger;
-import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
@@ -40,41 +38,81 @@ public class ReporteVenta implements Serializable {
     @ManyToOne(optional = false)
     private Venta venta;
 
+    /**
+     *
+     */
     public ReporteVenta() {
     }
 
+    /**
+     *
+     * @param reporteVentaPK
+     */
     public ReporteVenta(ReporteVentaPK reporteVentaPK) {
         this.reporteVentaPK = reporteVentaPK;
     }
 
+    /**
+     *
+     * @param codigoReporte
+     * @param codigoVenta
+     */
     public ReporteVenta(long codigoReporte, long codigoVenta) {
         this.reporteVentaPK = new ReporteVentaPK(codigoReporte, codigoVenta);
     }
 
+    /**
+     *
+     * @return
+     */
     public ReporteVentaPK getReporteVentaPK() {
         return reporteVentaPK;
     }
 
+    /**
+     *
+     * @param reporteVentaPK
+     */
     public void setReporteVentaPK(ReporteVentaPK reporteVentaPK) {
         this.reporteVentaPK = reporteVentaPK;
     }
 
+    /**
+     *
+     * @return
+     */
     public Reporte getReporte() {
         return reporte;
     }
 
+    /**
+     *
+     * @param reporte
+     */
     public void setReporte(Reporte reporte) {
         this.reporte = reporte;
     }
 
+    /**
+     *
+     * @return
+     */
     public Venta getVenta() {
         return venta;
     }
 
+    /**
+     *
+     * @param venta
+     */
     public void setVenta(Venta venta) {
         this.venta = venta;
     }
 
+    /**
+     *
+     * @return
+     */
     @Override
     public int hashCode() {
         int hash = 0;
@@ -82,6 +120,11 @@ public class ReporteVenta implements Serializable {
         return hash;
     }
 
+    /**
+     *
+     * @param object
+     * @return
+     */
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
@@ -95,6 +138,10 @@ public class ReporteVenta implements Serializable {
         return true;
     }
 
+    /**
+     *
+     * @return
+     */
     @Override
     public String toString() {
         return "ReporteVenta{" + "reporteVentaPK=" + reporteVentaPK + '}';

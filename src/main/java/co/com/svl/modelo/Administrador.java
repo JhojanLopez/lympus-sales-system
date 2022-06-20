@@ -10,7 +10,6 @@ import java.util.List;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-import lombok.Data;
 
 /**
  *
@@ -79,109 +78,216 @@ public class Administrador implements Serializable {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "codigoAdministrador", fetch = FetchType.LAZY)
     private List<Producto> productoList;
 
+    /**
+     *
+     */
     public Administrador() {
     }
 
+    /**
+     *
+     * @param codigo
+     */
     public Administrador(Short codigo) {
         this.codigo = codigo;
     }
 
+    /**
+     *
+     * @return
+     */
     public Short getCodigo() {
         return codigo;
     }
 
+    /**
+     *
+     * @param codigo
+     */
     public void setCodigo(Short codigo) {
         this.codigo = codigo;
     }
 
+    /**
+     *
+     * @return
+     */
     public short getActivo() {
         return activo;
     }
 
+    /**
+     *
+     * @param activo
+     */
     public void setActivo(short activo) {
         this.activo = activo;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getNombre() {
         return nombre;
     }
 
+    /**
+     *
+     * @param nombre
+     */
     public void setNombre(String nombre) {
         this.nombre = nombre;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getCorreo() {
         return correo;
     }
 
+    /**
+     *
+     * @param correo
+     */
     public void setCorreo(String correo) {
         this.correo = correo;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getContrasena() {
         return contrasena;
     }
 
+    /**
+     *
+     * @param contrasena
+     */
     public void setContrasena(String contrasena) {
         this.contrasena = contrasena;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getNombreNegocio() {
         return nombreNegocio;
     }
 
+    /**
+     *
+     * @param nombreNegocio
+     */
     public void setNombreNegocio(String nombreNegocio) {
         this.nombreNegocio = nombreNegocio;
     }
 
+    /**
+     *
+     * @return
+     */
     public long getNitNegocio() {
         return nitNegocio;
     }
 
+    /**
+     *
+     * @param nitNegocio
+     */
     public void setNitNegocio(long nitNegocio) {
         this.nitNegocio = nitNegocio;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getDireccion() {
         return direccion;
     }
 
+    /**
+     *
+     * @param direccion
+     */
     public void setDireccion(String direccion) {
         this.direccion = direccion;
     }
 
+    /**
+     *
+     * @return
+     */
     public BigInteger getTelefono() {
         return telefono;
     }
 
+    /**
+     *
+     * @param telefono
+     */
     public void setTelefono(BigInteger telefono) {
         this.telefono = telefono;
     }
 
+    /**
+     *
+     * @return
+     */
     public List<Venta> getVentaList() {
         return ventaList;
     }
 
+    /**
+     *
+     * @param ventaList
+     */
     public void setVentaList(List<Venta> ventaList) {
         this.ventaList = ventaList;
     }
 
+    /**
+     *
+     * @return
+     */
     public List<Empleado> getEmpleadoList() {
         return empleadoList;
     }
 
+    /**
+     *
+     * @param empleadoList
+     */
     public void setEmpleadoList(List<Empleado> empleadoList) {
         this.empleadoList = empleadoList;
     }
 
+    /**
+     *
+     * @return
+     */
     public List<Producto> getProductoList() {
         return productoList;
     }
 
+    /**
+     *
+     * @param productoList
+     */
     public void setProductoList(List<Producto> productoList) {
         this.productoList = productoList;
     }
 
+    /**
+     *
+     * @return
+     */
     @Override
     public String toString() {
         return "Administrador{" + "codigo=" + codigo + ", activo=" + activo + ", nombre=" + nombre + ", correo=" + correo + ", contrasena=" + contrasena + ", nombreNegocio=" + nombreNegocio + ", nitNegocio=" + nitNegocio + ", direccion=" + direccion + ", telefono=" + telefono + '}';

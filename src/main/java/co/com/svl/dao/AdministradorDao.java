@@ -14,8 +14,13 @@ import org.springframework.data.repository.query.Param;
  * @author JhojanDS
  */
 public interface AdministradorDao extends CrudRepository<Administrador, Long> {
-    
+
+    /**
+     * @author JhojanDS
+     * @param correo
+     * @return
+     */
     @Query("SELECT a FROM Administrador a WHERE a.correo = :correo")
     public Administrador findAdministradorByCorreo(@Param("correo") String correo);
-    
+
 }

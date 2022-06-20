@@ -22,30 +22,52 @@ public class AdministradorServiceImpl implements AdministradorService {
     @Autowired
     private AdministradorDao administradorDao;
 
+    /**
+     *
+     * @return
+     */
     @Override
     @Transactional(readOnly = true)
     public List<Administrador> listarAdministradores() {
         return (List<Administrador>) administradorDao.findAll();
     }
 
+    /**
+     *
+     * @param administrador
+     */
     @Override
     @Transactional
     public void guardar(Administrador administrador) {
         administradorDao.save(administrador);
     }
 
+    /**
+     *
+     * @param administrador
+     */
     @Override
     @Transactional
     public void eliminar(Administrador administrador) {
         administradorDao.delete(administrador);
     }
 
+    /**
+     *
+     * @param administrador
+     * @return
+     */
     @Override
     @Transactional(readOnly = true)
     public Administrador encontrarAdministrador(Administrador administrador) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
+    /**
+     *
+     * @param correo
+     * @return
+     */
     @Override
     @Transactional(readOnly = true)
     public Administrador encontrarAdministradorPorCorreo(String correo) {

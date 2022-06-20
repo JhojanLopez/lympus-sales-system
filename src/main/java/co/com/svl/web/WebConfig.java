@@ -1,18 +1,20 @@
 package co.com.svl.web;
 
-import java.util.Locale;
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.web.servlet.LocaleResolver;
-import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
-import org.springframework.web.servlet.i18n.LocaleChangeInterceptor;
-import org.springframework.web.servlet.i18n.SessionLocaleResolver;
 
+/**
+ *
+ * @author Juan Turriago
+ */
 @Configuration
 public class WebConfig implements WebMvcConfigurer{
 
+    /**
+     * @author Juan Turriago
+     * @param registro
+     */
     @Override
     public void addViewControllers(ViewControllerRegistry registro){//indicamos la vista por default
         registro.addViewController("/").setViewName("index");

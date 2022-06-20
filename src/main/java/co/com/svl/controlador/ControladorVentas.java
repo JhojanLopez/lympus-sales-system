@@ -49,9 +49,15 @@ public class ControladorVentas {
     @Autowired
     private ProductoVentaService productoVentaService;
 
-    private List<ProductoListado> listaVentaProductos = new ArrayList<ProductoListado>();
-    private List<Producto> listaBusqueda = new ArrayList<Producto>();
+    private final List<ProductoListado> listaVentaProductos = new ArrayList<>();
+    private List<Producto> listaBusqueda = new ArrayList<>();
 
+    /**
+     * @author JHOJAN L
+     * @param user
+     * @param model
+     * @return /ventas
+     */
     @GetMapping("/ventas")
     public String ventas(@AuthenticationPrincipal User user, Model model) {
 
@@ -73,6 +79,10 @@ public class ControladorVentas {
         return "ventas";
     }
 
+    /**
+     * @author JHOJAN L
+     * @return /ventas
+     */
     @GetMapping("/salirVentas")
     public String salirVentas() {
 
@@ -81,6 +91,12 @@ public class ControladorVentas {
         return "index";
     }
 
+    /**
+     * @author JHOJAN L
+     * @param busqueda
+     * @param model
+     * @return /ventas
+     */
     @GetMapping("/busqueda")//filtrara los productos por nombre o descripcion 
     public String busqueda(@Param("busqueda") String busqueda, Model model) {
 
@@ -95,6 +111,13 @@ public class ControladorVentas {
         return "redirect:/ventas";
     }
 
+    /**
+     * @author JHOJAN L
+     * @param producto
+     * @param user
+     * @param model
+     * @return /ventas
+     */
     @GetMapping("/agregarProductoVenta/{codigo}")//usado para agregar un producto traido de la busqueda
     public String agregarProductoVentas(Producto producto, @AuthenticationPrincipal User user, Model model) {
         log.info("codigo producto elegido: " + producto.getCodigo());
@@ -110,6 +133,11 @@ public class ControladorVentas {
 
     }
 
+    /**
+     * @author JHOJAN L
+     * @param producto
+     * @return /ventas
+     */
     @PostMapping("/agregarProductoCodigoBarras")
     public String agregarProductoCodigoBarras(Producto producto) {
 
@@ -135,6 +163,11 @@ public class ControladorVentas {
         return "redirect:/ventas";
     }
 
+    /**
+     * @author JHOJAN L
+     * @param producto
+     * @return /ventas
+     */
     @PostMapping("/editarCantidadProducto")
     public String editarCantidadProducto(Producto producto) {
 
@@ -160,6 +193,11 @@ public class ControladorVentas {
 
     }
 
+    /**
+     * @author JHOJAN L
+     * @param producto
+     * @return /ventas
+     */
     @GetMapping("/eliminarProductoVenta/{codigo}")
     public String eliminarProductoVentas(Producto producto) {
         log.info("------------------CONTROLADOR ELIMINAR PRODUCTO DE LA VENTA----------------");
@@ -169,6 +207,11 @@ public class ControladorVentas {
         return "redirect:/ventas";
     }
 
+    /** 
+     * @author JHOJAN L
+     * @param user
+     * @return /ventas
+     */
     @PostMapping("/generarVenta")
     public String generarVenta(@AuthenticationPrincipal User user) {
 
@@ -195,6 +238,11 @@ public class ControladorVentas {
 
     }
 
+    /**
+     * @author JHOJAN L
+     * @param user
+     * @return /ventas
+     */
     @GetMapping("/imprimirVenta")
     public String imprimirVenta(@AuthenticationPrincipal User user) {
        
@@ -215,18 +263,30 @@ public class ControladorVentas {
         return "redirect:/ventas";
     }
 
+    /**
+     * @author JHOJAN L
+     * @return /ventas
+     */
     @GetMapping("/limpiarVenta")
     public String limpiarProductoVentas() {
         listaVentaProductos.clear();
         return "redirect:/ventas";
     }
 
+    /**
+     * @author JHOJAN L
+     * @return /ventas
+     */
     @GetMapping("/limpiarBusqueda")
     public String limpiarBusqueda() {
         listaBusqueda.clear();
         return "redirect:/ventas";
     }
 
+    /**
+     * @author JHOJAN L
+     * @param producto
+     */
     public void agregarProductoListaVenta(ProductoListado producto) {
         //Metodo usado para agregar cantidad a la lista de la venta si esta dicho producto
         //al ingresarlo por cofigo de barras
@@ -238,6 +298,11 @@ public class ControladorVentas {
         }
     }
 
+    /**
+     * @author JHOJAN L
+     * @param producto
+     * @return 
+     */
     public boolean contieneProducto(ProductoListado producto) {
         log.info("-------------------------------ANALIZANDO SI CONTIENE EL PRODUCTO-----------------------");
         for (ProductoListado productoI : listaVentaProductos) {
@@ -254,6 +319,10 @@ public class ControladorVentas {
         return false;
     }
 
+    /**
+     * @author JHOJAN L
+     * @param codigo
+     */
     public void eliminarProductoListaVenta(Long codigo) {
 
         for (Producto productoI : listaVentaProductos) {
@@ -381,6 +450,12 @@ public class ControladorVentas {
 
     }
 
+    /**
+     * @author JHOJAN L
+     * @param rol
+     * @param correo
+     * @return empleadoService.encontrarEmpleadoPorCorreo(correo)
+     */
     public Object obtenerDatosUsuario(String rol, String correo) {//obtengo todos los datos del usuario logeado
 
         if (rol.equals("[ROLE_ADMIN]")) {

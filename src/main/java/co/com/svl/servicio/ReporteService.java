@@ -12,11 +12,23 @@ import co.com.svl.modelo.Reporte;
  */
 public interface ReporteService {
     
-    
+    /**
+     *
+     * @param reporte
+     */
     public void guardar(Reporte reporte);
 
+    /**
+     *
+     * @param reprte
+     */
     public void eliminar(Reporte reprte);
 
+    /**
+     *
+     * @param codigo
+     * @return
+     */
     public Reporte encontrarPorCodigo(Long codigo);
 
 }

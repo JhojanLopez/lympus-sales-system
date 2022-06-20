@@ -13,14 +13,36 @@ import java.util.List;
  */
 public interface ProductoService{
     
+    /**
+     *
+     * @return
+     */
     public List<Producto> listarProductos();
     
+    /**
+     *
+     * @param producto
+     */
     public void guardar(Producto producto);
     
+    /**
+     *
+     * @param producto
+     */
     public void eliminar(Producto producto);
     
+    /**
+     *
+     * @param codigo
+     * @return
+     */
     public Producto encontrarProductoPorCodigo(Long codigo);
     
+    /**
+     *
+     * @param busqueda
+     * @return
+     */
     public List<Producto> encontrarProductoPorNombreOrDescripcion(String busqueda);
     
 }

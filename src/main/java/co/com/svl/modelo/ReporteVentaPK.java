@@ -26,36 +26,66 @@ public class ReporteVentaPK implements Serializable {
     @Column(name = "codigo_venta")
     private long codigoVenta;
 
+    /**
+     *
+     */
     public ReporteVentaPK() {
     }
 
+    /**
+     *
+     * @param codigoReporte
+     */
     public ReporteVentaPK(long codigoReporte) {
         this.codigoReporte = codigoReporte;
     }
 
-    
+    /**
+     *
+     * @param codigoReporte
+     * @param codigoVenta
+     */
     public ReporteVentaPK(long codigoReporte, long codigoVenta) {
         this.codigoReporte = codigoReporte;
         this.codigoVenta = codigoVenta;
     }
     
-
+    /**
+     *
+     * @return
+     */
     public long getCodigoReporte() {
         return codigoReporte;
     }
 
+    /**
+     *
+     * @param codigoReporte
+     */
     public void setCodigoReporte(long codigoReporte) {
         this.codigoReporte = codigoReporte;
     }
 
+    /**
+     *
+     * @return
+     */
     public long getCodigoVenta() {
         return codigoVenta;
     }
 
+    /**
+     *
+     * @param codigoVenta
+     */
     public void setCodigoVenta(long codigoVenta) {
         this.codigoVenta = codigoVenta;
     }
 
+    /**
+     *
+     * @return
+     */
     @Override
     public int hashCode() {
         int hash = 0;
@@ -64,6 +94,11 @@ public class ReporteVentaPK implements Serializable {
         return hash;
     }
 
+    /**
+     *
+     * @param object
+     * @return
+     */
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
@@ -80,6 +115,10 @@ public class ReporteVentaPK implements Serializable {
         return true;
     }
 
+    /**
+     *
+     * @return
+     */
     @Override
     public String toString() {
         return "co.com.svl.modelo.ReporteVentaPK[ codigoReporte=" + codigoReporte + ", codigoVenta=" + codigoVenta + " ]";

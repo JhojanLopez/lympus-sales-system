@@ -12,14 +12,11 @@ import com.lowagie.text.Image;
 import com.lowagie.text.PageSize;
 import com.lowagie.text.Paragraph;
 import com.lowagie.text.Phrase;
-import com.lowagie.text.html.HtmlWriter;
 import com.lowagie.text.pdf.PdfPCell;
 import com.lowagie.text.pdf.PdfPTable;
 import com.lowagie.text.pdf.PdfWriter;
 import java.awt.Color;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.util.List;
 import javax.servlet.http.HttpServletResponse;
 import lombok.extern.slf4j.Slf4j;
 
@@ -30,54 +27,63 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class VentaPdf {
 
-    private Venta venta;
+    private final Venta venta;
 
+    /**
+     *
+     * @param venta
+     */
     public VentaPdf(Venta venta) {
         super();
         this.venta = venta;
     }
 
+    /**
+     *
+     * @param response
+     * @throws IOException
+     */
     public void exportar(HttpServletResponse response) throws IOException {
-        Document documento = new Document(PageSize.A4);
-        PdfWriter.getInstance(documento, response.getOutputStream());
-
-        Paragraph informacionIzquierda = new Paragraph();
-        Paragraph informacionCentro = new Paragraph();
-        Paragraph informacionTotal = new Paragraph();
-        Paragraph informacionFinal = new Paragraph();
-
-        PdfPTable tabla = new PdfPTable(4);
-
-        documento.open();
-
-        Font fuenteTitulo = FontFactory.getFont(FontFactory.HELVETICA_BOLD);
-        fuenteTitulo.setColor(Color.RED);
-        fuenteTitulo.setSize(18);
-
-        Font fuenteInformacion = FontFactory.getFont(FontFactory.HELVETICA_BOLD);
-        fuenteTitulo.setColor(Color.RED);
-        fuenteTitulo.setSize(18);
-
-        tabla.setWidthPercentage(100);
-        tabla.setSpacingBefore(15);
-        tabla.setWidths(new float[]{6f, 2.3f, 1.7f, 2.1f});
-        tabla.setWidthPercentage(110);
-
-        cabeceraTabla(tabla);
-        datosTabla(tabla, informacionCentro, informacionIzquierda, informacionTotal, informacionFinal);
-
-        Image jpg = Image.getInstance("src/main/resources/static/img/logo.png");
-        jpg.scaleAbsolute(120, 100);
-        jpg.setAlignment(Paragraph.ALIGN_CENTER);
-
-        documento.add(jpg);
-
-        documento.add(informacionCentro);
-        documento.add(informacionIzquierda);
-        documento.add(tabla);
-        documento.add(informacionTotal);
-        documento.add(informacionFinal);
-        documento.close();
+        try (Document documento = new Document(PageSize.A4)) {
+            PdfWriter.getInstance(documento, response.getOutputStream());
+            
+            Paragraph informacionIzquierda = new Paragraph();
+            Paragraph informacionCentro = new Paragraph();
+            Paragraph informacionTotal = new Paragraph();
+            Paragraph informacionFinal = new Paragraph();
+            
+            PdfPTable tabla = new PdfPTable(4);
+            
+            documento.open();
+            
+            Font fuenteTitulo = FontFactory.getFont(FontFactory.HELVETICA_BOLD);
+            fuenteTitulo.setColor(Color.RED);
+            fuenteTitulo.setSize(18);
+            
+            Font fuenteInformacion = FontFactory.getFont(FontFactory.HELVETICA_BOLD);
+            fuenteTitulo.setColor(Color.RED);
+            fuenteTitulo.setSize(18);
+            
+            tabla.setWidthPercentage(90);
+            tabla.setSpacingBefore(15);
+            tabla.setWidths(new float[]{6f, 2.3f, 1.7f, 2.1f});
+            tabla.setWidthPercentage(100);
+            
+            cabeceraTabla(tabla);
+            datosTabla(tabla, informacionCentro, informacionIzquierda, informacionTotal, informacionFinal);
+            
+            Image jpg = Image.getInstance("src/main/resources/static/img/logo.png");
+            jpg.scaleAbsolute(120, 100);
+            jpg.setAlignment(Paragraph.ALIGN_CENTER);
+            
+            documento.add(jpg);
+            
+            documento.add(informacionCentro);
+            documento.add(informacionIzquierda);
+            documento.add(tabla);
+            documento.add(informacionTotal);
+            documento.add(informacionFinal);
+        }
 
     }
 

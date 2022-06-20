@@ -5,8 +5,6 @@
  */
 package co.com.svl.modelo;
 
-import java.util.List;
-
 /**
  *
  * @author JhojanDS
@@ -20,10 +18,22 @@ public class ProductoListado extends Producto {
     private double cantidadVenta;
     private double subTotal;
 
+    /**
+     *
+     */
     public ProductoListado() {
         super();
     }
 
+    /**
+     *
+     * @param cantidadVenta
+     * @param codigo
+     * @param nombre
+     * @param precio
+     * @param costo
+     * @param unidadMedida
+     */
     public ProductoListado(double cantidadVenta, Long codigo, String nombre,
             long precio, long costo, short unidadMedida) {
 
@@ -32,32 +42,60 @@ public class ProductoListado extends Producto {
 
     }
 
+    /**
+     *
+     * @return
+     */
     public double getCantidadVenta() {
         return cantidadVenta;
     }
 
+    /**
+     *
+     * @param cantidadVenta
+     */
     public void setCantidadVenta(double cantidadVenta) {
         this.cantidadVenta = cantidadVenta;
     }
 
+    /**
+     *
+     * @return
+     */
     public double getSubTotal() {
         this.subTotal = (this.getPrecio() * this.getCantidadVenta());
         return subTotal;
     }
 
+    /**
+     *
+     * @param subTotal
+     */
     public void setSubTotal(double subTotal) {
         this.subTotal = subTotal;
     }
 
+    /**
+     *
+     * @return
+     */
     public long getGananciaProducto() {
         this.gananciaProducto = (long) (this.cantidadVenta*(this.getPrecio() - this.getCosto()));
         return gananciaProducto;
     }
 
+    /**
+     *
+     * @param gananciaVenta
+     */
     public void setGananciaProducto(long gananciaVenta) {
         this.gananciaProducto = gananciaVenta;
     }
 
+    /**
+     *
+     * @return
+     */
     @Override
     public String toString() {
         return "ProductoListado{" + " Codigo= " + this.getCodigo() + ", nombre= " + this.getNombre()

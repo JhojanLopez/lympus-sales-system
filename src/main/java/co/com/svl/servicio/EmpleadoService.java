@@ -13,14 +13,36 @@ import java.util.List;
  */
 public interface EmpleadoService {
 
+    /**
+     *
+     * @return
+     */
     public List<Empleado> listarEmpleados();
 
+    /**
+     *
+     * @param empleado
+     */
     public void guardar(Empleado empleado);
 
+    /**
+     *
+     * @param empleado
+     */
     public void eliminar(Empleado empleado);
 
+    /**
+     *
+     * @param empleado
+     * @return
+     */
     public Empleado encontrarEmpleado(Empleado empleado);
 
+    /**
+     *
+     * @param correo
+     * @return
+     */
     public Empleado encontrarEmpleadoPorCorreo(String correo);
 
 }

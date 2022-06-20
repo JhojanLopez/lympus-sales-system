@@ -4,9 +4,7 @@
  */
 package co.com.svl.controlador;
 
-import co.com.svl.modelo.ClaseReporte;
 import co.com.svl.modelo.Reporte;
-import co.com.svl.modelo.Venta;
 import co.com.svl.servicio.ReporteService;
 import co.com.svl.servicio.VentaService;
 import co.com.svl.util.ReportePdf;
@@ -15,12 +13,10 @@ import java.io.IOException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.List;
 import javax.servlet.http.HttpServletResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -39,6 +35,13 @@ public class ControladorRestReporte {
     @Autowired
     private VentaService ventaService;
 
+    /**
+     * @author JHOJAN L
+     * @param reporte
+     * @param response
+     * @throws DocumentException
+     * @throws IOException
+     */
     @GetMapping(path = "/reportePdf/{codigo}")
     public void exportarListadoVentasPDF(Reporte reporte, HttpServletResponse response) throws DocumentException, IOException {
 

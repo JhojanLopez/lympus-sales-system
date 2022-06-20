@@ -13,6 +13,11 @@ import java.text.ParseException;
  */
 public class prueba {
 
+    /**
+     *
+     * @param args
+     * @throws ParseException
+     */
     public static void main(String[] args) throws ParseException {
 
         double x = (10000 * 2.532442);

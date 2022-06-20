@@ -4,14 +4,8 @@
  */
 package co.com.svl.servicio;
 
-import co.com.svl.dao.ProductoDao;
 import co.com.svl.dao.ProductoVentaDao;
-import co.com.svl.modelo.Empleado;
-import co.com.svl.modelo.Producto;
 import co.com.svl.modelo.ProductoVenta;
-import co.com.svl.modelo.Venta;
-import java.util.List;
-import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

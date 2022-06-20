@@ -81,13 +81,28 @@ public class Venta implements Serializable {
     @ManyToOne
     private Empleado codigoEmpleado;
 
+    /**
+     *
+     */
     public Venta() {
     }
 
+    /**
+     *
+     * @param codigo
+     */
     public Venta(Long codigo) {
         this.codigo = codigo;
     }
 
+    /**
+     *
+     * @param codigo
+     * @param fecha
+     * @param hora
+     * @param gananciaVenta
+     * @param totalVenta
+     */
     public Venta(Long codigo, Date fecha, Date hora, long gananciaVenta, long totalVenta) {
         this.codigo = codigo;
         this.fecha = fecha;
@@ -96,79 +111,155 @@ public class Venta implements Serializable {
         this.totalVenta = totalVenta;
     }
 
+    /**
+     *
+     * @return
+     */
     public Long getCodigo() {
         return codigo;
     }
 
+    /**
+     *
+     * @param codigo
+     */
     public void setCodigo(Long codigo) {
         this.codigo = codigo;
     }
 
+    /**
+     *
+     * @return
+     */
     public Date getFecha() {
         return fecha;
     }
 
+    /**
+     *
+     * @param fecha
+     */
     public void setFecha(Date fecha) {
         this.fecha = fecha;
     }
 
+    /**
+     *
+     * @return
+     */
     public Date getHora() {
         return hora;
     }
 
+    /**
+     *
+     * @param hora
+     */
     public void setHora(Date hora) {
         this.hora = hora;
     }
 
+    /**
+     *
+     * @return
+     */
     public double getGananciaVenta() {
         return gananciaVenta;
     }
 
+    /**
+     *
+     * @param gananciaVenta
+     */
     public void setGananciaVenta(long gananciaVenta) {
         this.gananciaVenta = gananciaVenta;
     }
 
+    /**
+     *
+     * @return
+     */
     public double getTotalVenta() {
         return totalVenta;
     }
 
+    /**
+     *
+     * @param totalVenta
+     */
     public void setTotalVenta(long totalVenta) {
         this.totalVenta = totalVenta;
     }
 
+    /**
+     *
+     * @return
+     */
     @XmlTransient
     public List<ProductoVenta> getProductoVentaList() {
         return productoVentaList;
     }
 
+    /**
+     *
+     * @param productoVentaList
+     */
     public void setProductoVentaList(List<ProductoVenta> productoVentaList) {
         this.productoVentaList = productoVentaList;
     }
 
+    /**
+     *
+     * @return
+     */
     public Administrador getCodigoAdministrador() {
         return codigoAdministrador;
     }
 
+    /**
+     *
+     * @param codigoAdministrador
+     */
     public void setCodigoAdministrador(Administrador codigoAdministrador) {
         this.codigoAdministrador = codigoAdministrador;
     }
 
+    /**
+     *
+     * @return
+     */
     public Cliente getCodigoCliente() {
         return codigoCliente;
     }
 
+    /**
+     *
+     * @param codigoCliente
+     */
     public void setCodigoCliente(Cliente codigoCliente) {
         this.codigoCliente = codigoCliente;
     }
 
+    /**
+     *
+     * @return
+     */
     public Empleado getCodigoEmpleado() {
         return codigoEmpleado;
     }
 
+    /**
+     *
+     * @param codigoEmpleado
+     */
     public void setCodigoEmpleado(Empleado codigoEmpleado) {
         this.codigoEmpleado = codigoEmpleado;
     }
 
+    /**
+     *
+     * @return
+     */
     @Override
     public int hashCode() {
         int hash = 0;
@@ -176,6 +267,11 @@ public class Venta implements Serializable {
         return hash;
     }
 
+    /**
+     *
+     * @param object
+     * @return
+     */
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
@@ -189,6 +285,10 @@ public class Venta implements Serializable {
         return true;
     }
 
+    /**
+     *
+     * @return
+     */
     @Override
     public String toString() {
         return "Venta{" + "codigo=" + codigo + ", fecha=" + fecha + ", hora=" + hora + ", gananciaVenta=" + gananciaVenta + ", totalVenta=" + totalVenta + ", codigoAdministrador=" + codigoAdministrador + ", codigoCliente=" + codigoCliente + ", codigoEmpleado=" + codigoEmpleado + '}';

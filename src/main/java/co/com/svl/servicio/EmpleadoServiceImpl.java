@@ -22,6 +22,10 @@ public class EmpleadoServiceImpl implements EmpleadoService {
     @Autowired
     private EmpleadoDao empleadoDao;
 
+    /**
+     *
+     * @return
+     */
     @Override
     @Transactional(readOnly = true)
     public List<Empleado> listarEmpleados() {
@@ -29,24 +33,42 @@ public class EmpleadoServiceImpl implements EmpleadoService {
         return (List<Empleado>) empleadoDao.findAll();
     }
 
+    /**
+     *
+     * @param empleado
+     */
     @Override
     @Transactional
     public void guardar(Empleado empleado) {
         empleadoDao.save(empleado);
     }
 
+    /**
+     *
+     * @param empleado
+     */
     @Override
     @Transactional
     public void eliminar(Empleado empleado) {
         empleadoDao.delete(empleado);
     }
 
+    /**
+     *
+     * @param empleado
+     * @return
+     */
     @Override
     @Transactional(readOnly = true)
     public Empleado encontrarEmpleado(Empleado empleado) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
+    /**
+     *
+     * @param correo
+     * @return
+     */
     @Override
     @Transactional(readOnly = true)
     public Empleado encontrarEmpleadoPorCorreo(String correo) {

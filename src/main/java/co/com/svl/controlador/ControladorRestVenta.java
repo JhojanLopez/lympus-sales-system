@@ -31,6 +31,13 @@ public class ControladorRestVenta {
     @Autowired
     private VentaService ventaService;
 
+    /**
+     * @author JHOJAN L
+     * @param codigo
+     * @param response
+     * @throws DocumentException
+     * @throws IOException
+     */
     @GetMapping(path = "/ventaPdf{codigo}")
     public void exportarListadoVentasPDF(long codigo, HttpServletResponse response) throws DocumentException, IOException {
 

@@ -4,10 +4,6 @@
  */
 package co.com.svl.controlador;
 
-import co.com.svl.modelo.Administrador;
-import co.com.svl.modelo.Empleado;
-import co.com.svl.modelo.ProductoVenta;
-import co.com.svl.modelo.ClaseReporte;
 import co.com.svl.modelo.Reporte;
 import co.com.svl.modelo.ReporteVenta;
 import co.com.svl.modelo.ReporteVentaPK;
@@ -16,9 +12,7 @@ import co.com.svl.servicio.ReporteService;
 import co.com.svl.servicio.ReporteVentaService;
 import co.com.svl.servicio.VentaService;
 import co.com.svl.util.FormatoFechaHora;
-import java.math.BigInteger;
 import java.text.ParseException;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import lombok.extern.slf4j.Slf4j;
@@ -27,7 +21,6 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 
 /**
  *
@@ -48,6 +41,11 @@ public class ControladorReportes {
 
     private Reporte reporte = new Reporte();
 
+    /**
+     * @author JHOJAN L
+     * @param model
+     * @return reportes
+     */
     @GetMapping("/reportes")
     public String reportes(Model model) {
 
@@ -59,6 +57,13 @@ public class ControladorReportes {
         return "reportes";
     }
 
+    /**
+     * @author JHOJAN L
+     * @param fechaDesde
+     * @param fechaHasta
+     * @return /reportes
+     * @throws ParseException
+     */
     @GetMapping("/generarReporte")
     public String generarReporte(@Param("fechaDesde") String fechaDesde,
             @Param("fechaHasta") String fechaHasta) throws ParseException {
@@ -82,6 +87,10 @@ public class ControladorReportes {
 
     }
 
+    /**
+     * @author JHOJAN L
+     * @return /
+     */
     @GetMapping("/limpiarReporte")
     public String limpiar() {
 
@@ -90,7 +99,11 @@ public class ControladorReportes {
         return "redirect:/reportes";
     }
 
-      @GetMapping("/salirReporte")
+    /**
+     * @author JHOJAN L
+     * @return /
+     */
+    @GetMapping("/salirReporte")
     public String salirReport() {
 
         limpiarDatos();

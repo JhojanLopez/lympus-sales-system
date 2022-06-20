@@ -26,11 +26,20 @@ public class ControladorRestProductos {
     @Autowired
     private ProductoService productoService;
 
+    /**
+     * @author JHOJAN L
+     * @return
+     */
     @GetMapping(path = "/productos")
     public List<Producto> obtenerProductos() {//se convierte automaticaente en JSON    
         return productoService.listarProductos();
     }
 
+    /**
+     * @author JHOJAN L
+     * @param codigo
+     * @return productoService.encontrarProductoPorCodigo(codigo)
+     */
     @GetMapping(path = "/producto{codigo}")
     public Producto obtenerProducto(Long codigo) {//se convierte automaticaente en JSON    
         return productoService.encontrarProductoPorCodigo(codigo);

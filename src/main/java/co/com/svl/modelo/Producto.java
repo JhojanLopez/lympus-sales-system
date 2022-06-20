@@ -70,9 +70,20 @@ public class Producto implements Serializable {
     @ManyToOne(optional = false,  fetch=FetchType.LAZY)
     private Administrador codigoAdministrador;
 
+    /**
+     *
+     */
     public Producto() {
     }
 
+    /**
+     *
+     * @param codigo
+     * @param nombre
+     * @param precio
+     * @param costo
+     * @param unidadMedida
+     */
     public Producto(Long codigo, String nombre, long precio,long costo, short unidadMedida) {
         this.codigo = codigo;
         this.nombre = nombre;
@@ -81,84 +92,155 @@ public class Producto implements Serializable {
         this.unidadMedida = unidadMedida;
     }
 
-   
-   
+    /**
+     *
+     * @return
+     */
     public Long getCodigo() {
         return codigo;
     }
 
+    /**
+     *
+     * @param codigo
+     */
     public void setCodigo(Long codigo) {
         this.codigo = codigo;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getNombre() {
         return nombre;
     }
 
+    /**
+     *
+     * @param nombre
+     */
     public void setNombre(String nombre) {
         this.nombre = nombre;
     }
 
+    /**
+     *
+     * @return
+     */
     public long getCosto() {
         return costo;
     }
 
+    /**
+     *
+     * @param costo
+     */
     public void setCosto(long costo) {
         this.costo = costo;
     }
 
+    /**
+     *
+     * @return
+     */
     public long getPrecio() {
         return precio;
     }
 
+    /**
+     *
+     * @param precio
+     */
     public void setPrecio(long precio) {
         this.precio = precio;
     }
 
+    /**
+     *
+     * @return
+     */
     public short getUnidadMedida() {
         return unidadMedida;
     }
 
+    /**
+     *
+     * @param unidadMedida
+     */
     public void setUnidadMedida(short unidadMedida) {
         this.unidadMedida = unidadMedida;
     }
 
+    /**
+     *
+     * @return
+     */
     public double getCantidad() {
         return cantidad;
     }
 
+    /**
+     *
+     * @param cantidad
+     */
     public void setCantidad(double cantidad) {
         this.cantidad = cantidad;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getDescripcion() {
         return descripcion;
     }
 
+    /**
+     *
+     * @param descripcion
+     */
     public void setDescripcion(String descripcion) {
         this.descripcion = descripcion;
     }
 
+    /**
+     *
+     * @return
+     */
     public List<ProductoVenta> getProductoVentaList() {
         return productoVentaList;
     }
 
+    /**
+     *
+     * @param productoVentaList
+     */
     public void setProductoVentaList(List<ProductoVenta> productoVentaList) {
         this.productoVentaList = productoVentaList;
     }
 
+    /**
+     *
+     * @return
+     */
     public Administrador getCodigoAdministrador() {
         return codigoAdministrador;
     }
 
+    /**
+     *
+     * @param codigoAdministrador
+     */
     public void setCodigoAdministrador(Administrador codigoAdministrador) {
         this.codigoAdministrador = codigoAdministrador;
     }
 
-//    @Override
-//    public String toString() {
-//        return "Producto{" + "codigo=" + codigo + ", nombre=" + nombre + ", costo=" + costo + ", precio=" + precio + ", unidadMedida=" + unidadMedida + ", cantidad=" + cantidad + ", descripcion=" + descripcion + '}';
-//    }
+
+    /**
+     *
+     * @return
+     */
 
     @Override
     public String toString() {

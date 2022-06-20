@@ -5,7 +5,6 @@
 package co.com.svl.modelo;
 
 import java.io.Serializable;
-import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
@@ -54,86 +53,171 @@ public class ProductoVenta implements Serializable {
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     private Venta venta;
 
+    /**
+     *
+     */
     public ProductoVenta() {
     }
 
+    /**
+     *
+     * @param productoVentaPK
+     */
     public ProductoVenta(ProductoVentaPK productoVentaPK) {
         this.productoVentaPK = productoVentaPK;
     }
 
+    /**
+     *
+     * @param productoVentaPK
+     * @param cantidadVendida
+     */
     public ProductoVenta(ProductoVentaPK productoVentaPK, long cantidadVendida) {
         this.productoVentaPK = productoVentaPK;
         this.cantidadVendida = cantidadVendida;
     }
 
+    /**
+     *
+     * @param codigoVenta
+     * @param codigoProducto
+     */
     public ProductoVenta(long codigoVenta, long codigoProducto) {
         this.productoVentaPK = new ProductoVentaPK(codigoVenta, codigoProducto);
     }
 
+    /**
+     *
+     * @return
+     */
     public ProductoVentaPK getProductoVentaPK() {
         return productoVentaPK;
     }
 
+    /**
+     *
+     * @param productoVentaPK
+     */
     public void setProductoVentaPK(ProductoVentaPK productoVentaPK) {
         this.productoVentaPK = productoVentaPK;
     }
 
+    /**
+     *
+     * @return
+     */
     public long getPrecioVenta() {
         return precioVenta;
     }
 
+    /**
+     *
+     * @param precioVenta
+     */
     public void setPrecioVenta(long precioVenta) {
         this.precioVenta = precioVenta;
     }
 
+    /**
+     *
+     * @return
+     */
     public long getCostoVenta() {
         return costoVenta;
     }
 
+    /**
+     *
+     * @param costoVenta
+     */
     public void setCostoVenta(long costoVenta) {
         this.costoVenta = costoVenta;
     }
 
+    /**
+     *
+     * @return
+     */
     public double getCantidadVendida() {
         return cantidadVendida;
     }
 
+    /**
+     *
+     * @param cantidadVendida
+     */
     public void setCantidadVendida(double cantidadVendida) {
         this.cantidadVendida = cantidadVendida;
     }
 
+    /**
+     *
+     * @return
+     */
     public long getSubtotal() {
         return subtotal;
     }
 
+    /**
+     *
+     * @param subtotal
+     */
     public void setSubtotal(long subtotal) {
         this.subtotal = subtotal;
     }
 
+    /**
+     *
+     * @return
+     */
     public long getGanancia() {
         return ganancia;
     }
 
+    /**
+     *
+     * @param ganancia
+     */
     public void setGanancia(long ganancia) {
         this.ganancia = ganancia;
     }
 
+    /**
+     *
+     * @return
+     */
     public Producto getProducto() {
         return producto;
     }
 
+    /**
+     *
+     * @param producto
+     */
     public void setProducto(Producto producto) {
         this.producto = producto;
     }
 
+    /**
+     *
+     * @return
+     */
     public Venta getVenta() {
         return venta;
     }
 
+    /**
+     *
+     * @param venta
+     */
     public void setVenta(Venta venta) {
         this.venta = venta;
     }
 
+    /**
+     *
+     * @return
+     */
     @Override
     public int hashCode() {
         int hash = 0;
@@ -141,6 +225,11 @@ public class ProductoVenta implements Serializable {
         return hash;
     }
 
+    /**
+     *
+     * @param object
+     * @return
+     */
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
@@ -154,6 +243,10 @@ public class ProductoVenta implements Serializable {
         return true;
     }
 
+    /**
+     *
+     * @return
+     */
     @Override
     public String toString() {
         return "ProductoVenta{" + "productoVentaPK=" + productoVentaPK + ", precioVenta=" + precioVenta + ", costoVenta=" + costoVenta + ", cantidadVendida=" + cantidadVendida + ", subtotal=" + subtotal + ", ganancia=" + ganancia +'}';

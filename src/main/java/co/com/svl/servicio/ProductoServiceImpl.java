@@ -5,10 +5,8 @@
 package co.com.svl.servicio;
 
 import co.com.svl.dao.ProductoDao;
-import co.com.svl.modelo.Empleado;
 import co.com.svl.modelo.Producto;
 import java.util.List;
-import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -24,12 +22,20 @@ public class ProductoServiceImpl implements ProductoService {
     @Autowired
     private ProductoDao productoDao;
 
+    /**
+     *
+     * @return
+     */
     @Override
     @Transactional(readOnly = true)
     public List<Producto> listarProductos() {
         return (List<Producto>) productoDao.findAll();
     }
 
+    /**
+     *
+     * @param producto
+     */
     @Override
     @Transactional
     public void guardar(Producto producto) {
@@ -37,18 +43,32 @@ public class ProductoServiceImpl implements ProductoService {
 
     }
 
+    /**
+     *
+     * @param producto
+     */
     @Override
     @Transactional  
     public void eliminar(Producto producto) {
         productoDao.delete(producto);
     }
 
+    /**
+     *
+     * @param codigo
+     * @return
+     */
     @Override
     @Transactional
     public Producto encontrarProductoPorCodigo(Long codigo) {
         return productoDao.findById(codigo).orElse(null);
     }
 
+    /**
+     *
+     * @param busqueda
+     * @return
+     */
     @Override
     @Transactional(readOnly = true)
     public List<Producto> encontrarProductoPorNombreOrDescripcion(String busqueda) {

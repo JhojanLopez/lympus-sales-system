@@ -4,7 +4,6 @@
  */
 package co.com.svl.dao;
 
-import co.com.svl.modelo.Administrador;
 import co.com.svl.modelo.Empleado;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
@@ -16,6 +15,11 @@ import org.springframework.data.repository.query.Param;
  */
 public interface EmpleadoDao extends CrudRepository<Empleado, Long> {
     
+    /**
+     * @author JhojanDS
+     * @param correo
+     * @return
+     */
     @Query("SELECT e FROM Empleado e WHERE e.correo = :correo")
     public Empleado findEmpleadoByCorreo(@Param("correo") String correo);
     

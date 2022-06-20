@@ -3,10 +3,19 @@ package co.com.svl;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
+/**
+ *
+ * @author Juan Turriago
+ */
 @SpringBootApplication
 public class SvlApplication {
 
-	public static void main(String[] args) {
+    /**
+     *
+     * @param args
+     */
+    
+    public static void main(String[] args) {
 		SpringApplication.run(SvlApplication.class, args);
 	}
 

@@ -28,35 +28,66 @@ public class ProductoVentaPK implements Serializable {
     @Column(name = "codigo_producto")
     private long codigoProducto;
 
+    /**
+     *
+     */
     public ProductoVentaPK() {
     }
 
+    /**
+     *
+     * @param codigoVenta
+     */
     public ProductoVentaPK(long codigoVenta) {
         this.codigoVenta = codigoVenta;
     }
 
-    
+    /**
+     *
+     * @param codigoVenta
+     * @param codigoProducto
+     */
     public ProductoVentaPK(long codigoVenta, long codigoProducto) {
         this.codigoVenta = codigoVenta;
         this.codigoProducto = codigoProducto;
     }
 
+    /**
+     *
+     * @return
+     */
     public long getCodigoVenta() {
         return codigoVenta;
     }
 
+    /**
+     *
+     * @param codigoVenta
+     */
     public void setCodigoVenta(long codigoVenta) {
         this.codigoVenta = codigoVenta;
     }
 
+    /**
+     *
+     * @return
+     */
     public long getCodigoProducto() {
         return codigoProducto;
     }
 
+    /**
+     *
+     * @param codigoProducto
+     */
     public void setCodigoProducto(long codigoProducto) {
         this.codigoProducto = codigoProducto;
     }
 
+    /**
+     *
+     * @return
+     */
     @Override
     public int hashCode() {
         int hash = 0;
@@ -65,6 +96,11 @@ public class ProductoVentaPK implements Serializable {
         return hash;
     }
 
+    /**
+     *
+     * @param object
+     * @return
+     */
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
@@ -81,6 +117,10 @@ public class ProductoVentaPK implements Serializable {
         return true;
     }
 
+    /**
+     *
+     * @return
+     */
     @Override
     public String toString() {
         return "ProductoVentaPK{" + "codigoVenta=" + codigoVenta + ", codigoProducto=" + codigoProducto + '}';

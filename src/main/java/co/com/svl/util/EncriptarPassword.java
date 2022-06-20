@@ -2,8 +2,16 @@ package co.com.svl.util;
 
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
+/**
+ *
+ * @author Juan Turriago
+ */
 public class EncriptarPassword {
 
+    /**
+     *
+     * @param args
+     */
     public static void main(String[] args) {
 
         var p1 = "123";
@@ -26,6 +34,11 @@ public class EncriptarPassword {
         System.out.println(b.matches(p1,pBC));
     }
 
+    /**
+     *
+     * @param password
+     * @return
+     */
     public static String encriptarPassword(String password) {//encriptar password mediante spring
         BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
         return encoder.encode(password);

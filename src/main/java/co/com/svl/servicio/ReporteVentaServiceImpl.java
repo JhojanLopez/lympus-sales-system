@@ -20,12 +20,20 @@ public class ReporteVentaServiceImpl implements ReporteVentaService {
     @Autowired
     private ReporteVentaDao reporteVentaDao;
 
+    /**
+     *
+     * @param reporteVenta
+     */
     @Transactional
     @Override
     public void guardar(ReporteVenta reporteVenta) {
         reporteVentaDao.save(reporteVenta);
     }
 
+    /**
+     *
+     * @param reporteVenta
+     */
     @Transactional
     @Override
     public void eliminar(ReporteVenta reporteVenta) {

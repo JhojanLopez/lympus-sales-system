@@ -68,19 +68,41 @@ public class Reporte implements Serializable {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "reporte")
     private List<ReporteVenta> reporteVentaList;
 
+    /**
+     *
+     */
     public Reporte() {
     }
 
+    /**
+     *
+     * @param codigo
+     */
     public Reporte(Long codigo) {
         this.codigo = codigo;
     }
 
+    /**
+     *
+     * @param fechaGeneracion
+     * @param desde
+     * @param hasta
+     */
     public Reporte(Date fechaGeneracion, Date desde, Date hasta) {
         this.fechaGeneracion = fechaGeneracion;
         this.desde = desde;
         this.hasta = hasta;
     }
 
+    /**
+     *
+     * @param fechaGeneracion
+     * @param desde
+     * @param hasta
+     * @param precioTotalVentas
+     * @param costoTotalVentas
+     * @param gananciaTotalVentas
+     */
     public Reporte(Date fechaGeneracion, Date desde, Date hasta, long precioTotalVentas, long costoTotalVentas, long gananciaTotalVentas) {
         this.fechaGeneracion = fechaGeneracion;
         this.desde = desde;
@@ -90,79 +112,139 @@ public class Reporte implements Serializable {
         this.gananciaTotalVentas = gananciaTotalVentas;
     }
 
-   
- 
+    /**
+     *
+     * @return
+     */
     public Long getCodigo() {
         return codigo;
     }
 
+    /**
+     *
+     * @param codigo
+     */
     public void setCodigo(Long codigo) {
         this.codigo = codigo;
     }
 
+    /**
+     *
+     * @return
+     */
     public Date getFechaGeneracion() {
         return fechaGeneracion;
     }
 
+    /**
+     *
+     * @param fechaGeneracion
+     */
     public void setFechaGeneracion(Date fechaGeneracion) {
         this.fechaGeneracion = fechaGeneracion;
     }
 
-    
-    
+    /**
+     *
+     * @return
+     */
     public Date getDesde() {
         return desde;
     }
 
+    /**
+     *
+     * @param desde
+     */
     public void setDesde(Date desde) {
         this.desde = desde;
     }
 
+    /**
+     *
+     * @return
+     */
     public Date getHasta() {
         return hasta;
     }
 
+    /**
+     *
+     * @param hasta
+     */
     public void setHasta(Date hasta) {
         this.hasta = hasta;
     }
 
+    /**
+     *
+     * @return
+     */
     public long getPrecioTotalVentas() {
         return precioTotalVentas;
     }
 
+    /**
+     *
+     * @param precioTotalVentas
+     */
     public void setPrecioTotalVentas(long precioTotalVentas) {
         this.precioTotalVentas = precioTotalVentas;
     }
 
+    /**
+     *
+     * @return
+     */
     public long getCostoTotalVentas() {
         return costoTotalVentas;
     }
 
+    /**
+     *
+     * @param costoTotalVentas
+     */
     public void setCostoTotalVentas(long costoTotalVentas) {
         this.costoTotalVentas = costoTotalVentas;
     }
 
-   
+    /**
+     *
+     * @return
+     */
     public long getGananciaTotalVentas() {
         return gananciaTotalVentas;
     }
 
+    /**
+     *
+     * @param gananciaTotalVentas
+     */
     public void setGananciaTotalVentas(long gananciaTotalVentas) {
         this.gananciaTotalVentas = gananciaTotalVentas;
     }
 
-    
-
-    
+    /**
+     *
+     * @return
+     */
     @XmlTransient
     public List<ReporteVenta> getReporteVentaList() {
         return reporteVentaList;
     }
 
+    /**
+     *
+     * @param reporteVentaList
+     */
     public void setReporteVentaList(List<ReporteVenta> reporteVentaList) {
         this.reporteVentaList = reporteVentaList;
     }
 
+    /**
+     *
+     * @return
+     */
     @Override
     public int hashCode() {
         int hash = 0;
@@ -170,6 +252,11 @@ public class Reporte implements Serializable {
         return hash;
     }
 
+    /**
+     *
+     * @param object
+     * @return
+     */
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
@@ -183,6 +270,10 @@ public class Reporte implements Serializable {
         return true;
     }
 
+    /**
+     *
+     * @return
+     */
     @Override
     public String toString() {
         return "Reporte{" + "codigo=" + codigo + ", fechaGeneracion=" + fechaGeneracion + ", desde=" + desde + ", hasta=" + hasta + ", precioTotalVentas=" + precioTotalVentas + ", costoTotalVentas=" + costoTotalVentas +", gananciaTotalVentas=" + gananciaTotalVentas + '}';

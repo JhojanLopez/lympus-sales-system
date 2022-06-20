@@ -10,7 +10,6 @@ import java.util.List;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-import lombok.Data;
 
 /**
  *
@@ -52,55 +51,104 @@ public class Empleado implements Serializable {
     @ManyToOne(optional = false)
     private Administrador codigoAdministrador;
 
+    /**
+     *
+     */
     public Empleado() {
     }
 
+    /**
+     *
+     * @param codigo
+     */
     public Empleado(Short codigo) {
         this.codigo = codigo;
     }
 
-    
+    /**
+     *
+     * @return
+     */
     public Short getCodigo() {
         return codigo;
     }
 
+    /**
+     *
+     * @param codigo
+     */
     public void setCodigo(Short codigo) {
         this.codigo = codigo;
     }
     
-    
+    /**
+     *
+     * @return
+     */
     public String getNombre() {
         return nombre;
     }
 
+    /**
+     *
+     * @param nombre
+     */
     public void setNombre(String nombre) {
         this.nombre = nombre;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getCorreo() {
         return correo;
     }
 
+    /**
+     *
+     * @param correo
+     */
     public void setCorreo(String correo) {
         this.correo = correo;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getContrasena() {
         return contrasena;
     }
 
+    /**
+     *
+     * @param contrasena
+     */
     public void setContrasena(String contrasena) {
         this.contrasena = contrasena;
     }
 
+    /**
+     *
+     * @return
+     */
     public Administrador getCodigoAdministrador() {
         return codigoAdministrador;
     }
 
+    /**
+     *
+     * @param codigoAdministrador
+     */
     public void setCodigoAdministrador(Administrador codigoAdministrador) {
         this.codigoAdministrador = codigoAdministrador;
     }
 
+    /**
+     *
+     * @return
+     */
     @Override
     public String toString() {
         return "Empleado{" + "codigo=" + codigo + ", nombre=" + nombre + ", correo=" + correo + ", contrasena=" + contrasena + ", codigoAdministrador=" + codigoAdministrador + '}';

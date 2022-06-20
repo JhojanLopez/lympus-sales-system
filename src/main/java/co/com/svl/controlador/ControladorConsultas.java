@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.GetMapping;
  *
  * @author JHOJAN L
  */
+
 @Slf4j
 @Controller
 public class ControladorConsultas {
@@ -29,8 +30,17 @@ public class ControladorConsultas {
     @Autowired
     private VentaService ventaService;
 
-    private List<Venta> listaConsulta = new ArrayList<Venta>();
+    private final List<Venta> listaConsulta = new ArrayList<>();
 
+    
+
+    /**
+     *@author JHOJAN L
+     * @param model
+     * @return "consultas"
+     */
+
+    
     @GetMapping("/consultas")
     public String consultas(Model model) {
 
@@ -40,12 +50,23 @@ public class ControladorConsultas {
         return "consultas";
     }
 
+    /**
+     * @author JHOJAN L
+     * @return "index"
+     */
+    
     @GetMapping("/salirConsultas")
     public String salirConsultas() {
         listaConsulta.clear();
         return "index";
     }
 
+    /**
+     * @author JHOJAN L
+     * @param dato
+     * @return /consultas
+     */
+    
     @GetMapping("/consultasPorCodigo")
     public String consultaPorCodigo(double dato) {
         log.info("venta a consultar: " + dato);
@@ -66,6 +87,13 @@ public class ControladorConsultas {
 
     }
 
+    /**
+     * @author JHOJAN L
+     * @param fecha
+     * @return /consultas
+     * @throws ParseException
+     */
+    
     @GetMapping("/consultasPorFecha")
     public String consultaPorFecha(String fecha) throws ParseException {
         log.info("fecha a consultar: " + fecha);
@@ -92,6 +120,11 @@ public class ControladorConsultas {
 
     }
 
+    /**
+     * @author JHOJAN L
+     * @param opcion
+     * @return /consultas
+     */
     @GetMapping("/consultasPorVendedor")
     public String consultaPorVendedor(int opcion) {
         log.info("opcion a consultar: " + opcion);
@@ -135,6 +168,11 @@ public class ControladorConsultas {
         return "redirect:/consultas";
     }
 
+    /**
+     * @author JHOJAN L
+     * @return /consultas
+     */
+    
     @GetMapping("/limpiarConsultas")
     public String limpiarConsultas() {
 

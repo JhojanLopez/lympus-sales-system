@@ -15,6 +15,10 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+/**
+ *
+ * @author Juan Turriago
+ */
 @Service("userDetailsService")
 public class UsuarioService implements UserDetailsService {
 
@@ -26,6 +30,12 @@ public class UsuarioService implements UserDetailsService {
     @Autowired
     private EmpleadoDao empleadoDao;
 
+    /**
+     *
+     * @param username
+     * @return
+     * @throws UsernameNotFoundException
+     */
     @Override
     @Transactional(readOnly = true)
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {

@@ -12,9 +12,16 @@ import co.com.svl.modelo.ReporteVenta;
  */
 public interface ReporteVentaService {
     
-    
+    /**
+     *
+     * @param reporteVenta
+     */
     public void guardar(ReporteVenta reporteVenta);
 
+    /**
+     *
+     * @param reporteVenta
+     */
     public void eliminar(ReporteVenta reporteVenta);
     
 }

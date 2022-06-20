@@ -13,14 +13,36 @@ import java.util.List;
  */
 public interface AdministradorService{
     
+    /**
+     *
+     * @return
+     */
     public List<Administrador> listarAdministradores();
     
+    /**
+     *
+     * @param administrador
+     */
     public void guardar(Administrador administrador);
     
+    /**
+     *
+     * @param administrador
+     */
     public void eliminar(Administrador administrador);
     
+    /**
+     *
+     * @param administrador
+     * @return
+     */
     public Administrador encontrarAdministrador(Administrador administrador);
     
+    /**
+     *
+     * @param correo
+     * @return
+     */
     public Administrador encontrarAdministradorPorCorreo(String correo);
     
 }

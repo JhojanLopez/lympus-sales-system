@@ -16,20 +16,58 @@ import java.util.List;
  */
 public interface VentaService {
 
+    /**
+     *
+     * @return
+     */
     public List<Venta> listarVentas();
 
+    /**
+     *
+     * @param venta
+     */
     public void guardar(Venta venta);
 
+    /**
+     *
+     * @param venta
+     */
     public void eliminar(Venta venta);
 
+    /**
+     *
+     * @param codigo
+     * @return
+     */
     public Venta encontrarVentaPorCodigo(Long codigo);
 
+    /**
+     *
+     * @param fecha
+     * @return
+     */
     public List<Venta> encontrarVentaPorFecha(Date fecha);
 
+    /**
+     *
+     * @param administrador
+     * @return
+     */
     public List<Venta> encontrarVentaPorAdministrador(Administrador administrador);
 
+    /**
+     *
+     * @param empleado
+     * @return
+     */
     public List<Venta> encontrarVentaPorEmpleado(Empleado empleado);
 
+    /**
+     *
+     * @param fechaDesde
+     * @param fechaHasta
+     * @return
+     */
     public List<Venta> encontrarVentaPorRangoFecha(Date fechaDesde ,Date fechaHasta);
 
 }

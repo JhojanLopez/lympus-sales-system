@@ -16,9 +16,19 @@ public class ClaseReporte {
     private long costoVentas;
     private long ganancia;
 
+    /**
+     *
+     */
     public ClaseReporte() {
     }
 
+    /**
+     *
+     * @param ventas
+     * @param precioVenta
+     * @param costoVenta
+     * @param ganancia
+     */
     public ClaseReporte(List<Venta> ventas, long precioVenta, long costoVenta, long ganancia) {
         this.ventas = ventas;
         this.precioVentas = precioVenta;
@@ -26,38 +36,74 @@ public class ClaseReporte {
         this.ganancia = ganancia;
     }
 
+    /**
+     *
+     * @return
+     */
     public List<Venta> getVentas() {
         return ventas;
     }
 
+    /**
+     *
+     * @param ventas
+     */
     public void setVentas(List<Venta> ventas) {
         this.ventas = ventas;
     }
 
+    /**
+     *
+     * @return
+     */
     public long getPrecioVenta() {
         return precioVentas;
     }
 
+    /**
+     *
+     * @param precioVenta
+     */
     public void setPrecioVenta(long precioVenta) {
         this.precioVentas = precioVenta;
     }
 
+    /**
+     *
+     * @return
+     */
     public long getCostoVenta() {
         return costoVentas;
     }
 
+    /**
+     *
+     * @param costoVenta
+     */
     public void setCostoVenta(long costoVenta) {
         this.costoVentas = costoVenta;
     }
 
+    /**
+     *
+     * @return
+     */
     public long getGanancia() {
         return ganancia;
     }
 
+    /**
+     *
+     * @param ganancia
+     */
     public void setGanancia(long ganancia) {
         this.ganancia = ganancia;
     }
 
+    /**
+     *
+     * @return
+     */
     @Override
     public String toString() {
         return "Reporte{" + "ventas=" + ventas + ", precioVentas=" + precioVentas + ", costoVentas=" + costoVentas + ", ganancia=" + ganancia + '}';

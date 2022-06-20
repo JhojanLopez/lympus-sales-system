@@ -20,18 +20,31 @@ public class ReporteServiceImpl implements ReporteService {
     @Autowired
     private ReporteDao reporteDao;
 
+    /**
+     *
+     * @param reporte
+     */
     @Override
     @Transactional
     public void guardar(Reporte reporte) {
         reporteDao.save(reporte);
     }
 
+    /**
+     *
+     * @param reporte
+     */
     @Override
     @Transactional
     public void eliminar(Reporte reporte) {
         reporteDao.delete(reporte);
     }
 
+    /**
+     *
+     * @param codigo
+     * @return
+     */
     @Override
     @Transactional(readOnly = true)
     public Reporte encontrarPorCodigo(Long codigo) {
