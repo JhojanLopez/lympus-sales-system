@@ -16,22 +16,83 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
 
     </head>
     <body>
-        <a th:href="@{/}">regresar</a>
-        <!-- datos personales -->
-        <h4>configuracion</h4>
-        <hr/>
-        <div>  
-            <label>Edita datos personales</label>
-            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalDatosPersonales">
-                editar
-            </button>
-        </div>
-        <div>
+
+        <div class="container-fluid">
+
+            <header class="bg-danger text-white">
+                <div class="row align-items-center">
+
+                    <div class="col-1">
+                        <div class="text-center">
+                            <i class="fa-solid fa-house-user"><a th:href="@{/}"> Inicio</a></i>
+                        </div>
+                    </div>
+                    <div class="col-10">
+                        <div class="text-end">
+                            <h2 class="Ventas L y M">Salsamentaria L & M</h2>
+                        </div>
+                    </div>
+                    <div class="col-1">
+                        <img src="/img/logo.png" width="80" alt="auto" class="img-fluid" />
+                    </div>
+                </div>
+
+            </header>
+
+            <!--configuracion-->
+
+            <div class="row justify-content-center">
+                <div class="col-6">
+                    <div class="card text-center">
+                        <div class="card-header">
+                            <h2>Gestion de información</h2>
+                        </div>
+                        <div class="card-body">
+                            <h5 class="card-title">Configuracion general</h5>
+                            <hr />
+                            <div class="row align-items-center">
+                                <div class="col-8 text-left">
+                                    <label for="datosinput" class="form-label">Datos Personales</label>
+
+                               
+                                
+                                    <div class="w-100"></div>
+                                    <label for="passinput" class="form-label">Password</label>
+                                </div>
+                                <div class="col-3">
+                                    <button type="button" class="btn btn-danger" data-bs-toggle="modal"
+                                            data-bs-target="#modalDatosPersonales">Editar</button>
+                                    <div class="w-100"></div>
+
+                                    <button type="button" class="btn btn-danger" data-bs-toggle="modal"
+                                            data-bs-target="#modalPassword">Editar</button>
+                                </div>
+
+                                <!-- <a href="#" class="btn btn-primary">Guardar</a> -->
+                            </div>
+                            <div class="card-footer text-muted">
+                                Verifique la información antes de guardar.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- datos personales 
+            <h4>configuracion</h4>
+            <hr/>
+            <div>  
+                <label>Edita datos personales</label>
+                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalDatosPersonales">
+                    editar
+                </button>
+            </div>
+
 
             <label>Edita contrasena</label>
             <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalPassword">
                 editar
-            </button>
+            </button>-->
 
             <div th:if="${param.exito1}" class="alert alert-success d-flex" role="alert">
                 <div class="text-center">
@@ -57,6 +118,21 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
                     Error. La contrasena nueva no es la misma que la contrasena de confirmacion
                 </div>
             </div>
+            
+            <div class="row">
+
+                    <div class="col-12 text-center">
+                     
+                    </div>
+                       
+                    <footer class="row position-absolute bottom-0 start-50 translate-middle-x bg-danger">
+                        <div class="row align-items-center">
+                            <div class="col-12 text-center text-white">
+                                <p>Universidad del valle - Sistema transaccional L y M</p>
+                            </div>
+                        </div>
+                    </footer>
+                </div>
         </div>
 
         <!-- Modal editar datos personales -->

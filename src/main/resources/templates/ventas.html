@@ -15,84 +15,118 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
         <link rel="stylesheet" th:href="@{/webjars/font-awesome/css/all.css}"/>
     </head>
     <body>
-        <div class="container">
-            <div class="row">
-                <a th:href="@{/salirVentas}">regresar</a>
-                <div class="col-md-5">
-                    <h3>Agrega productos de forma manual</h3>
-                    <form th:action="@{/busqueda}">
+        <div class="container-fluid">
 
-                        <input type="text" name="busqueda" th:value="${busqueda}"  
-                               placeholder="Busqueda" required="required"/>
-                        <input type="submit" value="buscar"/>
-                        <a th:href="@{/limpiarBusqueda}">Limpiar</a>
-                    </form>
+            <header class="bg-danger text-white">
+                <div class="row align-items-center">
 
-                    <div th:if="${param.advertencia}" class="alert alert-warning d-flex" role="alert">
-                        <div class="text-center">
-                            <i class="fa-solid fa-triangle-exclamation"></i>
-                            No se encontro ningun resultado.
+                    <div class="col-1">
+                        <i class="fa-solid fa-house-user" width="300">
+                            <a th:href="@{/salirVentas}">Inicio</a></i>
+                    </div>
+                    <div class="col-10">
+                        <div class="text-end">
+                            <h2 class="Ventas L y M">Salsamentaria L & M</h2>
                         </div>
                     </div>
-                    <table  th:if="${listaBusqueda != null}" border="1">
-                        <tr>
-                            <th>NOMBRE</th>
-                            <th>DESCRIPCION</th>
-                            <th>PRECIO</th>
-                            <th></th>
-                        </tr>
-                        <tr th:each="busqueda : ${listaBusqueda}">
-                            <td th:text="${busqueda.nombre}">Mostrar nombre</td>
-                            <td th:text="${busqueda.descripcion}">Mostrar descripcion</td>
-                            <td th:text="${busqueda.precio}">Mostrar precio</td>
-                            <td><a th:href="@{/agregarProductoVenta/} + ${busqueda.codigo}">agregar</a></td>
-                        </tr>
-                    </table>
+                    <div class="col-1">
+                        <img src="/img/logo.png" width="80" alt="auto" class="img-fluid" />
+                    </div>
                 </div>
-                <div class="col-md-7">
+            </header>
+            <hr>
 
-                    <h3>Venta</h3>
-                    <form method="POST" th:action="@{/agregarProductoCodigoBarras}" th:object="${producto}">
-                        <input type="number" name="codigobarras" th:field="*{codigo}" 
-                               placeholder="Codigo de barras" required="true"/>
-                    </form><!-- agregar producto cod barras -->
 
-                    <form method="POST" th:action="@{/generarVenta}" th:object="${vendedor}">
-                        <input type="hidden" name="codigo" th:field="*{codigo}"/>
-                        <input type="text" name="vendedor" th:field="*{nombre}" disabled="disabled"/>
-                        <a th:href="@{/limpiarVenta}">eliminar venta</a>
-                        <hr/>
-                        <div th:if="${param.exito}" class="alert alert-success d-flex" role="alert">
-                            <div class="text-center">
-                                <i class="fa-solid fa-circle-check"></i>
-                                La venta ha sido guardada exitosamente, Codigo de venta: <span th:text="${param.codigo}">valor</span>
-                            </div>
-                        </div>
-                        <div th:if="${param.advertencia1}" class="alert alert-warning d-flex" role="alert">
+                <div class="row">                
+                    <div class="col-6">
+                        <label class="col-sm-2 col-form-label">Código de producto</label>
+                        <form th:action="@{/busqueda}">                            
+
+                            <input type="text" name="busqueda" th:value="${busqueda}" 
+                                   placeholder="Busqueda" required="required"/>
+                            <button type="submit" id="botonBuscar" class="btn btn-danger">
+                                <i class="fa-solid fa-magnifying-glass"> Buscar</i>
+                            </button>
+                            <a th:href="@{/limpiarBusqueda}">Limpiar</a>
+                        </form>
+
+                        <div th:if="${param.advertencia}" class="alert alert-warning d-flex" role="alert">
                             <div class="text-center">
                                 <i class="fa-solid fa-triangle-exclamation"></i>
-                                No se encontro ningun producto para agregar.
+                                No se encontro ningun resultado.
                             </div>
                         </div>
-                        <div th:if="${param.advertencia2}" class="alert alert-warning d-flex" role="alert">
-                            <div class="text-center">
-                                <i class="fa-solid fa-triangle-exclamation"></i>
-                                Debes de poner un valor mayor a 0 para editar la cantidad.
-                            </div>
-                        </div>
-                        <div th:if="${param.advertencia3}" class="alert alert-warning d-flex" role="alert">
-                            <div class="text-center">
-                                <i class="fa-solid fa-triangle-exclamation"></i>
-                                Debes de poner un valor entero para editar la cantidad.
-                            </div>
-                        </div>
-                        <div th:if="${param.error}" class="alert alert-danger d-flex" role="alert">
-                            <div class="text-center">
-                                <i class="fa-solid fa-xmark"></i>
-                                Debes de agregar productos para realizar la venta.
-                            </div>
-                        </div>
+                    </div>
 
+                    <div class="col-6">
+                        <h2>Venta</h2>
+                        <form method="POST" th:action="@{/agregarProductoCodigoBarras}" th:object="${producto}">
+                            <input type="number" name="codigobarras" th:field="*{codigo}" 
+                                   placeholder="Codigo de barras" required="true"/>
+                        </form><!-- agregar producto cod barras -->
+
+                        <form method="POST" th:action="@{/generarVenta}" th:object="${vendedor}">
+                            <input type="hidden" name="codigo" th:field="*{codigo}"/>
+                            <input type="text" name="vendedor" th:field="*{nombre}" disabled="disabled"/>
+                            <a th:href="@{/limpiarVenta}">eliminar venta</a>
+                            <hr/>
+                            <div th:if="${param.exito}" class="alert alert-success d-flex" role="alert">
+                                <div class="text-center">
+                                    <i class="fa-solid fa-circle-check"></i>
+                                    La venta ha sido guardada exitosamente, Codigo de venta: <span th:text="${param.codigo}">valor</span>
+                                </div>
+                            </div>
+                            <div th:if="${param.advertencia1}" class="alert alert-warning d-flex" role="alert">
+                                <div class="text-center">
+                                    <i class="fa-solid fa-triangle-exclamation"></i>
+                                    No se encontro ningun producto para agregar.
+                                </div>
+                            </div>
+                            <div th:if="${param.advertencia2}" class="alert alert-warning d-flex" role="alert">
+                                <div class="text-center">
+                                    <i class="fa-solid fa-triangle-exclamation"></i>
+                                    Debes de poner un valor mayor a 0 para editar la cantidad.
+                                </div>
+                            </div>
+                            <div th:if="${param.advertencia3}" class="alert alert-warning d-flex" role="alert">
+                                <div class="text-center">
+                                    <i class="fa-solid fa-triangle-exclamation"></i>
+                                    Debes de poner un valor entero para editar la cantidad.
+                                </div>
+                            </div>
+                            <div th:if="${param.error}" class="alert alert-danger d-flex" role="alert">
+                                <div class="text-center">
+                                    <i class="fa-solid fa-xmark"></i>
+                                    Debes de agregar productos para realizar la venta.
+                                </div>
+                            </div>
+
+                    </div>
+                </div>
+
+                <div class="row">                
+                    <div class="col-6">
+
+                        <table  th:if="${listaBusqueda != null}" border="1">
+                            <tr>
+                                <th>NOMBRE</th>
+                                <th>DESCRIPCION</th>
+                                <th>PRECIO</th>
+                                <th></th>
+                            </tr>
+                            <tr th:each="busqueda : ${listaBusqueda}">
+                                <td th:text="${busqueda.nombre}">Mostrar nombre</td>
+                                <td th:text="${busqueda.descripcion}">Mostrar descripcion</td>
+                                <td th:text="${busqueda.precio}">Mostrar precio</td>
+                                <td><button class="btn btn-danger"><a th:href="@{/agregarProductoVenta/} + ${busqueda.codigo}"><i class="fa-solid fa-circle-plus"></i></a></button>
+                                    </td>
+                            </tr>
+                        </table>
+                    </div>
+
+                    <div class="col-6">
+
+                        <h3>Factura</h3>    
 
                         <table class="" th:if="${listaProductosVenta != null}" border="1">
 
@@ -115,9 +149,11 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
                                     <td th:text="${productoVenta.subTotal}">Mostrar subtotal</td>
                                     <td>
                                         <a th:href="@{/producto/(codigo=${productoVenta.codigo})}" 
-                                           class="btn btn-warning edicion">Editar</a>
+                                           class="btn btn-danger">Editar</a>
                                     </td>
-                                    <td><a th:href="@{/eliminarProductoVenta/} + ${productoVenta.codigo}">eliminar</a></td>
+                                    <td><button class="btn btn-secondary">
+                                            <a th:href="@{/eliminarProductoVenta/} + ${productoVenta.codigo}"><i class="fa-solid fa-circle-minus"></i></a></button>
+                                        </td>
                                 </tr> 
                             </tbody>
                             <tfoot>
@@ -135,55 +171,63 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
                             <input type="submit" name="guardar" th:value="Guardar"/>
                         </div>
 
-                    </form>
+                        </form>
 
-                </div>
-            </div>
-            <!--modal editar cantidad-->
-            <div class="modal fade"  id="editModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLabel">Editar cantidad</h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+
+                    <footer class="row position-absolute bottom-0 start-50 translate-middle-x bg-danger">
+                        <div class="row align-items-center">
+                            <div class="col-12 text-center text-white">
+                                <p>Universidad del valle - Sistema transaccional L y M</p>
+                            </div>
                         </div>
-                        <form method="POST" th:action="@{/editarCantidadProducto}" th:object="${producto}">
-                            <div class="modal-body">
+                    </footer>
+                </div>
+                <!--modal editar cantidad-->
+                <div class="modal fade"  id="editModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">Editar cantidad</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <form method="POST" th:action="@{/editarCantidadProducto}" th:object="${producto}">
+                                <div class="modal-body">
 
-                                <input id="codigoEditar" name="codigo" type="hidden"/>
-                                <input type="number" step="any" name="cantidad" placeholder="Ingrese la cantidad" 
-                                       required="true"/>
-                                <input id="unidadMedida" type="hidden" name="unidadMedida"/>   
+                                    <input id="codigoEditar" name="codigo" type="hidden"/>
+                                    <input type="number" step="any" name="cantidad" placeholder="Ingrese la cantidad" 
+                                           required="true"/>
+                                    <input id="unidadMedida" type="hidden" name="unidadMedida"/>   
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="submit" class="btn btn-primary">Guardar</button>
+
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="triggerImpresion" th:if="${param.codigo!=null}" class="d-none">usado para ejecutar el modal con js</div>
+                <!-- modal de impresion -->
+                <div th:if="${param.codigo!=null}" class="modal fade" id="modalImpresion" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <p>¿Desea imprimir la venta generada? cod venta: <span th:text="${param.codigo}">codigo</span></p>
                             </div>
                             <div class="modal-footer">
-                                <button type="submit" class="btn btn-primary">Guardar</button>
+                                <a th:href="@{/ventaPdf/(codigo=${param.codigo})}" th:target="_blank" class="btn btn-primary">Si</a>
+                                <button type="button" class="btn btn-danger" data-bs-dismiss="modal">No</button>
 
                             </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
-            
-            <div id="triggerImpresion" th:if="${param.codigo!=null}" class="d-none">usado para ejecutar el modal con js</div>
-            <!-- modal de impresion -->
-            <div th:if="${param.codigo!=null}" class="modal fade" id="modalImpresion" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
-                        <div class="modal-body">
-                            <p>¿Desea imprimir la venta generada? cod venta: <span th:text="${param.codigo}">codigo</span></p>
-                        </div>
-                        <div class="modal-footer">
-                            <a th:href="@{/ventaPdf/(codigo=${param.codigo})}" th:target="_blank" class="btn btn-primary">Si</a>
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
-                            
                         </div>
                     </div>
                 </div>
-            </div>
         </div>
         <!-- js de jquery -->
         <script src="https://code.jquery.com/jquery-3.5.1.js"></script><!-- jquery -->
