@@ -21,8 +21,8 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
                 <div class="row align-items-center">
 
                     <div class="col-1">
-                        <i class="fa-solid fa-house-user" width="300">
-                            <a th:href="@{/salirVentas}">Inicio</a></i>
+                        
+                        <a style="color:white" th:href="@{/salirVentas}"><i class="fa-solid fa-house-user"> Inicio</i></a>
                     </div>
                     <div class="col-10">
                         <div class="text-end">
@@ -47,7 +47,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
                             <button type="submit" id="botonBuscar" class="btn btn-danger">
                                 <i class="fa-solid fa-magnifying-glass"> Buscar</i>
                             </button>
-                            <a th:href="@{/limpiarBusqueda}">Limpiar</a>
+                            <a th:href="@{/limpiarBusqueda}" class="btn btn-secondary">Limpiar</a>
                         </form>
 
                         <div th:if="${param.advertencia}" class="alert alert-warning d-flex" role="alert">
@@ -68,7 +68,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
                         <form method="POST" th:action="@{/generarVenta}" th:object="${vendedor}">
                             <input type="hidden" name="codigo" th:field="*{codigo}"/>
                             <input type="text" name="vendedor" th:field="*{nombre}" disabled="disabled"/>
-                            <a th:href="@{/limpiarVenta}">eliminar venta</a>
+                            <a th:href="@{/limpiarVenta}" class="btn btn-secondary">eliminar venta</a>
                             <hr/>
                             <div th:if="${param.exito}" class="alert alert-success d-flex" role="alert">
                                 <div class="text-center">
@@ -118,7 +118,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
                                 <td th:text="${busqueda.nombre}">Mostrar nombre</td>
                                 <td th:text="${busqueda.descripcion}">Mostrar descripcion</td>
                                 <td th:text="${busqueda.precio}">Mostrar precio</td>
-                                <td><button class="btn btn-danger"><a th:href="@{/agregarProductoVenta/} + ${busqueda.codigo}"><i class="fa-solid fa-circle-plus"></i></a></button>
+                                <td><a th:href="@{/agregarProductoVenta/} + ${busqueda.codigo}" class="btn btn-outline-danger"><i class="fa-solid fa-circle-plus"></i></a>
                                     </td>
                             </tr>
                         </table>
@@ -151,8 +151,8 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
                                         <a th:href="@{/producto/(codigo=${productoVenta.codigo})}" 
                                            class="btn btn-danger">Editar</a>
                                     </td>
-                                    <td><button class="btn btn-secondary">
-                                            <a th:href="@{/eliminarProductoVenta/} + ${productoVenta.codigo}"><i class="fa-solid fa-circle-minus"></i></a></button>
+                                    <td><a th:href="@{/eliminarProductoVenta/} + ${productoVenta.codigo}" class="btn btn-secondary">
+                                            <i class="fa-solid fa-circle-minus"></i></a>
                                         </td>
                                 </tr> 
                             </tbody>
@@ -165,11 +165,12 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
                                 </tr>
                             </tfoot>
 
-
+                            <hr>
                         </table>
                         <div th:if="${listaProductosVenta!=null}">
-                            <input type="submit" name="guardar" th:value="Guardar"/>
-                        </div>
+                            
+                        <button type="submit" th:value="Guardar" class="btn btn-danger"><i class="fa-solid fa-floppy-disk"> Guardar</i></button>
+                        </div> 
 
                         </form>
 

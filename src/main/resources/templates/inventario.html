@@ -23,6 +23,15 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
         <!-- css -->
         <link rel="stylesheet" th:href="@{/css/inventario.css}"/>
         <script src="https://kit.fontawesome.com/e504a05327.js" crossorigin="anonymous"></script>
+        <style>
+            footer{
+                position: fixed;
+                top:95%;
+                left: 0;
+                z-index: 9999;
+
+            }
+        </style>
 
     </head>
     <body>
@@ -32,7 +41,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
                 <div class="row align-items-center">
 
                     <div class="col-1">
-                        <i class="fa-solid fa-house-user"><a th:href="@{/}">Inicio</a></i>
+                        <a style="color:white" th:href="@{/}"><i class="fa-solid fa-house-user">Inicio</i></a>
                     </div>
                     <div class="col-10">
                         <div class="text-end">
@@ -131,7 +140,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
                      
                     </div>
                        
-                    <footer class="row position-absolute bottom-0 start-50 translate-middle-x bg-danger">
+                    <footer class="row bg-danger">
                         <div class="row align-items-center">
                             <div class="col-12 text-center text-white">
                                 <p>Universidad del valle - Sistema transaccional L y M</p>

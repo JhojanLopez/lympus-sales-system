@@ -13,7 +13,15 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
         <!-- font awesome usado para iconos svg -->
         <link rel="stylesheet" th:href="@{/webjars/font-awesome/css/all.css}"/>
         <script src="https://kit.fontawesome.com/e504a05327.js" crossorigin="anonymous"></script>
+        <style>
+            footer{
+                position: fixed;
+                top:95%;
+                left: 0;
+                z-index: 9999;
 
+            }
+        </style>
     </head>
     <body>
 
@@ -23,7 +31,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
 
                     <div class="col-1">
                         <div class="text-center">
-                            <i class="fa-solid fa-house-user"><a th:href="@{/salirConsultas}">Inicio</a></i>
+                            <a style="color:white" th:href="@{/salirConsultas}"><i class="fa-solid fa-house-user">Inicio</i></a>
                         </div>
                     </div>
                     <div class="col-10">
@@ -111,7 +119,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
                                     <td th:if="${venta.codigoAdministrador}!=null and ${venta.codigoEmpleado} == null" th:text="${venta.codigoAdministrador.nombre}">Mostrar vendedor</td>
                                     <td th:if="${venta.codigoEmpleado}!=null" th:text="${venta.codigoEmpleado.nombre}">Mostrar vendedor</td>
                                     <td th:text="${venta.totalVenta}">Mostrar total</td>
-                                    <td><a th:href="@{/ventaPdf/(codigo=${venta.codigo})}" th:target="_blank" class="btn btn-primary">Mas detalles</a>
+                                    <td><a th:href="@{/ventaPdf/(codigo=${venta.codigo})}" th:target="_blank" class="btn btn-outline-danger">Mas detalles</a>
                                     </td>
 
                                 </tr> 
@@ -132,17 +140,26 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
                             <a th:href="@{/limpiarConsultas}" class="btn btn-secondary">Limpiar</a>
                         </div>
                     </div>
-                    <footer class="row position-absolute bottom-0 start-50 translate-middle-x bg-danger">
+
+
+                </div>
+
+
+            </section>
+
+            <div class="row">
+                <div class="col-12">
+                    </div>
+                    <footer class="row bg-danger">
                         <div class="row align-items-center">
                             <div class="col-12 text-center text-white">
                                 <p>Universidad del valle - Sistema transaccional L y M</p>
                             </div>
                         </div>
+
                     </footer>
-
-                </div>
-            </section>
-
+                
+            </div>
 
 
 
