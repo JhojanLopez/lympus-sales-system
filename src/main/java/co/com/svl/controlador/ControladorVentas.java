@@ -84,10 +84,20 @@ public class ControladorVentas {
      * @return /ventas
      */
     @GetMapping("/salirVentas")
-    public String salirVentas() {
+    public String salirVentas(Model model, @AuthenticationPrincipal User user) {
 
         listaVentaProductos.clear();
         listaBusqueda.clear();
+        
+        if (user.getAuthorities().toString().equals("[ROLE_ADMIN]")) {
+            var usuario = (Administrador) obtenerDatosUsuario(user.getAuthorities().toString(), user.getUsername());
+            model.addAttribute("usuario", usuario);
+
+        } else {
+            var usuario = (Empleado) obtenerDatosUsuario(user.getAuthorities().toString(), user.getUsername());
+            model.addAttribute("usuario", usuario);
+
+        }
         return "index";
     }
 
@@ -207,7 +217,7 @@ public class ControladorVentas {
         return "redirect:/ventas";
     }
 
-    /** 
+    /**
      * @author JHOJAN L
      * @param user
      * @return /ventas
@@ -245,8 +255,8 @@ public class ControladorVentas {
      */
     @GetMapping("/imprimirVenta")
     public String imprimirVenta(@AuthenticationPrincipal User user) {
-       
-        if(!listaVentaProductos.isEmpty()){
+
+        if (!listaVentaProductos.isEmpty()) {
             if (user.getAuthorities().toString().equals("[ROLE_ADMIN]")) {
 
                 var administrador = administradorService.encontrarAdministradorPorCorreo(user.getUsername());
@@ -301,7 +311,7 @@ public class ControladorVentas {
     /**
      * @author JHOJAN L
      * @param producto
-     * @return 
+     * @return
      */
     public boolean contieneProducto(ProductoListado producto) {
         log.info("-------------------------------ANALIZANDO SI CONTIENE EL PRODUCTO-----------------------");

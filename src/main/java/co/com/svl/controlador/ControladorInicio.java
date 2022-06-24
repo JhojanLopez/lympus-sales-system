@@ -17,7 +17,6 @@ import org.springframework.web.bind.annotation.PostMapping;
  *
  * @author JHOJAN L
  */
-
 @Slf4j
 @Controller
 public class ControladorInicio {
@@ -33,11 +32,19 @@ public class ControladorInicio {
      * @param user
      * @return index
      */
-    
     @GetMapping("/")
     public String inicio(Model model, @AuthenticationPrincipal User user) { //@AuthenticationPrincipal User user){// @AuthenticationPrincipal User user CON ESTO PODEMOS CAPTURAR EL USUSARIO QUE HIZO LOGIN
 
-        model.addAttribute("usuarios", user);
+        if (user.getAuthorities().toString().equals("[ROLE_ADMIN]")) {
+            var usuario = (Administrador) obtenerDatosUsuario(user.getAuthorities().toString(), user.getUsername());
+            model.addAttribute("usuario", usuario);
+
+        } else {
+            var usuario = (Empleado) obtenerDatosUsuario(user.getAuthorities().toString(), user.getUsername());
+            model.addAttribute("usuario", usuario);
+
+        }
+
         return "index";
     }
 
@@ -61,7 +68,7 @@ public class ControladorInicio {
      * @param user
      * @param administrador
      * @param empleado
-     * @return 
+     * @return
      */
     @PostMapping("/modificarDatosPersonales")
     public String modificarDatosPersonales(@AuthenticationPrincipal User user,

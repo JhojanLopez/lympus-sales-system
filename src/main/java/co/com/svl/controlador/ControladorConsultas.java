@@ -7,6 +7,8 @@ package co.com.svl.controlador;
 import co.com.svl.modelo.Administrador;
 import co.com.svl.modelo.Empleado;
 import co.com.svl.modelo.Venta;
+import co.com.svl.servicio.AdministradorService;
+import co.com.svl.servicio.EmpleadoService;
 import co.com.svl.servicio.VentaService;
 import co.com.svl.util.FormatoFechaHora;
 import java.text.ParseException;
@@ -14,6 +16,8 @@ import java.util.ArrayList;
 import java.util.List;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -28,8 +32,12 @@ import org.springframework.web.bind.annotation.GetMapping;
 public class ControladorConsultas {
 
     @Autowired
-    private VentaService ventaService;
-
+    private VentaService ventaService;  
+    @Autowired
+    private AdministradorService administradorService;
+    @Autowired
+    private EmpleadoService empleadoService;
+    
     private final List<Venta> listaConsulta = new ArrayList<>();
 
     
@@ -56,8 +64,17 @@ public class ControladorConsultas {
      */
     
     @GetMapping("/salirConsultas")
-    public String salirConsultas() {
+    public String salirConsultas(Model model, @AuthenticationPrincipal User user) {
         listaConsulta.clear();
+        if (user.getAuthorities().toString().equals("[ROLE_ADMIN]")) {
+            var usuario = (Administrador) obtenerDatosUsuario(user.getAuthorities().toString(), user.getUsername());
+            model.addAttribute("usuario", usuario);
+
+        } else {
+            var usuario = (Empleado) obtenerDatosUsuario(user.getAuthorities().toString(), user.getUsername());
+            model.addAttribute("usuario", usuario);
+
+        }
         return "index";
     }
 
@@ -172,7 +189,16 @@ public class ControladorConsultas {
      * @author JHOJAN L
      * @return /consultas
      */
-    
+     public Object obtenerDatosUsuario(String rol, String correo) {//obtengo todos los datos del usuario logeado
+
+        if (rol.equals("[ROLE_ADMIN]")) {
+            return administradorService.encontrarAdministradorPorCorreo(correo);
+
+        } else {
+            return empleadoService.encontrarEmpleadoPorCorreo(correo);
+        }
+     }
+
     @GetMapping("/limpiarConsultas")
     public String limpiarConsultas() {
 

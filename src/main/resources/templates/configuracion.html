@@ -24,7 +24,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
 
                     <div class="col-1">
                         <div class="text-center">
-                            <a style="color:white" th:href="@{/}"><i class="fa-solid fa-house-user"> Inicio</i></a>
+                            <a class="text-light text-decoration-none" th:href="@{/}"><i class="fa-solid fa-house-user"></i> Inicio</a>
                         </div>
                     </div>
                     <div class="col-10">
@@ -43,19 +43,17 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
 
             <div class="row justify-content-center">
                 <div class="col-6">
-                    <div class="card text-center">
+                    <div class="mt-5 card text-center">
                         <div class="card-header">
                             <h2>Gestion de información</h2>
                         </div>
                         <div class="card-body">
                             <h5 class="card-title">Configuracion general</h5>
                             <hr />
-                            <div class="row align-items-center">
+                            <div class="align-items-center">
                                 <div class="col-8 text-left">
                                     <label for="datosinput" class="form-label">Datos Personales</label>
 
-                               
-                                
                                     <div class="w-100"></div>
                                     <label for="passinput" class="form-label">Password</label>
                                 </div>
@@ -70,9 +68,17 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
 
                                 <!-- <a href="#" class="btn btn-primary">Guardar</a> -->
                             </div>
-                            <div class="card-footer text-muted">
-                                Verifique la información antes de guardar.
-                            </div>
+                        </div>
+                        <div class="card-footer">
+                            <p class="text-dark"><b>Verifique la información antes de guardar.</b></p>
+
+                        </div>
+                    </div>
+
+                    <div th:if="${param.exito1}" class="mt-2 alert alert-success d-flex" role="alert">
+                        <div class="text-center">
+                            <i class="fa-solid fa-circle-check"></i>
+                            Los datos personales se cambiaron exitosamente.
                         </div>
                     </div>
                 </div>
@@ -94,12 +100,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
                 editar
             </button>-->
 
-            <div th:if="${param.exito1}" class="alert alert-success d-flex" role="alert">
-                <div class="text-center">
-                    <i class="fa-solid fa-circle-check"></i>
-                    Los datos personales se cambiaron exitosamente.
-                </div>
-            </div>
+
             <div th:if="${param.exito2}" class="alert alert-success d-flex" role="alert">
                 <div class="text-center">
                     <i class="fa-solid fa-circle-check"></i>
@@ -118,21 +119,21 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
                     Error. La contrasena nueva no es la misma que la contrasena de confirmacion
                 </div>
             </div>
-            
+
             <div class="row">
 
-                    <div class="col-12 text-center">
-                     
-                    </div>
-                       
-                    <footer class="row position-absolute bottom-0 start-50 translate-middle-x bg-danger">
-                        <div class="row align-items-center">
-                            <div class="col-12 text-center text-white">
-                                <p>Universidad del valle - Sistema transaccional L y M</p>
-                            </div>
-                        </div>
-                    </footer>
+                <div class="col-12 text-center">
+
                 </div>
+
+                <footer class="row position-absolute bottom-0 start-50 translate-middle-x bg-danger">
+                    <div class="row align-items-center">
+                        <div class="col-12 text-center text-white">
+                            <p>Universidad del valle - Sistema transaccional L y M</p>
+                        </div>
+                    </div>
+                </footer>
+            </div>
         </div>
 
         <!-- Modal editar datos personales -->

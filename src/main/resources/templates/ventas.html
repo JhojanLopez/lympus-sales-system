@@ -61,7 +61,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
                     <div class="col-6">
                         <h2>Venta</h2>
                         <form method="POST" th:action="@{/agregarProductoCodigoBarras}" th:object="${producto}">
-                            <input type="number" name="codigobarras" th:field="*{codigo}" 
+                            <input autofocus type="number" name="codigobarras" th:field="*{codigo}" 
                                    placeholder="Codigo de barras" required="true"/>
                         </form><!-- agregar producto cod barras -->
 
