@@ -52,7 +52,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
                             <h2>Gestion de información</h2>
                         </div>
                         <div class="card-body">
-                            <h5 class="card-title">Configuracion general</h5>
+                            <h5 class="card-title">Configuración general</h5>
                             <hr />
                             <div class="align-items-center">
 
@@ -84,14 +84,34 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
                             <p class="text-dark"><b>Verifique la información antes de guardar.</b></p>
 
                         </div>
-                    </div>
 
+                    </div>
                     <div th:if="${param.exito1}" class="mt-2 alert alert-success d-flex" role="alert">
                         <div class="text-center">
                             <i class="fa-solid fa-circle-check"></i>
                             Los datos personales se cambiaron exitosamente.
                         </div>
                     </div>
+
+                    <div th:if="${param.exito2}" class="mt-2 alert alert-success d-flex" role="alert">
+                        <div class="text-center">
+                            <i class="fa-solid fa-circle-check"></i>
+                            La contraseña se cambio exitosamente.
+                        </div>
+                    </div>
+                    <div th:if="${param.error1}" class="mt-2 alert alert-danger d-flex" role="alert">
+                        <div class="text-center">
+                            <i class="fa-solid fa-xmark"></i>
+                            Error. La contraseña actual no coincide con la digitada
+                        </div>
+                    </div>
+                    <div th:if="${param.error2}" class="mt-2 alert alert-danger d-flex" role="alert">
+                        <div class="text-center">
+                            <i class="fa-solid fa-xmark"></i>
+                            Error. La contraseña nueva no es la misma que la contraseña de confirmación
+                        </div>
+                    </div>
+
                 </div>
             </div>
 
@@ -112,24 +132,6 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
             </button>-->
 
 
-            <div th:if="${param.exito2}" class="alert alert-success d-flex" role="alert">
-                <div class="text-center">
-                    <i class="fa-solid fa-circle-check"></i>
-                    La contrasena se cambio exitosamente.
-                </div>
-            </div>
-            <div th:if="${param.error1}" class="alert alert-danger d-flex" role="alert">
-                <div class="text-center">
-                    <i class="fa-solid fa-xmark"></i>
-                    Error. La contrasena actual no coincide con la digitada
-                </div>
-            </div>
-            <div th:if="${param.error2}" class="alert alert-danger d-flex" role="alert">
-                <div class="text-center">
-                    <i class="fa-solid fa-xmark"></i>
-                    Error. La contrasena nueva no es la misma que la contrasena de confirmacion
-                </div>
-            </div>
 
             <div class="row">
 

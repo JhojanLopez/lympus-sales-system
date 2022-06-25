@@ -54,7 +54,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
                         <div th:if="${param.advertencia}" class="alert alert-warning d-flex" role="alert">
                             <div class="text-center">
                                 <i class="fa-solid fa-triangle-exclamation"></i>
-                                No se encontro ningun resultado.
+                                No se encontro ningún resultado.
                             </div>
                         </div>
                     </div>
@@ -108,7 +108,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
                 <div class="row">                
                     <div class="col-6">
 
-                        <table class="table table-light" th:if="${listaBusqueda != null}" border="1">
+                        <table class="table table-light" th:if="${listaBusqueda != null}">
                             <tr>
                                 <th>NOMBRE</th>
                                 <th>DESCRIPCION </th>
@@ -126,11 +126,8 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
                     </div>
 
                     <div class="col-6">
-
-                        <h3>Factura</h3>    
-
-                        <table class="table" th:if="${listaProductosVenta != null}" border="1">
-
+                        <table class="table table-light" th:if="${listaProductosVenta != null}">
+                            <h3>Factura</h3>   
                             <thead>
                                 <tr>
                                     <th>NOMBRE</th>
@@ -138,7 +135,8 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
                                     <th>CANTIDAD</th>
                                     <th>SUB TOTAL</th>
                                     <th></th>
-
+                                    <th></th>
+                                 
                                 </tr>
                             </thead>
                             <tbody>
@@ -163,6 +161,8 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
                                     <td></td>
                                     <td></td>
                                     <td> <input th:value="${total}" disabled="disable"/></td>
+                                    <td></td>
+                                    <td></td>
                                 </tr>
                             </tfoot>
 
