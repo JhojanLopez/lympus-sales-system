@@ -13,6 +13,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous"/>
 
         <link rel="stylesheet" th:href="@{/webjars/font-awesome/css/all.css}"/>
+        <link rel="stylesheet" th:href="@{/css/ventas.css}"/>
     </head>
     <body>
         <div class="container-fluid">
@@ -21,8 +22,8 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
                 <div class="row align-items-center">
 
                     <div class="col-1">
-                        
-                        <a style="color:white" th:href="@{/salirVentas}"><i class="fa-solid fa-house-user"> Inicio</i></a>
+
+                        <a class="text-light text-decoration-none" th:href="@{/salirVentas}"><i class="fa-solid fa-house-user"></i> Inicio</a>
                     </div>
                     <div class="col-10">
                         <div class="text-end">
@@ -39,13 +40,13 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
 
                 <div class="row">                
                     <div class="col-6">
-                        <label class="col-sm-2 col-form-label">Código de producto</label>
+                        <label class="col-sm-2 col-form-label">Busqueda de productos por nombre.</label>
                         <form th:action="@{/busqueda}">                            
 
                             <input type="text" name="busqueda" th:value="${busqueda}" 
                                    placeholder="Busqueda" required="required"/>
                             <button type="submit" id="botonBuscar" class="btn btn-danger">
-                                <i class="fa-solid fa-magnifying-glass"> Buscar</i>
+                                <i class="fa-solid fa-magnifying-glass"></i> Buscar
                             </button>
                             <a th:href="@{/limpiarBusqueda}" class="btn btn-secondary">Limpiar</a>
                         </form>
@@ -107,11 +108,11 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
                 <div class="row">                
                     <div class="col-6">
 
-                        <table  th:if="${listaBusqueda != null}" border="1">
+                        <table class="table table-light" th:if="${listaBusqueda != null}" border="1">
                             <tr>
                                 <th>NOMBRE</th>
-                                <th>DESCRIPCION</th>
-                                <th>PRECIO</th>
+                                <th>DESCRIPCION </th>
+                                <th> PRECIO</th>
                                 <th></th>
                             </tr>
                             <tr th:each="busqueda : ${listaBusqueda}">
@@ -119,7 +120,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
                                 <td th:text="${busqueda.descripcion}">Mostrar descripcion</td>
                                 <td th:text="${busqueda.precio}">Mostrar precio</td>
                                 <td><a th:href="@{/agregarProductoVenta/} + ${busqueda.codigo}" class="btn btn-outline-danger"><i class="fa-solid fa-circle-plus"></i></a>
-                                    </td>
+                                </td>
                             </tr>
                         </table>
                     </div>
@@ -128,7 +129,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
 
                         <h3>Factura</h3>    
 
-                        <table class="" th:if="${listaProductosVenta != null}" border="1">
+                        <table class="table" th:if="${listaProductosVenta != null}" border="1">
 
                             <thead>
                                 <tr>
@@ -149,11 +150,11 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
                                     <td th:text="${productoVenta.subTotal}">Mostrar subtotal</td>
                                     <td>
                                         <a th:href="@{/producto/(codigo=${productoVenta.codigo})}" 
-                                           class="btn btn-danger">Editar</a>
+                                           class="btn btn-danger edicion">Editar</a>
                                     </td>
                                     <td><a th:href="@{/eliminarProductoVenta/} + ${productoVenta.codigo}" class="btn btn-secondary">
                                             <i class="fa-solid fa-circle-minus"></i></a>
-                                        </td>
+                                    </td>
                                 </tr> 
                             </tbody>
                             <tfoot>
@@ -168,21 +169,29 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
                             <hr>
                         </table>
                         <div th:if="${listaProductosVenta!=null}">
-                            
-                        <button type="submit" th:value="Guardar" class="btn btn-danger"><i class="fa-solid fa-floppy-disk"> Guardar</i></button>
+
+                            <button type="submit" th:value="Guardar" class="btn btn-danger">
+                                <i class="fa-solid fa-floppy-disk"></i> Guardar</button>
                         </div> 
 
                         </form>
 
                     </div>
 
-                    <footer class="row position-absolute bottom-0 start-50 translate-middle-x bg-danger">
+
+                </div>
+                <div class="row">
+                    <div class="col-12">
+                    </div>
+                    <footer class="row  pos-footer bg-danger">
                         <div class="row align-items-center">
                             <div class="col-12 text-center text-white">
                                 <p>Universidad del valle - Sistema transaccional L y M</p>
                             </div>
                         </div>
+
                     </footer>
+
                 </div>
                 <!--modal editar cantidad-->
                 <div class="modal fade"  id="editModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -201,7 +210,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
                                     <input id="unidadMedida" type="hidden" name="unidadMedida"/>   
                                 </div>
                                 <div class="modal-footer">
-                                    <button type="submit" class="btn btn-primary">Guardar</button>
+                                    <button type="submit" class="btn btn-outline-danger">Guardar</button>
 
                                 </div>
                             </form>
@@ -215,7 +224,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
                     <div class="modal-dialog">
                         <div class="modal-content">
                             <div class="modal-header">
-                                <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                                <h5 class="modal-title" id="exampleModalLabel">Impresión</h5>
                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                             </div>
                             <div class="modal-body">

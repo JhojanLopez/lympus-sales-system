@@ -13,6 +13,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous"/>
         <!-- font awesome usado para iconos svg -->
         <link rel="stylesheet" th:href="@{/webjars/font-awesome/css/all.css}"/>
+        <script src="https://kit.fontawesome.com/e504a05327.js" crossorigin="anonymous"></script>
 
     </head>
     <body>
@@ -41,6 +42,9 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
 
             <!--configuracion-->
 
+
+
+
             <div class="row justify-content-center">
                 <div class="col-6">
                     <div class="mt-5 card text-center">
@@ -51,19 +55,26 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
                             <h5 class="card-title">Configuracion general</h5>
                             <hr />
                             <div class="align-items-center">
-                                <div class="col-8 text-left">
-                                    <label for="datosinput" class="form-label">Datos Personales</label>
 
-                                    <div class="w-100"></div>
-                                    <label for="passinput" class="form-label">Password</label>
-                                </div>
-                                <div class="col-3">
-                                    <button type="button" class="btn btn-danger" data-bs-toggle="modal"
-                                            data-bs-target="#modalDatosPersonales">Editar</button>
-                                    <div class="w-100"></div>
+                                <div class="row justify-content-center">
+                                    <div class="col-6">
+                                        <i class="fa-solid fa-user-gear fa-5x"></i>
+                                        <div class="w-100"></div>
+                                        <label for="datosinput" class="form-label"><b>Datos personales</b></label>
+                                        <div class="w-100"></div>
+                                        <button type="button" class="btn btn-danger" data-bs-toggle="modal"
+                                                data-bs-target="#modalDatosPersonales">Editar</button>
 
-                                    <button type="button" class="btn btn-danger" data-bs-toggle="modal"
-                                            data-bs-target="#modalPassword">Editar</button>
+                                    </div>
+                                    <div class="col-6">
+                                        <i class="fa-solid fa-key fa-5x"></i>
+                                        <div class="w-100"></div>
+                                        <label for="passinput" class="form-label"><b>Contraseña</b></label>
+                                        <div class="w-100"></div>
+
+                                        <button type="button" class="btn btn-danger" data-bs-toggle="modal"
+                                                data-bs-target="#modalPassword">Editar</button>
+                                    </div>
                                 </div>
 
                                 <!-- <a href="#" class="btn btn-primary">Guardar</a> -->
@@ -141,7 +152,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                        <h5 class="modal-title" id="exampleModalLabel">Datos personales</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
@@ -174,7 +185,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
                                 <input type="tel" class="form-control" name="telefono" th:field="*{telefono}" required="true"/>
                             </div>
                             <div class="modal-footer">
-                                <button type="submit" class="btn btn-primary">Guardar</button>
+                                <button type="submit" class="btn btn-outline-danger">Guardar</button>
                             </div>
                         </form>
                     </div>
@@ -188,7 +199,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                        <h5 class="modal-title" id="exampleModalLabel">Contraseña</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
@@ -221,7 +232,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
                                 <input type="password" class="form-control" name="contrasenaConfirmacion" required="true"/>
                             </div>
                             <div class="modal-footer">
-                                <button type="submit" class="btn btn-primary">Guardar</button>
+                                <button type="submit" class="btn btn-outline-danger">Guardar</button>
                             </div>
                         </form>
                     </div>

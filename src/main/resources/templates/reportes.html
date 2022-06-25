@@ -23,7 +23,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
                 <div class="row align-items-center">
 
                     <div class="col-1 text-center">
-                        <a style="color:white" th:href="@{/salirReporte}"><i class="fa-solid fa-house-user">Inicio</i></a>
+                        <a class="text-light text-decoration-none" th:href="@{/salirReporte}"><i class="fa-solid fa-house-user"></i> Inicio</a>
 
                     </div>
                     <div class="col-10">
@@ -143,8 +143,8 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
                     <div class="col-12 text-center" >
 
                         <a th:if="${reporte.codigo !=null}" ><a th:href="@{/reportePdf/}+${reporte.codigo}" class="btn btn-outline-danger">
-                                <i class="fa-regular fa-file-pdf fa-lg" >PDF</i></a>
-                            <a th:href="@{/limpiarReporte}" class="btn btn-outline-danger" >limpiar</a>
+                                <i class="fa-regular fa-file-pdf fa-lg" ></i> PDF</a>
+                            <a th:href="@{/limpiarReporte}" class="btn btn-outline-danger" >Limpiar</a>
                     </div>
 
                 </div>

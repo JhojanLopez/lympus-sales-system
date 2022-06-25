@@ -100,10 +100,10 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
 
             <div class="row">
                 <div class="col-3" style="text-align:center;">
-                    <div class="card" style="width: 18rem;">
+                    <div class="card ancho-cards">
                         <div class="card-body">
                             <i class="fa-regular fa-money-bill-1 fa-10x"></i>
-                            <h5 class="card-title text-danger"><b>Ventas</b></h5>
+                            <h5 class="mt-5 card-title text-danger"><b>Ventas</b></h5>
                             <p class="card-text">Facture y venda productos.</p>
 
                             <a  th:href="@{/ventas}" class="btn btn-outline-danger">Acceder</a>
@@ -124,10 +124,10 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
                 </div>
 
                 <div sec:authorize="hasRole('ROLE_ADMIN')" class="col-3" style="text-align:center;">
-                    <div class="card" style="width: 18rem;">
+                    <div class="card ancho-cards">
                         <div class="card-body">
                             <i class="fa-solid fa-chart-line fa-10x"></i>
-                            <h5 class="card-title text-danger"><b>Reportes</b></h5>
+                            <h5 class="mt-5 card-title text-danger"><b>Reportes</b></h5>
                             <p class="card-text">Visualice sus ganancias.</p>
 
                             <a th:href="@{/reportes}" class="btn btn-outline-danger">Acceder</a>
@@ -137,10 +137,10 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
                 </div>
 
                 <div sec:authorize="hasRole('ROLE_ADMIN')" class="col-3" style="text-align:center;">
-                    <div class="card" style="width: 18rem;">
+                    <div class="card ancho-cards">
                         <div class="card-body">
                             <i class="fa-solid fa-magnifying-glass-dollar fa-10x"></i>
-                            <h5 class="card-title text-danger"><b>Consultas</b></h5>
+                            <h5 class="mt-5 card-title text-danger"><b>Consultas</b></h5>
                             <p class="card-text">Consulte facturación.</p>
 
                             <a th:href="@{/consultas}" class="btn btn-outline-danger">Acceder</a>
