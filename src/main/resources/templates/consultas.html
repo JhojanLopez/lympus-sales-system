@@ -13,15 +13,8 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
         <!-- font awesome usado para iconos svg -->
         <link rel="stylesheet" th:href="@{/webjars/font-awesome/css/all.css}"/>
         <script src="https://kit.fontawesome.com/e504a05327.js" crossorigin="anonymous"></script>
-        <style>
-            footer{
-                position: fixed;
-                top:95%;
-                left: 0;
-                z-index: 9999;
-
-            }
-        </style>
+        <link rel="stylesheet" th:href="@{/css/consultas.css}"/>
+        
     </head>
     <body>
 
@@ -47,110 +40,118 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
             </header>
             <hr />
 
+            <div class="row justify-content-center">
+                <div class="col-2 text-center">
+                    <h2>Consulta facturación</h2>
 
-
-
-            <section>
-                <div class="row justify-content-center">
-                    <div class="col-2 text-center">
-                        <form method="GET" th:action="@{/consultasPorCodigo}" >
-                            <input type="number" name="dato" placeholder="consulte por codigo" required="required" />
-                            <hr />
-                            <button type="submit" class="btn btn-danger" value="buscar">
-                                <i class="fa-solid fa-magnifying-glass"> Buscar</i>
-                            </button>
-                        </form>
-                    </div>
-                    <div class="col-2 text-center">
-                        <form method="GET" th:action="@{/consultasPorFecha}">
-                            <input type="date" name="fecha"  required="required"/>
-                            <hr />
-                            <button type="submit" class="btn btn-danger">
-                                <i class="fa-solid fa-magnifying-glass"> Buscar</i>
-                            </button>
-                        </form>
-                    </div>
-                    <div class="col-2 text-center">
-                        <form method="GET" th:action="@{/consultasPorVendedor}">
-                            <select name="opcion" required="required">
-                                <option selected="true" value="">Selecciona un tipo de usuario</option>
-                                <option value="1">Administrador</option>
-                                <option value="2">Vendedor</option>
-
-                            </select>
-                            <hr />
-                            <!-- <input type="text" name="name" placeholder="consulte por vendedor"/> -->
-                            <button type="submit" class="btn btn-danger">
-                                <i class="fa-solid fa-magnifying-glass"> Buscar</i>
-                            </button>
-                            <input type="submit" value="buscar"/>
-
-                        </form>
-                    </div>
-                </div>
-            </section>
-
-            <div th:if="${param.advertencia}" class="alert alert-warning d-flex" role="alert">
-                <div class="text-center">
-                    <i class="fa-solid fa-triangle-exclamation"></i>
-                    No se encontro ningun resultado.
                 </div>
             </div>
 
-            <section th:if="${listaConsulta}!=null">
-                <div class="row">
-                    <div class="col-12">
-                        <table  class="table">
+            <hr>
+                <section>
+                    <div class="row justify-content-center">
+                        <div class="col-2 text-center">
+                            <p>Digite código de factura.</p>
+                            <form method="GET" th:action="@{/consultasPorCodigo}" >
+                                <input type="number" name="dato" placeholder="consulte por codigo" required="required" />
+                                <hr />
+                                <button type="submit" class="btn btn-danger" value="buscar">
+                                    <i class="fa-solid fa-magnifying-glass"> </i> Buscar
+                                </button>
+                            </form>
+                        </div>
+                        <div class="col-2 text-center">
+                            <p>Seleccione día de facturación</p>
+                            <form method="GET" th:action="@{/consultasPorFecha}">
+                                <input type="date" name="fecha"  required="required"/>
+                                <hr />
+                                <button type="submit" class="btn btn-danger">
+                                    <i class="fa-solid fa-magnifying-glass"> </i> Buscar
+                                </button>
+                            </form>
+                        </div>
+                        <div class="col-2 text-center">
+                            <p>Facturación por usuario.</p>
+                            <form method="GET" th:action="@{/consultasPorVendedor}">
+                                <select name="opcion" required="required">
+                                    <option selected="true" value="">Selecciona un tipo de usuario</option>
+                                    <option value="1">Administrador</option>
+                                    <option value="2">Empleado</option>
 
-                            <thead>
-                                <tr>
-                                    <th>CODIGO</th>
-                                    <th>FECHA</th>
-                                    <th>VENDEDOR</th>
-                                    <th>TOTAL</th>
-                                    <th></th>
+                                </select>
+                                <hr />
+                                <!-- <input type="text" name="name" placeholder="consulte por vendedor"/> -->
+                                <button type="submit" class="btn btn-danger">
+                                    <i class="fa-solid fa-magnifying-glass"> </i> Buscar
+                                </button>
+                                
 
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr  th:each="venta : ${listaConsulta}">
-                                    <td th:text="${venta.codigo}">Mostrar codigo</td> 
-                                    <td th:text="${venta.fecha}">Mostrar fecha</td>
-                                    <td th:if="${venta.codigoAdministrador}!=null and ${venta.codigoEmpleado} == null" th:text="${venta.codigoAdministrador.nombre}">Mostrar vendedor</td>
-                                    <td th:if="${venta.codigoEmpleado}!=null" th:text="${venta.codigoEmpleado.nombre}">Mostrar vendedor</td>
-                                    <td th:text="${venta.totalVenta}">Mostrar total</td>
-                                    <td><a th:href="@{/ventaPdf/(codigo=${venta.codigo})}" th:target="_blank" class="btn btn-outline-danger">Mas detalles</a>
-                                    </td>
-
-                                </tr> 
-                            </tbody>
-                            <tfoot>
-                                <tr>
-                                    <td></td> 
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-
-                                </tr>
-                            </tfoot>
-                        </table>
-                        <div class="text-center">
-                            <a th:href="@{/limpiarConsultas}" class="btn btn-secondary">Limpiar</a>
+                            </form>
                         </div>
                     </div>
+                </section>
 
-
+                <div th:if="${param.advertencia}" class="alert alert-warning d-flex" role="alert">
+                    <div class="text-center">
+                        <i class="fa-solid fa-triangle-exclamation"></i>
+                        No se encontro ningun resultado.
+                    </div>
                 </div>
 
+                <section th:if="${listaConsulta}!=null">
+                    <div class="row">
+                        <div class="col-12">
+                            <table  class="table">
 
-            </section>
+                                <thead>
+                                    <tr>
+                                        <th>CODIGO</th>
+                                        <th>FECHA</th>
+                                        <th>VENDEDOR</th>
+                                        <th>TOTAL</th>
+                                        <th></th>
 
-            <div class="row">
-                <div class="col-12">
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr  th:each="venta : ${listaConsulta}">
+                                        <td th:text="${venta.codigo}">Mostrar codigo</td> 
+                                        <td th:text="${venta.fecha}">Mostrar fecha</td>
+                                        <td th:if="${venta.codigoAdministrador}!=null and ${venta.codigoEmpleado} == null" th:text="${venta.codigoAdministrador.nombre}">Mostrar vendedor</td>
+                                        <td th:if="${venta.codigoEmpleado}!=null" th:text="${venta.codigoEmpleado.nombre}">Mostrar vendedor</td>
+                                        <td th:text="${venta.totalVenta}">Mostrar total</td>
+                                        <td><a th:href="@{/ventaPdf/(codigo=${venta.codigo})}" th:target="_blank" class="btn btn-outline-danger">Mas detalles</a>
+                                        </td>
+
+                                    </tr> 
+                                </tbody>
+                                <tfoot>
+                                    <tr>
+                                        <td></td> 
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+
+                                    </tr>
+                                </tfoot>
+                            </table>
+                            <div class="text-center">
+                                <a th:href="@{/limpiarConsultas}" class="btn btn-secondary">Limpiar</a>
+                            </div>
+                        </div>
+
+
                     </div>
-                    <footer class="row bg-danger">
+
+
+                </section>
+
+                <div class="row">
+                    <div class="col-12">
+                    </div>
+                    <footer class="row bg-danger  footer">
                         <div class="row align-items-center">
                             <div class="col-12 text-center text-white">
                                 <p>Universidad del valle - Sistema transaccional L y M</p>
@@ -158,8 +159,8 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
                         </div>
 
                     </footer>
-                
-            </div>
+
+                </div>
 
 
 

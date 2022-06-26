@@ -70,11 +70,11 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
                     <form method="POST" th:action="@{/login}"><!-- indicamos que el metodo va ser post y sera el login -->
                         <div class="mb-4">
                             <label for="username" class="form-label">Correo:</label>
-                            <input type="email" class="form-control" name="username" id="username" required="required"/>
+                            <input type="email" class="form-control" name="username" id="username" required="required" placeholder="Correo electrónico"/>
                         </div>
                         <div class="mb-4">
-                            <label for="password" class="form-label">Clave</label>
-                            <input type="password" class="form-control" name="password" id="password" required="required"/>
+                            <label for="password" class="form-label">Contraseña</label>
+                            <input type="password" class="form-control" name="password" id="password" required="required" placeholder="contraseña"/>
                         </div>
                         <div class="d-grid">
                             <input type="submit" class="btn btn-outline-danger" value="Ingresar"/>

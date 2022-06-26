@@ -3,18 +3,9 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to c
 Click nbfs://nbhost/SystemFileSystem/Templates/Other/CascadeStyleSheet.css to edit this template
 */
 /* 
-    Created on : 8/06/2022, 3:11:27 p. m.
-    Author     : JHOJAN L
+    Created on : 25/06/2022, 11:26:12 p. m.
+    Author     : Programar
 */
-
-.btn-editar{
-    background-color: #3377FF;
-    color: white;
-    
-}
-.btn-editar:hover{
-    background-color: #1865FF;
-}
 
 .footer{
                 position: fixed;
