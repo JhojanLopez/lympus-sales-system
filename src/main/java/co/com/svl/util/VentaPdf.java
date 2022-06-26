@@ -60,6 +60,8 @@ public class VentaPdf {
             fuenteTitulo.setColor(Color.RED);
             fuenteTitulo.setSize(18);
             
+            
+            
             Font fuenteInformacion = FontFactory.getFont(FontFactory.HELVETICA_BOLD);
             fuenteTitulo.setColor(Color.RED);
             fuenteTitulo.setSize(18);
