@@ -142,7 +142,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
                 <footer class="row position-absolute bottom-0 start-50 translate-middle-x bg-danger">
                     <div class="row align-items-center">
                         <div class="col-12 text-center text-white">
-                            <p>Universidad del valle - Sistema transaccional L y M</p>
+                            <p>Universidad del valle - Sistema de ventas Lympus &COPY;</p>
                         </div>
                     </div>
                 </footer>
@@ -179,11 +179,11 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
                                 <input type="number" class="form-control" name="nit" th:field="*{nitNegocio}" required="true"/>
                             </div>
                             <div class="mb-3" sec:authorize="hasRole('ROLE_ADMIN')">
-                                <label for="direccion">Direccion:</label>
+                                <label for="direccion">Dirección:</label>
                                 <input type="text" class="form-control" name="direccion" th:field="*{direccion}" required="true"/>
                             </div>
                             <div class="mb-3" sec:authorize="hasRole('ROLE_ADMIN')">
-                                <label for="telefono">Telefono:</label>
+                                <label for="telefono">Teléfono:</label>
                                 <input type="tel" class="form-control" name="telefono" th:field="*{telefono}" required="true"/>
                             </div>
                             <div class="modal-footer">
@@ -222,15 +222,15 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
                             <input sec:authorize="hasRole('ROLE_ADMIN')" type="hidden" 
                                    th:field="*{telefono}"/>
                             <div class="mb-3">
-                                <label for="contrasenaActual" class="form-label">Contrasena actual:</label>
+                                <label for="contrasenaActual" class="form-label">Contraseña actual:</label>
                                 <input type="password" class="form-control" name="contrasenaActual"  required="true"/>
                             </div>
                             <div class="mb-3">
-                                <label for="contrasenaNueva" class="form-label">Contrasena nueva:</label>
+                                <label for="contrasenaNueva" class="form-label">Contraseña nueva:</label>
                                 <input type="password" class="form-control" name="contrasenaNueva" required="true"/>
                             </div>
                             <div class="mb-3">
-                                <label for="contrasenaConfirmacion" class="form-label">Confirmacion de contrasena:</label>
+                                <label for="contrasenaConfirmacion" class="form-label">Confirmación de contraseña:</label>
                                 <input type="password" class="form-control" name="contrasenaConfirmacion" required="true"/>
                             </div>
                             <div class="modal-footer">

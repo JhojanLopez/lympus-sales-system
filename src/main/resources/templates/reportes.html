@@ -28,7 +28,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
                     </div>
                     <div class="col-10">
                         <div class="text-end">
-                            <h2 class="Ventas L y M">Salsamentaria L & M</h2>
+                            <h2 class="Ventas L y M">Salsamentaría L & M</h2>
                         </div>
                     </div>
                     <div class="col-1">
@@ -37,7 +37,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
                 </div>
             </header>
 
-            <div class="row">
+            <div class="row mt-5">
                 <div class="col-12 text-center">
                     <h2><b>Reportes</b></h2>
                     <hr />
@@ -67,12 +67,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
 
             </form>
 
-            <div class="row text-center">
-                <div class="col-12">
-                    <h3><b>Informe de ganancias</b></h3>
-                    <hr />
-                </div>
-            </div>
+
 
 
             <!-- Label 
@@ -92,7 +87,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
 
 
 
-            <div th:if="${param.advertencia}" class="alert alert-warning d-flex" role="alert">
+            <div th:if="${param.advertencia}" class="alert alert-warning d-flex mt-3" role="alert">
                 <div class="text-center">
                     <i class="fa-solid fa-triangle-exclamation"></i>
                     No se encontraron ventas en el rango de fecha para generar reportes
@@ -100,6 +95,12 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
             </div>
 
             <div th:if="${reporte !=null}">
+                <div class="row text-center mt-5">
+                    <div class="col-12">
+                        <h3><b>Informe de ganancias</b></h3>
+                        <hr />
+                    </div>
+                </div>
                 <!--<table border="1" th:object="${reporte}">
 
                     <tr>
@@ -157,7 +158,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
                 <footer class="row position-absolute bottom-0 start-50 translate-middle-x bg-danger">
                     <div class="row align-items-center">
                         <div class="col-12 text-center text-white">
-                            <p>Universidad del valle - Sistema transaccional L y M</p>
+                            <p>Universidad del valle - Sistema de ventas Lympus &COPY;</p>
                         </div>
                     </div>
                 </footer>

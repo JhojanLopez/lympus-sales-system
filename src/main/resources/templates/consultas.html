@@ -14,7 +14,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
         <link rel="stylesheet" th:href="@{/webjars/font-awesome/css/all.css}"/>
         <script src="https://kit.fontawesome.com/e504a05327.js" crossorigin="anonymous"></script>
         <link rel="stylesheet" th:href="@{/css/consultas.css}"/>
-        
+
     </head>
     <body>
 
@@ -29,7 +29,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
                     </div>
                     <div class="col-10">
                         <div class="text-end">
-                            <h2 class="Ventas L y M">Salsamentaria L & M</h2>
+                            <h2 class="Ventas L y M">Salsamentaría L & M</h2>
                         </div>
                     </div>
                     <div class="col-1">
@@ -41,17 +41,73 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
             <hr />
 
             <div class="row justify-content-center">
-                <div class="col-2 text-center">
-                    <h2>Consulta facturación</h2>
+                <div class="col-4 text-center mb-3">
+                    <h2><b>Consulta de ventas</b></h2>
 
                 </div>
             </div>
 
+
+
+
+            <div class="row mt-4 mb-5">
+
+                <div class="col-3" > 
+                    <form method="GET" th:action="@{/consultasPorCodigo}" >
+                        <label for="dato" class="form-label"><b>Búsqueda por código:</b></label>
+                        <input class="form-control" type="number" name="dato" placeholder="consulte por código" required="required" />
+
+                </div>
+                <div class="col-1 mt-2">
+                    <br>
+                    <button type="submit" class="btn btn-danger" value="buscar">
+                        <i class="fa-solid fa-magnifying-glass"> </i> Buscar
+                    </button>
+
+                </div>
+
+                </form>
+
+                <div class="col-3">
+                    <form method="GET" th:action="@{/consultasPorFecha}">
+                        <label for="fecha" class="form-label"><b>Búsqueda por fecha:</b></label>
+                        <input class="form-control" type="date" name="fecha"  required="required"/> 
+                </div>
+                <div class="col-1 mt-2">
+                    <br>
+                    <button type="submit" class="btn btn-danger">
+                        <i class="fa-solid fa-magnifying-glass"> </i> Buscar
+                    </button>
+                    </form>
+                </div>
+                     </form>
+                
+                    <div class="col-3">
+                        <form method="GET" th:action="@{/consultasPorVendedor}">
+                            <label for="opcion" class="form-label"><b>Búsqueda por usuario:</b></label>
+                        <select class="form-select" name="opcion" required="required" >
+                            <option selected="true" value="">Selecciona un tipo de usuario</option>
+                            <option value="1">Administrador</option>
+                            <option value="2">Empleado</option>
+                        </select>
+                    </div>
+
+                    <div class="col-1 mt-2">
+                        <br>
+                        <button type="submit" class="btn btn-danger">
+                            <i class="fa-solid fa-magnifying-glass"> </i> Buscar
+                        </button>
+                    </div> 
+                </form>
+            </div>
+
+
             <hr>
-                <section>
+                <!-- <section>
                     <div class="row justify-content-center">
                         <div class="col-2 text-center">
-                            <p>Digite código de factura.</p>
+    
+    
                             <form method="GET" th:action="@{/consultasPorCodigo}" >
                                 <input type="number" name="dato" placeholder="consulte por codigo" required="required" />
                                 <hr />
@@ -61,7 +117,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
                             </form>
                         </div>
                         <div class="col-2 text-center">
-                            <p>Seleccione día de facturación</p>
+                            
                             <form method="GET" th:action="@{/consultasPorFecha}">
                                 <input type="date" name="fecha"  required="required"/>
                                 <hr />
@@ -71,45 +127,46 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
                             </form>
                         </div>
                         <div class="col-2 text-center">
-                            <p>Facturación por usuario.</p>
+                            
                             <form method="GET" th:action="@{/consultasPorVendedor}">
                                 <select name="opcion" required="required">
                                     <option selected="true" value="">Selecciona un tipo de usuario</option>
                                     <option value="1">Administrador</option>
                                     <option value="2">Empleado</option>
-
+    
                                 </select>
                                 <hr />
-                                <!-- <input type="text" name="name" placeholder="consulte por vendedor"/> -->
-                                <button type="submit" class="btn btn-danger">
-                                    <i class="fa-solid fa-magnifying-glass"> </i> Buscar
-                                </button>
-                                
-
-                            </form>
-                        </div>
-                    </div>
-                </section>
+                <!-- <input type="text" name="name" placeholder="consulte por vendedor"/> 
+                <button type="submit" class="btn btn-danger">
+                    <i class="fa-solid fa-magnifying-glass"> </i> Buscar
+                </button>
+    
+    
+            </form>
+        </div>
+    </div>
+    </section> -->
 
                 <div th:if="${param.advertencia}" class="alert alert-warning d-flex" role="alert">
                     <div class="text-center">
                         <i class="fa-solid fa-triangle-exclamation"></i>
-                        No se encontro ningun resultado.
+                        No se encontro ningún resultado.
                     </div>
                 </div>
 
                 <section th:if="${listaConsulta}!=null">
-                    <div class="row">
+                    <div class="row mb-5">
                         <div class="col-12">
                             <table  class="table">
 
                                 <thead>
                                     <tr>
-                                        <th>CODIGO</th>
+                                        <th>CÓDIGO</th>
                                         <th>FECHA</th>
                                         <th>VENDEDOR</th>
                                         <th>TOTAL</th>
                                         <th></th>
+                                        
 
                                     </tr>
                                 </thead>
@@ -132,7 +189,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
                                         <td></td>
                                         <td></td>
                                         <td></td>
-                                        <td></td>
+                                       
 
                                     </tr>
                                 </tfoot>
@@ -148,13 +205,13 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
 
                 </section>
 
-                <div class="row">
+                <div class="row mt-auto">
                     <div class="col-12">
                     </div>
-                    <footer class="row bg-danger  footer">
+                    <footer class="row bg-danger footer">
                         <div class="row align-items-center">
                             <div class="col-12 text-center text-white">
-                                <p>Universidad del valle - Sistema transaccional L y M</p>
+                                <p>Universidad del valle - Sistema de ventas Lympus &COPY;</p>
                             </div>
                         </div>
 

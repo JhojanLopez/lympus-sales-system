@@ -37,7 +37,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
                     </div>
                     <div class="col-10">
                         <div class="text-end">
-                            <h2 class="Ventas L y M">Salsamentaria L & M</h2>
+                            <h2 class="Ventas L y M">Salsamentaría L & M</h2>
                         </div>
                     </div>
                     <div class="col-1">
@@ -47,7 +47,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
             </header>
 
             <div class="row">
-                <div class="col-12 text-center">
+                <div class="col-12 text-center mt-3">
                     <h2><b>Inventario</b></h2>
                 </div>
             </div>
@@ -59,14 +59,14 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
                     <div th:if="${param.exito}" class="alert alert-success d-flex" role="alert">
                         <div class="text-center">
                             <i class="fa-solid fa-circle-check"></i>
-                            Los cambios se han guardado exitosamente.
+                            Los cambios se han guardado éxitosamente.
                         </div>
                     </div>
                     <!--hecho con jqueery-->
                     <div id="advertencia" class="alert alert-warning d-flex d-none" role="alert">
                         <div class="text-center">
                             <i class="fa-solid fa-triangle-exclamation"></i>
-                            Debes seleccionar algun registro
+                            Debes seleccionar algún registro
                         </div>
                     </div>
                     <div th:if="${param.error1}" class="alert alert-danger d-flex" role="alert">
@@ -99,23 +99,23 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
                         <table id="listaProductos" class="table">
                             <thead>
                                 <tr>
-                                    <th>CODIGO</th>
+                                    <th>CÓDIGO</th>
                                     <th>NOMBRE</th>
                                     <th>COSTO</th>
                                     <th>PRECIO</th>
                                     <th>EXISTENCIA</th>
-                                    <th>DESCRIPCION</th>
+                                    <th>DESCRIPCIÓN</th>
                                 </tr>
                             </thead>
                             <!-- Footer Table -->
                             <tfoot>
                                 <tr>
-                                    <th>CODIGO</th>
+                                    <th>CÓDIGO</th>
                                     <th>NOMBRE</th>
                                     <th>COSTO</th>
                                     <th>PRECIO</th>
                                     <th>EXISTENCIA</th>
-                                    <th>DESCRIPCION</th>
+                                    <th>DESCRIPCIÓN</th>
                                 </tr>
 
 
@@ -126,7 +126,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
 
                 </div>
 
-                <div class="row">
+                <div class="row mt-5">
 
                     <div class="col-12 text-center">
                      
@@ -135,7 +135,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
                     <footer class="row bg-danger footer">
                         <div class="row align-items-center">
                             <div class="col-12 text-center text-white">
-                                <p>Universidad del valle - Sistema transaccional L y M</p>
+                                <p>Universidad del valle - Sistema de ventas Lympus &COPY;</p>
                             </div>
                         </div>
                     </footer>
@@ -169,7 +169,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
                                         <input type="number" step="any" class="form-control" id="cantidad" th:field="*{cantidad}" required="true"/>
                                     </div>
                                     <div class="mb-3">
-                                        <label for="descripcion" class="form-label">Descripcion:</label>
+                                        <label for="descripcion" class="form-label">Descripción:</label>
                                         <input type="hidden" id="unidadMedida" th:field="*{unidadMedida}"/>
                                         <input type="text" class="form-control" id="descripcion" th:field="*{descripcion}" required="true"/>
                                     </div>
