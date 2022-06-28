@@ -35,23 +35,23 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
                     </div>
                 </div>
             </header>
-            <hr>
+<hr>             
 
-                <div class="row justify-content-center">
+                <div class="row justify-content-center mt-4">
                     <div class="col-4 text-center mb-3">
                         <h2><b>Ventas</b></h2>
-
+                               
                     </div>
                 </div>
+<hr> 
 
-
-                <div class="row mt-4 mb-2">                
+                <div class="row mt-5 mb-2">                
                     <div class="col-4">
 
                         <form th:action="@{/busqueda}">                            
-                            <label for="busqueda" class="form-label"><b>Busqueda por nombre o descripción:</b></label>
+                            <label for="busqueda" class="form-label"><b>Búsqueda por nombre o descripción:</b></label>
                             <input class="form-control" type="text" name="busqueda" th:value="${busqueda}" 
-                                   placeholder="Busqueda" required="required"/>
+                                   placeholder="Búsqueda" required="required"/>
                             
                             <div th:if="${param.advertencia}" class="alert alert-warning d-flex mt-2" role="alert">
                         <div class="text-center">
@@ -80,7 +80,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
                     <h3>Factura</h3>
                     <form method="POST" th:action="@{/agregarProductoCodigoBarras}" th:object="${producto}">
                         <input autofocus type="number" name="codigobarras" th:field="*{codigo}" 
-                               placeholder="Codigo de barras" required="true"/>
+                               placeholder="Código de barras" required="true"/>
                     </form><!-- agregar producto cod barras -->
 
                     <form method="POST" th:action="@{/generarVenta}" th:object="${vendedor}">
@@ -125,7 +125,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
         <div class="row mb-5">                
             <div class="col-6">
 
-                <table class="table table-light" th:if="${listaBusqueda != null}">
+                <table class="table" th:if="${listaBusqueda != null}">
                     <tr>
                         <th>NOMBRE</th>
                         <th>DESCRIPCIÓN </th>
@@ -143,7 +143,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
             </div>
 
             <div class="col-6">
-                <table class="table table-light" th:if="${listaProductosVenta != null}">
+                <table class="table" th:if="${listaProductosVenta != null}">
                      
                     <thead>
                         <tr>
