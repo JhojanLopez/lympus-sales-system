@@ -132,7 +132,11 @@ public class ReportePdf {
             tabla.addCell("$" + pv.get(i).getSubtotal());
         }
         informacionFinal.add("\n Total venta: $" + venta.getTotalVenta() + ""
-                + "\n Ganancia de venta: $" + venta.getGananciaVenta() + "\n\n\n\n");
+                + "\n Ganancia de venta: $" + venta.getGananciaVenta()
+                +"\n\n Valor de pago: $" + venta.getValorPago()
+                +"\n Cambio: $" + venta.getCambio()+"\n\n"
+                + "______________________________________________________________________________\n\n");
+       
 
         documento.add(informacionCentro);
         documento.add(tabla);

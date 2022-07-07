@@ -17,6 +17,7 @@ import co.com.svl.servicio.ProductoService;
 import co.com.svl.servicio.ProductoVentaService;
 import co.com.svl.servicio.VentaService;
 import co.com.svl.util.FormatoFechaHora;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 import lombok.extern.slf4j.Slf4j;
@@ -88,7 +89,7 @@ public class ControladorVentas {
 
         listaVentaProductos.clear();
         listaBusqueda.clear();
-        
+
         if (user.getAuthorities().toString().equals("[ROLE_ADMIN]")) {
             var usuario = (Administrador) obtenerDatosUsuario(user.getAuthorities().toString(), user.getUsername());
             model.addAttribute("usuario", usuario);
@@ -134,12 +135,40 @@ public class ControladorVentas {
 
         producto = productoService.encontrarProductoPorCodigo(producto.getCodigo());
 
-        var productoListado = new ProductoListado(1.0, producto.getCodigo(), producto.getNombre(),
-                producto.getPrecio(), producto.getCosto(), producto.getUnidadMedida());
+        if (producto.getCantidad() != 0) {//evaluamos si en el inventario este producto es distinto de 0
 
-        agregarProductoListaVenta(productoListado);
+            var productoListado = new ProductoListado(1.0, producto.getCodigo(), producto.getNombre(),
+                    producto.getPrecio(), producto.getCosto(), producto.getUnidadMedida());
 
-        return "redirect:/ventas";
+            var posicion = contieneProducto(productoListado);//me dara la posicion en la lista si encuentra el producto a ingresar
+
+            if (posicion != -1) {//si no es -1 existe en la lista
+                log.info("validacion existe en la lista");
+                var valorLista = listaVentaProductos.get(posicion).getCantidadVenta();//obtengo la cantidad de la lista de ventas de dicho producto
+                valorLista = valorLista + 1.0;
+
+                if (valorLista <= producto.getCantidad()) {// si al agregarle el valor de 1 a la cantidad actual es igual o menor a la cantidad del producto en en el inv
+
+                    agregarCantidadProductoExistente(posicion, 1.0);
+                    return "redirect:/ventas";
+
+                } else {//si lo supera no dejara agregar los productos
+
+                    return "redirect:/ventas?advertencia5=true";
+
+                }
+
+            } else {//si es -1 no existe en la lista 
+
+                agregarProductoListaVenta(productoListado);//agregamos dicho producto
+                return "redirect:/ventas";
+            }
+
+        } else {
+
+            return "redirect:/ventas?advertencia4=true";
+
+        }
 
     }
 
@@ -147,6 +176,7 @@ public class ControladorVentas {
      * @author JHOJAN L
      * @param producto
      * @return /ventas
+     *
      */
     @PostMapping("/agregarProductoCodigoBarras")
     public String agregarProductoCodigoBarras(Producto producto) {
@@ -157,11 +187,41 @@ public class ControladorVentas {
 
             if (producto != null) {
 
-                var productoListado = new ProductoListado(1.0, producto.getCodigo(), producto.getNombre(),
-                        producto.getPrecio(), producto.getCosto(), producto.getUnidadMedida());
-                log.info(productoListado.toString());
+                if (producto.getCantidad() != 0) {//evaluamos si en el inventario este producto es distinto de 0
 
-                agregarProductoListaVenta(productoListado);
+                    var productoListado = new ProductoListado(1.0, producto.getCodigo(), producto.getNombre(),
+                            producto.getPrecio(), producto.getCosto(), producto.getUnidadMedida());
+                    //log.info(productoListado.toString());
+
+                    var posicion = contieneProducto(productoListado);//me dara la posicion en la lista si encuentra el producto a ingresar
+
+                    if (posicion != -1) {//si no es -1 existe en la lista
+                        log.info("validacion existe en la lista");
+                        var valorLista = listaVentaProductos.get(posicion).getCantidadVenta();//obtengo la cantidad de la lista de ventas de dicho producto
+                        valorLista = valorLista + 1.0;
+
+                        if (valorLista <= producto.getCantidad()) {// si al agregarle el valor de 1 a la cantidad actual es igual o menor a la cantidad del producto en en el inv
+
+                            agregarCantidadProductoExistente(posicion, 1.0);
+                            return "redirect:/ventas";
+
+                        } else {//si lo supera no dejara agregar los productos
+
+                            return "redirect:/ventas?advertencia7=true";
+
+                        }
+
+                    } else {//si es -1 no existe en la lista 
+
+                        agregarProductoListaVenta(productoListado);//agregamos dicho producto
+                        return "redirect:/ventas";
+                    }
+
+                } else {
+
+                    return "redirect:/ventas?advertencia6=true";
+
+                }
 
             } else {
 
@@ -183,12 +243,43 @@ public class ControladorVentas {
 
         if (producto.getCantidad() > 0.0) {
 
-            if ((producto.getCantidad() == (long) producto.getCantidad()
-                    && producto.getUnidadMedida() == 1)
+            if ((producto.getCantidad() == (long) producto.getCantidad() && producto.getUnidadMedida() == 1)
                     || (producto.getUnidadMedida() == 2)) {
 
-                agregarCantidadEspecifica(producto);
-                return "redirect:/ventas";
+                var productoInventario = productoService.encontrarProductoPorCodigo(producto.getCodigo());
+
+                if (productoInventario.getCantidad() != 0) {//evaluamos si en el inventario este producto es distinto de 0
+
+                    var productoListado = new ProductoListado(producto.getCodigo());
+                    //log.info(productoListado.toString());
+                    var posicion = contieneProducto(productoListado);//me dara la posicion en la lista si encuentra el producto a ingresar
+
+                    if (posicion != -1) {//si no es -1 existe en la lista
+                        log.info("validacion existe en la lista");
+                        var valorLista = listaVentaProductos.get(posicion).getCantidadVenta();//obtengo la cantidad de la lista de ventas de dicho producto
+
+                        if (producto.getCantidad() <= productoInventario.getCantidad()) {// si la cantidad actual es igual o menor a la cantidad del producto en en el inv
+
+                            agregarCantidadEspecifica(producto);
+                            return "redirect:/ventas";
+
+                        } else {//si lo supera no dejara agregar los productos
+
+                            return "redirect:/ventas?advertencia7=true";
+
+                        }
+
+                    } else {//si es -1 no existe en la lista 
+
+                        agregarProductoListaVenta(productoListado);//agregamos dicho producto
+                        return "redirect:/ventas";
+                    }
+
+                } else {
+
+                    return "redirect:/ventas?advertencia6=true";
+
+                }
 
             } else {
                 return "redirect:/ventas?advertencia3=true";
@@ -223,21 +314,27 @@ public class ControladorVentas {
      * @return /ventas
      */
     @PostMapping("/generarVenta")
-    public String generarVenta(@AuthenticationPrincipal User user) {
+    public String generarVenta(@AuthenticationPrincipal User user, long valorPago) {
+
+        log.info("valor de pago = " + valorPago);
 
         if (!listaVentaProductos.isEmpty()) {
 
             if (user.getAuthorities().toString().equals("[ROLE_ADMIN]")) {
 
                 var administrador = administradorService.encontrarAdministradorPorCorreo(user.getUsername());
-                var codigo = guardarVenta(administrador, null);
-                return "redirect:/ventas?exito=true&codigo=" + codigo;
+                var cambio = obtenerCambio(valorPago);
+                log.info("cambio= " + cambio);
+                var codigo = guardarVenta(administrador, null, valorPago);
+                return "redirect:/ventas?exito=true&codigo=" + codigo+"&cambio="+cambio;
 
             } else {
 
                 var empleado = empleadoService.encontrarEmpleadoPorCorreo(user.getUsername());
-                var codigo = guardarVenta(null, empleado);
-                return "redirect:/ventas?exito=true&codigo=" + codigo;
+                var cambio = obtenerCambio(valorPago);
+                log.info("cambio= " + cambio);
+                var codigo = guardarVenta(null, empleado, valorPago);
+                return "redirect:/ventas?exito=true&codigo=" + codigo+"&cambio="+cambio;
             }
 
         } else {
@@ -245,7 +342,7 @@ public class ControladorVentas {
             return "redirect:/ventas?error=true";
 
         }
-
+//        return "redirect:/ventas";
     }
 
     /**
@@ -253,25 +350,25 @@ public class ControladorVentas {
      * @param user
      * @return /ventas
      */
-    @GetMapping("/imprimirVenta")
-    public String imprimirVenta(@AuthenticationPrincipal User user) {
-
-        if (!listaVentaProductos.isEmpty()) {
-            if (user.getAuthorities().toString().equals("[ROLE_ADMIN]")) {
-
-                var administrador = administradorService.encontrarAdministradorPorCorreo(user.getUsername());
-                var codigo = guardarVenta(administrador, null);
-                return "redirect:/ventaPdf/" + codigo;
-
-            } else {
-
-                var empleado = empleadoService.encontrarEmpleadoPorCorreo(user.getUsername());
-                var codigo = guardarVenta(null, empleado);
-                return "redirect:/ventas?exito=true&codigo=" + codigo;
-            }
-        }
-        return "redirect:/ventas";
-    }
+//    @GetMapping("/imprimirVenta")
+//    public String imprimirVenta(@AuthenticationPrincipal User user) {
+//
+//        if (!listaVentaProductos.isEmpty()) {
+//            if (user.getAuthorities().toString().equals("[ROLE_ADMIN]")) {
+//
+//                var administrador = administradorService.encontrarAdministradorPorCorreo(user.getUsername());
+//                var codigo = guardarVenta(administrador, null);
+//                return "redirect:/ventaPdf/" + codigo;
+//
+//            } else {
+//
+//                var empleado = empleadoService.encontrarEmpleadoPorCorreo(user.getUsername());
+//                var codigo = guardarVenta(null, empleado);
+//                return "redirect:/ventas?exito=true&codigo=" + codigo;
+//            }
+//        }
+//        return "redirect:/ventas";
+//    }
 
     /**
      * @author JHOJAN L
@@ -298,38 +395,74 @@ public class ControladorVentas {
      * @param producto
      */
     public void agregarProductoListaVenta(ProductoListado producto) {
-        //Metodo usado para agregar cantidad a la lista de la venta si esta dicho producto
-        //al ingresarlo por cofigo de barras
-        if (!contieneProducto(producto)) {
-            //si no lo contiene lo agrega, si lo contiene se agrega 1.0 en cantidad
-            //automaticamente
-            listaVentaProductos.add(producto);
-
-        }
+        //Metodo usado para agregar cantidad a la lista de la venta 
+        listaVentaProductos.add(producto);
     }
 
-    /**
-     * @author JHOJAN L
-     * @param producto
-     * @return
-     */
-    public boolean contieneProducto(ProductoListado producto) {
+    public void agregarCantidadProductoExistente(int posicion, double cantidad) {
+        //Metodo usado para agregar cantidad especifica a la lista de la venta 
+        listaVentaProductos.get(posicion).setCantidadVenta(listaVentaProductos.get(posicion).getCantidadVenta() + cantidad);
+
+    }
+
+    //usado para agregar cantidad del producto en la venta. cuando el usuario oprima el btn editar
+    private void agregarCantidadEspecifica(Producto producto) {
+
+        for (ProductoListado productoI : listaVentaProductos) {
+
+            if (productoI.getCodigo().equals(producto.getCodigo())) {//encontramos el producto
+
+                log.info("Unidad de medida: " + productoI.getUnidadMedida());
+                if (productoI.getUnidadMedida() == 1) {//si es 1 el producto es por unidad por lo cual 
+                    //se debe guardar el valor dado con un una cantidad sin decimales
+                    int cantidad = (int) producto.getCantidad();
+
+                    if (cantidad != 0) {
+
+                        productoI.setCantidadVenta((double) cantidad);
+
+                    } else {
+
+                        productoI.setCantidadVenta(1.0);
+
+                    }
+                    log.info("cantidad a guardar: " + ((double) cantidad));
+                } else {
+
+                    var df = new DecimalFormat("#.00");
+                    //se formatea maximos dos decimales. para volver a convertirlo a double se hace  necesario
+                    //parsearlo a double y reemplazar la , dado en df.format por el . para parsearlo correctamente
+                    productoI.setCantidadVenta(Double.parseDouble(df.format(producto.getCantidad()).replace(",", ".")));
+
+                }
+                break;
+            }
+        }
+
+    }
+
+    public int contieneProducto(ProductoListado producto) {
         log.info("-------------------------------ANALIZANDO SI CONTIENE EL PRODUCTO-----------------------");
+        var i = 0;
         for (ProductoListado productoI : listaVentaProductos) {
 
             log.info("Producto iterado con codigo=" + productoI.getCodigo() + " es igual al producto con codigo= " + producto.getCodigo());
             if (productoI.getCodigo().equals(producto.getCodigo())) {
                 log.info("si es igual");
-                productoI.setCantidadVenta(productoI.getCantidadVenta() + 1.0);
+//                productoI.setCantidadVenta(productoI.getCantidadVenta() + 1.0);
 
-                return true;
+                return i;//devuelve la posicion en la que se encontro el prioducto en la lista
             }
+            i++;
         }
 
-        return false;
+        return -1;
     }
 
     /**
+     * /
+     *
+     **
      * @author JHOJAN L
      * @param codigo
      */
@@ -346,11 +479,12 @@ public class ControladorVentas {
 
     }
 
-    private long guardarVenta(Administrador administrador, Empleado empleado) {
+    private long guardarVenta(Administrador administrador, Empleado empleado, long valorPago) {
 
         var fecha = new FormatoFechaHora();
         var venta = new Venta();
-
+        var cambio = obtenerCambio(valorPago);
+        
         if (administrador != null) {
 
             //creando venta si el vendedor es el administrador
@@ -361,12 +495,17 @@ public class ControladorVentas {
             venta.setCodigoCliente(null);//ya que la salsamentaria no maneja clientes
             venta.setCodigoAdministrador(administrador);
             venta.setCodigoEmpleado(null);
+            venta.setValorPago(valorPago);
+            venta.setCambio(cambio);
             //ingresa a la bd
             ventaService.guardar(venta);
             log.info(venta.toString());
 
             //se ingresa los productos en la relacion (*,*)
             ingresarDatosProductoVenta(venta);
+            //resta existencias de productos
+            restarExistenciaProducto();
+            //limpiamos la venta
             listaVentaProductos.clear();
             return venta.getCodigo();
 
@@ -378,16 +517,19 @@ public class ControladorVentas {
             venta.setGananciaVenta(obtenerGananciaVenta());
             venta.setTotalVenta((long) obtenerTotalVenta());
             venta.setCodigoCliente(null);
-
             venta.setCodigoAdministrador(empleado.getCodigoAdministrador());
             venta.setCodigoEmpleado(empleado);
+            venta.setValorPago(valorPago);
+            venta.setCambio(cambio);
             //ingresa a la bd
             ventaService.guardar(venta);
             log.info(venta.toString());
 
             //se ingresa los productos en la relacion (*,*)
             ingresarDatosProductoVenta(venta);
-
+            //resta existencias de productos
+            restarExistenciaProducto();
+            //limpiamos la venta
             listaVentaProductos.clear();
             return venta.getCodigo();
 
@@ -414,6 +556,18 @@ public class ControladorVentas {
 
     }
 
+    private void restarExistenciaProducto() {
+        var productoListado = new ProductoListado();
+
+        for (int i = 0; i < listaVentaProductos.size(); i++) {
+            productoListado = listaVentaProductos.get(i);
+            var producto = productoService.encontrarProductoPorCodigo(productoListado.getCodigo());
+            producto.setCantidad(producto.getCantidad() - productoListado.getCantidadVenta());
+            productoService.guardar(producto);
+        }
+
+    }
+
     private long obtenerGananciaVenta() {
 
         long ganancia = 0;
@@ -429,35 +583,12 @@ public class ControladorVentas {
         for (ProductoListado productoI : listaVentaProductos) {
             totalVenta = totalVenta + productoI.getSubTotal();
         }
+
         return totalVenta;
     }
 
-    private void agregarCantidadEspecifica(Producto producto) {
-
-        for (ProductoListado productoI : listaVentaProductos) {
-
-            if (productoI.getCodigo().equals(producto.getCodigo())) {//encontramos el producto
-
-                log.info("Unidad de medida: " + productoI.getUnidadMedida());
-                if (productoI.getUnidadMedida() == 1) {//si es 1 el producto es por unidad por lo cual 
-                    //se debe guardar el valor dado con un una cantidad sin decimales
-
-                    int cantidad = (int) producto.getCantidad();
-                    if (cantidad != 0) {
-                        productoI.setCantidadVenta((double) cantidad);
-                    } else {
-                        productoI.setCantidadVenta(1.0);
-                    }
-                    log.info("cantidad a guardar: " + ((double) cantidad));
-                } else {
-
-                    productoI.setCantidadVenta(producto.getCantidad());
-
-                }
-                break;
-            }
-        }
-
+    private long obtenerCambio(long valorPago) {
+        return valorPago - (long) obtenerTotalVenta();
     }
 
     /**

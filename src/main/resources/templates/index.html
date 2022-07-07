@@ -27,7 +27,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
                 <div class="row align-items-center">
 
                     <div class="col-2" th:object="${usuario}">
-                        <div id="opcionesNoSesion" class="dropdown text-end">
+                        <div class="dropdown text-end">
                             <a href="#" class="d-block link-dark text-decoration-none dropdown-toggle text-light"
                                id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
 
@@ -67,10 +67,6 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
 
             </header>
 
-
-
-            <hr />
-
             <!-- <header>
                         <div class="container-fluid" style="background-color: rgb(248, 242, 242);">
                             <div class="row">
@@ -98,8 +94,8 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
                     </header>
                             </div> --> 
 
-            <div class="row">
-                <div class="col-3" style="text-align:center;">
+            <div class="row mt-5">
+                <div class="col-3 text-center mt-3">
                     <div class="card ancho-cards">
                         <div class="card-body">
                             <i class="fa-regular fa-money-bill-1 fa-10x"></i>
@@ -111,7 +107,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
                     </div>
 
                 </div>
-                <div class="col-3 text-center">
+                <div class="col-3 text-center mt-3">
                     <div class="card ancho-cards">
                         <div class="card-body">
                             <i class="fa-solid fa-cart-flatbed fa-10x"></i>
@@ -123,7 +119,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
 
                 </div>
 
-                <div sec:authorize="hasRole('ROLE_ADMIN')" class="col-3" style="text-align:center;">
+                <div sec:authorize="hasRole('ROLE_ADMIN')" class="col-3 text-center mt-3">
                     <div class="card ancho-cards">
                         <div class="card-body">
                             <i class="fa-solid fa-chart-line fa-10x"></i>
@@ -136,7 +132,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
 
                 </div>
 
-                <div sec:authorize="hasRole('ROLE_ADMIN')" class="col-3" style="text-align:center;">
+                <div sec:authorize="hasRole('ROLE_ADMIN')" class="col-3 text-center mt-3">
                     <div class="card ancho-cards">
                         <div class="card-body">
                             <i class="fa-solid fa-magnifying-glass-dollar fa-10x"></i>
@@ -158,7 +154,9 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
                 </footer>
 
             </div>
-            <!-- js de bootstrap -->
-            <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+        </div>
+
+        <!-- js de bootstrap -->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
     </body>
 </html>

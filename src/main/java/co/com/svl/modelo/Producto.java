@@ -76,6 +76,17 @@ public class Producto implements Serializable {
     public Producto() {
     }
 
+    public Producto(Long codigo) {
+        this.codigo = codigo;
+    }
+
+    public Producto(Long codigo, double cantidad) {
+        this.codigo = codigo;
+        this.cantidad = cantidad;
+    }
+    
+    
+
     /**
      *
      * @param codigo

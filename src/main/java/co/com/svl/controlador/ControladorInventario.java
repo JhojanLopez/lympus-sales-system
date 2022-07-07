@@ -2,6 +2,7 @@ package co.com.svl.controlador;
 
 import co.com.svl.modelo.*;
 import co.com.svl.servicio.*;
+import java.text.DecimalFormat;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -101,7 +102,11 @@ public class ControladorInventario {
         var admin = new Administrador();
         //establecemos el administrador en este caso es el cod 1 ya que la 
         //aplicacion solo cuenta con este administrador
-
+        
+        //formateamos la cantidad para que sean dos decimales maximo
+        var df = new DecimalFormat("#.00");
+        productoEditado.setCantidad(Double.parseDouble(df.format(productoEditado.getCantidad()).replace(",", ".")));
+        
         admin.setCodigo((short) 1);
         productoEditado.setCodigoAdministrador(admin);
         productoService.guardar(productoEditado);

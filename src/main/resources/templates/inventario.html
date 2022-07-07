@@ -23,7 +23,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
         <!-- css -->
         <link rel="stylesheet" th:href="@{/css/inventario.css}"/>
         <script src="https://kit.fontawesome.com/e504a05327.js" crossorigin="anonymous"></script>
-        
+
 
     </head>
     <body>
@@ -127,19 +127,26 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
 
                 </div>
 
-                <div class="row mt-5">
+<!--                <div class="row mt-5">
 
-                    <div class="col-12 text-center">
-                     
-                    </div>
-                       
-                    <footer class="row bg-danger footer">
-                        <div class="row align-items-center">
+                    <footer class="bg-danger footer">
+                        <div class="align-items-center">
                             <div class="col-12 text-center text-white">
                                 <p>Universidad del valle - Sistema de ventas Lympus &COPY;</p>
                             </div>
                         </div>
                     </footer>
+                </div>-->
+                <div class="row mt-5">
+                    <footer class="col-12 bg-danger footer">
+                        <div class="align-items-center">
+                            <div class="text-center text-white">
+                                <p>Universidad del valle - Sistema de ventas Lympus &COPY;</p>
+                            </div>
+                        </div>
+
+                    </footer>
+
                 </div>
                 <!-- modal editar producto-->
                 <div sec:authorize="hasRole('ROLE_ADMIN')" class="modal fade" id="modalEditar" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">

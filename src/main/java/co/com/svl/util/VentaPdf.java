@@ -44,7 +44,7 @@ public class VentaPdf {
      * @throws IOException
      */
     public void exportar(HttpServletResponse response) throws IOException {
-        try (Document documento = new Document(PageSize.A4)) {
+        try (Document documento = new Document(PageSize.NOTE)) {
             PdfWriter.getInstance(documento, response.getOutputStream());
             
             Paragraph informacionIzquierda = new Paragraph();
@@ -68,7 +68,7 @@ public class VentaPdf {
             
             tabla.setWidthPercentage(90);
             tabla.setSpacingBefore(15);
-            tabla.setWidths(new float[]{6f, 2.3f, 1.7f, 2.1f});
+            tabla.setWidths(new float[]{3.5f, 1.3f, 1.7f, 1.9f});
             tabla.setWidthPercentage(100);
             
             cabeceraTabla(tabla);
@@ -93,7 +93,7 @@ public class VentaPdf {
 
         PdfPCell celda = new PdfPCell();
 
-        celda.setBackgroundColor(Color.RED);
+//        celda.setBackgroundColor(Color.RED);
         celda.setPadding(4);
         celda.setBorderColorBottom(Color.WHITE);
 
@@ -192,9 +192,16 @@ public class VentaPdf {
         }
         
 
-        informacionTotal.add("\n Total final: $" + venta.getTotalVenta());
+       
+        informacionTotal.add("\n Total : $" + venta.getTotalVenta());
+        informacionTotal.setAlignment(Paragraph.ALIGN_LEFT);
+        
+        informacionTotal.add("\n\n Valor de pago: $" + venta.getValorPago());
         informacionTotal.setAlignment(Paragraph.ALIGN_LEFT);
 
+        informacionTotal.add("\n Cambio: $" + venta.getCambio());
+        informacionTotal.setAlignment(Paragraph.ALIGN_LEFT);
+        
         informacionFinal.add("\n ");
         informacionFinal.setAlignment(Paragraph.ALIGN_CENTER);
 

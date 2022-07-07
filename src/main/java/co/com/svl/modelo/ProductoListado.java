@@ -5,6 +5,8 @@
  */
 package co.com.svl.modelo;
 
+import java.text.DecimalFormat;
+
 /**
  *
  * @author JhojanDS
@@ -42,6 +44,12 @@ public class ProductoListado extends Producto {
 
     }
 
+    public ProductoListado(Long codigo) {
+        super(codigo);
+    }
+    
+    
+
     /**
      *
      * @return
@@ -63,8 +71,9 @@ public class ProductoListado extends Producto {
      * @return
      */
     public double getSubTotal() {
+        var df = new DecimalFormat("#.00");
         this.subTotal = (this.getPrecio() * this.getCantidadVenta());
-        return subTotal;
+        return Double.parseDouble(df.format(this.subTotal).replace(",", "."));
     }
 
     /**

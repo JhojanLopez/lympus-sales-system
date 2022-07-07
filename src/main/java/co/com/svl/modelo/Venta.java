@@ -69,6 +69,10 @@ public class Venta implements Serializable {
     @NotNull
     @Column(name = "total_venta")
     private Long totalVenta;
+    @Column(name = "valor_pago")
+    private Long valorPago;
+    @Column(name = "cambio")
+    private Long cambio;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "venta")
     private List<ProductoVenta> productoVentaList;
     @JoinColumn(name = "codigo_administrador", referencedColumnName = "codigo")
@@ -102,13 +106,17 @@ public class Venta implements Serializable {
      * @param hora
      * @param gananciaVenta
      * @param totalVenta
+     * @param valorPago
+     * @param cambio
      */
-    public Venta(Long codigo, Date fecha, Date hora, long gananciaVenta, long totalVenta) {
+    public Venta(Long codigo, Date fecha, Date hora, long gananciaVenta, long totalVenta, long valorPago, long cambio) {
         this.codigo = codigo;
         this.fecha = fecha;
         this.hora = hora;
         this.gananciaVenta = gananciaVenta;
         this.totalVenta = totalVenta;
+        this.valorPago = valorPago;
+        this.cambio = cambio;
     }
 
     /**
@@ -190,6 +198,24 @@ public class Venta implements Serializable {
     public void setTotalVenta(long totalVenta) {
         this.totalVenta = totalVenta;
     }
+
+    public Long getValorPago() {
+        return valorPago;
+    }
+
+    public void setValorPago(Long valorPago) {
+        this.valorPago = valorPago;
+    }
+
+    public Long getCambio() {
+        return cambio;
+    }
+
+    public void setCambio(Long cambio) {
+        this.cambio = cambio;
+    }
+    
+    
 
     /**
      *
@@ -291,7 +317,8 @@ public class Venta implements Serializable {
      */
     @Override
     public String toString() {
-        return "Venta{" + "codigo=" + codigo + ", fecha=" + fecha + ", hora=" + hora + ", gananciaVenta=" + gananciaVenta + ", totalVenta=" + totalVenta + ", codigoAdministrador=" + codigoAdministrador + ", codigoCliente=" + codigoCliente + ", codigoEmpleado=" + codigoEmpleado + '}';
+        return "Venta{" + "codigo=" + codigo + ", fecha=" + fecha + ", hora=" + hora + ", gananciaVenta=" + gananciaVenta + ", valor pago= " + valorPago + ", cambio= " + cambio +
+                ", totalVenta=" + totalVenta + ", codigoAdministrador=" + codigoAdministrador + ", codigoCliente=" + codigoCliente + ", codigoEmpleado=" + codigoEmpleado + '}';
     }
 
   
