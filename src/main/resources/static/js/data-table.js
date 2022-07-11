@@ -276,6 +276,20 @@ var app = {
             buttons: [
                 {
                     attr: {
+                        id: 'agregar',
+                        title: 'Agrega un producto'
+                    },
+                    text: '<i class="fa-solid fa-plus"></i> Agregar', /*poner icono fontAwesome*/
+                    className: 'btn btn-success',
+                    action: function (e, dt, node, config) {
+                        $('#modalCrear').modal("show");
+
+                    }
+
+
+                },
+                {
+                    attr: {
                         id: 'editar',
                         title: 'Selecciona un producto para editar'
                     },
@@ -298,16 +312,16 @@ var app = {
                     }
 
 
-                },
-                {
-                    extend: 'excelHtml5',
-                    titleAttr: 'Exportar a excel',
-                    text: '<i class="fa-solid fa-file-excel"></i> Excel', /*poner icono fontAwesome*/
-                    className: 'btn btn-success'
-
-
-
-                },
+                 },
+//                {
+//                    extend: 'excelHtml5',
+//                    titleAttr: 'Exportar a excel',
+//                    text: '<i class="fa-solid fa-file-excel"></i> Excel', /*poner icono fontAwesome*/
+//                    className: 'btn btn-success'
+//
+//
+//
+//                },
                 {
                     extend: 'pdfHtml5',
                     titleAttr: 'Exportar a PDF ',

@@ -36,7 +36,7 @@ public interface AdministradorService{
      * @param administrador
      * @return
      */
-    public Administrador encontrarAdministrador(Administrador administrador);
+    public Administrador encontrarAdministrador(Short codigo);
     
     /**
      *

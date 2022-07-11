@@ -59,8 +59,8 @@ public class AdministradorServiceImpl implements AdministradorService {
      */
     @Override
     @Transactional(readOnly = true)
-    public Administrador encontrarAdministrador(Administrador administrador) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public Administrador encontrarAdministrador(Short codigo) {
+     return administradorDao.findById(codigo).orElse(null);
     }
 
     /**

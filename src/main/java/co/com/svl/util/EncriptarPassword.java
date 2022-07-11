@@ -21,17 +21,18 @@ public class EncriptarPassword {
 
         System.out.println("password1: " + p1 + "hashCode= "+p1.hashCode());
         System.out.println("password2: " + p2 + "hashCode= "+p2.hashCode());
+        System.out.println("password encriptado : "+p2BC);
         
-        System.out.println("password1 encriptado:" + pBC + "hashCode= "+pBC.hashCode());
-        System.out.println("password2 encriptado:" + p2BC + "hashCode= "+p2BC.hashCode());
-        
+//        System.out.println("password1 encriptado:" + pBC + "hashCode= "+pBC.hashCode());
+//        System.out.println("password2 encriptado:" + p2BC + "hashCode= "+p2BC.hashCode());
+//        
 
-        if (pBC.hashCode() == p1.hashCode()) {
-
-            System.out.println("es igual");
-        }
-        BCryptPasswordEncoder b = new BCryptPasswordEncoder();
-        System.out.println(b.matches(p1,pBC));
+//        if (pBC.hashCode() == p1.hashCode()) {
+//
+//            System.out.println("es igual");
+////        }
+//        BCryptPasswordEncoder b = new BCryptPasswordEncoder();
+//        System.out.println(b.matches(p1,pBC));
     }
 
     /**

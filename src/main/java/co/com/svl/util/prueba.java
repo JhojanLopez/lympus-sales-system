@@ -11,12 +11,10 @@ import java.text.DecimalFormat;
  * @author JHOJAN L
  */
 public class prueba {
-
+ private Long x;
     public static void main(String[] args) {
-        double number = 322.452;
-        var df = new DecimalFormat("#.00");
-        number = Double.parseDouble(df.format(number).replace(",", "."));
-        System.out.println(number);
+       
+        System.out.println(Long.MAX_VALUE);
     }
 
 }

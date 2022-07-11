@@ -73,7 +73,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
                     <div th:if="${param.error1}" class="alert alert-danger d-flex" role="alert">
                         <div class="text-center">
                             <i class="fa-solid fa-xmark"></i>
-                            Error. El precio y costo deben ser mayores a 0
+                            Error. El codigo digitado ya existe
                         </div>
                     </div>
                     <div th:if="${param.error2}" class="alert alert-danger d-flex" role="alert">
@@ -82,13 +82,13 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
                             Error. El precio debe ser mayor al costo
                         </div>
                     </div>
-                    <div th:if="${param.error3}" class="alert alert-danger d-flex" role="alert">
+<!--                    <div th:if="${param.error3}" class="alert alert-danger d-flex" role="alert">
                         <div class="text-center">
                             <i class="fa-solid fa-xmark"></i>
                             Error. El valor de la existencia debe ser un valor positivo
                         </div>
-                    </div>
-                    <div th:if="${param.error4}" class="alert alert-danger d-flex" role="alert">
+                    </div>-->
+                    <div th:if="${param.error3}" class="alert alert-danger d-flex" role="alert">
                         <div class="text-center">
                             <i class="fa-solid fa-xmark"></i>
                             Error. El valor de la existencia debe ser valor entero
@@ -127,16 +127,16 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
 
                 </div>
 
-<!--                <div class="row mt-5">
-
-                    <footer class="bg-danger footer">
-                        <div class="align-items-center">
-                            <div class="col-12 text-center text-white">
-                                <p>Universidad del valle - Sistema de ventas Lympus &COPY;</p>
-                            </div>
-                        </div>
-                    </footer>
-                </div>-->
+                <!--                <div class="row mt-5">
+                
+                                    <footer class="bg-danger footer">
+                                        <div class="align-items-center">
+                                            <div class="col-12 text-center text-white">
+                                                <p>Universidad del valle - Sistema de ventas Lympus &COPY;</p>
+                                            </div>
+                                        </div>
+                                    </footer>
+                                </div>-->
                 <div class="row mt-5">
                     <footer class="col-12 bg-danger footer">
                         <div class="align-items-center">
@@ -148,6 +148,80 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
                     </footer>
 
                 </div>
+                <!--modal de crear productos-->
+                <div sec:authorize="hasRole('ROLE_ADMIN')" class="modal fade" id="modalCrear" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="titulo-modal">Agregar producto</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+
+                                <!-- formulario -->
+                                <form method="POST" th:action="@{/crearProducto}" class="row g-3 was-validated">
+                                    <div class="col-md-12">
+                                        <label for="nombre" class="form-label">Código:</label>
+                                        <input type="number" class="form-control" name="codigo" min="1" max="999999999999999999" required/>
+                                        <div class="invalid-feedback">
+                                            Digita el codigo del producto.
+                                        </div>
+                                    </div>  
+
+                                    <div class="col-md-6">
+                                        <label for="nombre" class="form-label">Nombre:</label>
+                                        <input type="text" class="form-control" name="nombre" required="true"/>
+                                        <div class="invalid-feedback">
+                                            Escribe el nombre del producto.
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label for="costo" class="form-label">Costo:</label>
+                                        <input type="number" class="form-control" name="costo" min="1" required="true"/>
+                                        <div class="invalid-feedback">
+                                            Digita el costo del producto.
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label for="precio" class="form-label">Precio:</label>
+                                        <input type="number" class="form-control" name="precio" min="1" required="true"/>
+                                        <div class="invalid-feedback">
+                                            Digita el precio del producto.
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label for="cantidad" class="form-label">Existencia:</label>
+                                        <input type="number" step="any" min="0" class="form-control" name="cantidad"  required="true"/>
+                                        <div class="invalid-feedback">
+                                            Digita la existencia del producto(min 0).
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <label for="unidadMedida" class="form-label">Unidad Medida:</label>
+                                        <select name="unidadMedida" class="form-select" required>
+                                            <option selected value=""></option>
+                                            <option th:value="'1'" th:text="Unidad"></option>
+                                            <option th:value="'2'" th:text="Kilo"></option>
+                                        </select>
+                                        <div class="invalid-feedback">
+                                            Escoge la unidad de medidad.
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <label for="descripcion" class="form-label">Descripción:</label>
+                                        <input type="text" class="form-control" name="descripcion" required="true"/>
+                                        <div class="invalid-feedback">
+                                            Escribe la descripción.
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="submit" class="btn btn-primary">Guardar</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
                 <!-- modal editar producto-->
                 <div sec:authorize="hasRole('ROLE_ADMIN')" class="modal fade" id="modalEditar" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                     <div class="modal-dialog">
@@ -157,29 +231,59 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                             </div>
                             <div class="modal-body">
+
                                 <!-- formulario -->
-                                <form method="POST" th:action="@{/editarProducto}" th:object="${productoEditar}" class="was-validated">
-                                    <div class="mb-3">
+                                <form method="POST" th:action="@{/editarProducto}" th:object="${productoEditar}" class="row g-3 was-validated">
+                                    <div class="col-md-6">
                                         <input type="hidden" id="codigo" th:field="*{codigo}"/>
                                         <label for="nombre" class="form-label">Nombre:</label>
                                         <input type="text" class="form-control" id="nombre" th:field="*{nombre}" required="true"/>
+                                        <div class="invalid-feedback">
+                                            Escribe el nombre del producto.
+                                        </div>
                                     </div>
-                                    <div class="mb-3">
+                                    <div class="col-md-6">
                                         <label for="costo" class="form-label">Costo:</label>
-                                        <input type="number" class="form-control" id="costo" th:field="*{costo}" required="true"/>
+                                        <input type="number" class="form-control" id="costo" th:field="*{costo}" min="1" required="true"/>
+                                        <div class="invalid-feedback">
+                                            Digita el costo del producto.
+                                        </div>
                                     </div>
-                                    <div class="mb-3">
+                                    <div class="col-md-6">
                                         <label for="precio" class="form-label">Precio:</label>
-                                        <input type="number" class="form-control" id="precio" th:field="*{precio}" required="true"/>
+                                        <input type="number" class="form-control" id="precio" th:field="*{precio}" min="1" required="true"/>
+                                        <div class="invalid-feedback">
+                                            Digita el precio del producto.
+                                        </div>
                                     </div>
-                                    <div class="mb-3">
+                                    <div class="col-md-6">
                                         <label for="cantidad" class="form-label">Existencia:</label>
-                                        <input type="number" step="any" class="form-control" id="cantidad" th:field="*{cantidad}" required="true"/>
+                                        <input type="number" step="any" min="0" class="form-control" id="cantidad" th:field="*{cantidad}" required="true"/>
+                                        <div class="invalid-feedback">
+                                            Digita la existencia del producto(min 0).
+                                        </div>
                                     </div>
-                                    <div class="mb-3">
+                                    <div class="col-md-12">
+                                        <label for="unidadMedida" class="form-label">Unidad Medida:</label>
+                                        <!--                                        <select id="unidadMedida" class="form-select" th:value="*{unidadMedida}" required>
+                                                                                    <option selected value=""></option>
+                                                                                    <option th:value="*{unidadMedida}">Unidad</option>
+                                                                                    <option  th:value="*{unidadMedida}">Kilo</option>
+                                                                                </select>-->
+                                        <select id="unidadMedida" class="form-select" th:field="*{unidadMedida}" required>
+                                            <option th:value="'1'" th:text="Unidad"></option>
+                                            <option th:value="'2'" th:text="Kilo"></option>
+                                        </select>
+                                        <div class="invalid-feedback">
+                                            Escoge la unidad de medidad.
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12">
                                         <label for="descripcion" class="form-label">Descripción:</label>
-                                        <input type="hidden" id="unidadMedida" th:field="*{unidadMedida}"/>
                                         <input type="text" class="form-control" id="descripcion" th:field="*{descripcion}" required="true"/>
+                                         <div class="invalid-feedback">
+                                           Escribe la descripción.
+                                        </div>
                                     </div>
                                     <div class="modal-footer">
                                         <button type="submit" class="btn btn-primary">Guardar</button>

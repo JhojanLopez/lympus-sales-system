@@ -14,13 +14,17 @@ import org.springframework.web.bind.annotation.PostMapping;
  *
  * @author JHOJAN L
  */
-
 @Slf4j
 @Controller
 public class ControladorInventario {
 
     @Autowired
     private ProductoService productoService;
+    
+    @Autowired
+    private AdministradorService administradorService;
+    
+    
 
     /**
      *
@@ -35,6 +39,29 @@ public class ControladorInventario {
         return "inventario";
     }
 
+    @PostMapping("/crearProducto")
+    public String crearProducto(Producto producto) {
+
+        //Se debe validar que el costo no sea mayor al precio porque podria dar algun error
+        log.info("producto a crear desde el inventario" + producto.toString());
+
+        short opcion = validarProducto(producto);
+
+        switch (opcion) {
+            case 0:
+                insertarDatos(producto);
+                return "redirect:/inventario?exito=true";
+            case 1:
+                return "redirect:/inventario?error1=true";
+            case 2:
+                return "redirect:/inventario?error2=true";
+            case 3:
+                return "redirect:/inventario?error3=true";
+            default:
+                throw new AssertionError();
+        }
+    }
+
     /**
      *
      * @param productoEditado
@@ -46,20 +73,16 @@ public class ControladorInventario {
         //Se debe validar que el costo no sea mayor al precio porque podria dar algun error
         log.info("producto a editar desde el inventario" + productoEditado.toString());
 
-        short opcion = validarProducto(productoEditado);
+        short opcion = validarProductoEdicion(productoEditado);
 
         switch (opcion) {
             case 0:
                 actualizarDatos(productoEditado);
                 return "redirect:/inventario?exito=true";
             case 1:
-                return "redirect:/inventario?error1=true";
-            case 2:
                 return "redirect:/inventario?error2=true";
-            case 3:
+            case 2:
                 return "redirect:/inventario?error3=true";
-            case 4:
-                return "redirect:/inventario?error4=true";
 
             default:
                 throw new AssertionError();
@@ -67,28 +90,42 @@ public class ControladorInventario {
 
     }
 
-    private short validarProducto(Producto productoEditado) {
+    //valida productos a crear
+    private short validarProducto(Producto producto) {
+        var productoDb = productoService.encontrarProductoPorCodigo(producto.getCodigo());
 
-        if (productoEditado.getCosto() > 0 && productoEditado.getPrecio() > 0) {
+        if (productoDb == null) {//si es nulo es porque ese codigo digitado no existe
+            if (producto.getPrecio() > producto.getCosto()) {
 
-            if (productoEditado.getPrecio() > productoEditado.getCosto()) {
+                if ((producto.getCantidad() == (long) producto.getCantidad()
+                        && producto.getUnidadMedida() == 1)
+                        || (producto.getUnidadMedida() == 2)) {
 
-                if (productoEditado.getCantidad() >= 0.0) {
-
-                    if ((productoEditado.getCantidad() == (long) productoEditado.getCantidad()
-                            && productoEditado.getUnidadMedida() == 1)
-                            || (productoEditado.getUnidadMedida() == 2)) {
-
-                        return 0;
-
-                    } else {
-                        return 4;
-                    }
+                    return 0;
 
                 } else {
-
                     return 3;
                 }
+
+            } else {
+                return 2;
+            }
+
+        } else {
+            return 1;
+        }
+    }
+
+    //valida productos a editar
+    private short validarProductoEdicion(Producto productoEditado) {
+
+        if (productoEditado.getPrecio() > productoEditado.getCosto()) {
+
+            if ((productoEditado.getCantidad() == (long) productoEditado.getCantidad()
+                    && productoEditado.getUnidadMedida() == 1)
+                    || (productoEditado.getUnidadMedida() == 2)) {
+
+                return 0;
 
             } else {
                 return 2;
@@ -96,19 +133,37 @@ public class ControladorInventario {
         } else {
             return 1;
         }
+
+    }
+
+    private void insertarDatos(Producto producto) {
+        var a = new Administrador();
+        var admin = administradorService.encontrarAdministrador((short)1);
+        //establecemos el administrador en este caso es el cod 1 ya que la 
+        //aplicacion solo cuenta con este administrador
+        
+        //formateamos la cantidad para que sean dos decimales maximo
+        var df = new DecimalFormat("#.00");
+        producto.setCantidad(Double.parseDouble(df.format(producto.getCantidad()).replace(",", ".")));
+//
+//        admin.setCodigo((short) 1);
+        producto.setCodigoAdministrador(admin);
+        log.info(" producto a insertar: "+producto.toString());
+        productoService.guardar(producto);
     }
 
     private void actualizarDatos(Producto productoEditado) {
         var admin = new Administrador();
         //establecemos el administrador en este caso es el cod 1 ya que la 
         //aplicacion solo cuenta con este administrador
-        
+
         //formateamos la cantidad para que sean dos decimales maximo
         var df = new DecimalFormat("#.00");
         productoEditado.setCantidad(Double.parseDouble(df.format(productoEditado.getCantidad()).replace(",", ".")));
-        
+
         admin.setCodigo((short) 1);
         productoEditado.setCodigoAdministrador(admin);
         productoService.guardar(productoEditado);
     }
+
 }

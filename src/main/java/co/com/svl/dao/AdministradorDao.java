@@ -5,15 +5,15 @@
 package co.com.svl.dao;
 
 import co.com.svl.modelo.Administrador;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
 
 /**
  *
  * @author JhojanDS
  */
-public interface AdministradorDao extends CrudRepository<Administrador, Long> {
+public interface AdministradorDao extends JpaRepository<Administrador, Short> {
 
     /**
      * @author JhojanDS

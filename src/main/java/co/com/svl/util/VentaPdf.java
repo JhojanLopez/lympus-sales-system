@@ -70,6 +70,7 @@ public class VentaPdf {
             tabla.setSpacingBefore(15);
             tabla.setWidths(new float[]{3.5f, 1.3f, 1.7f, 1.9f});
             tabla.setWidthPercentage(100);
+         
             
             cabeceraTabla(tabla);
             datosTabla(tabla, informacionCentro, informacionIzquierda, informacionTotal, informacionFinal);
